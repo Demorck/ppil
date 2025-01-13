@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["assets/*"]
+    },
+    "outDir": "./dist",
+    "sourceMap": true
+  },
+  "include": ["assets/**/*"],
+  "exclude": ["node_modules"]
+}
