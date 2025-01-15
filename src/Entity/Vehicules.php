@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehiculesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: VehiculesRepository::class)]
@@ -33,6 +35,21 @@ class Vehicules
 
     #[ORM\Column]
     private ?int $kilometrage = null;
+
+    /**
+     * @var Collection<int, Offres>
+     */
+    #[ORM\OneToMany(targetEntity: Offres::class, mappedBy: 'vehicule')]
+    private Collection $offres;
+
+    #[ORM\ManyToOne(inversedBy: 'vehicules')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Proprietaires $proprietaire = null;
+
+    public function __construct()
+    {
+        $this->offres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +136,48 @@ class Vehicules
     public function setKilometrage(int $kilometrage): static
     {
         $this->kilometrage = $kilometrage;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Offres>
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offres $offre): static
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres->add($offre);
+            $offre->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offres $offre): static
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getVehicule() === $this) {
+                $offre->setVehicule(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getProprietaire(): ?Proprietaires
+    {
+        return $this->proprietaire;
+    }
+
+    public function setProprietaire(?Proprietaires $proprietaire): static
+    {
+        $this->proprietaire = $proprietaire;
 
         return $this;
     }

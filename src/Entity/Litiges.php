@@ -19,6 +19,14 @@ class Litiges
     #[ORM\Column]
     private ?int $statut = null;
 
+    #[ORM\OneToOne(inversedBy: 'litiges', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Locations $location = null;
+
+    #[ORM\ManyToOne(inversedBy: 'litiges')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Juriste $juriste = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +52,30 @@ class Litiges
     public function setStatut(int $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getLocation(): ?Locations
+    {
+        return $this->location;
+    }
+
+    public function setLocation(Locations $location): static
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getJuriste(): ?Juriste
+    {
+        return $this->juriste;
+    }
+
+    public function setJuriste(?Juriste $juriste): static
+    {
+        $this->juriste = $juriste;
 
         return $this;
     }

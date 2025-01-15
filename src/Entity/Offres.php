@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\OffresRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,21 @@ class Offres
 
     #[ORM\Column]
     private ?int $statut = null;
+
+    /**
+     * @var Collection<int, Locations>
+     */
+    #[ORM\OneToMany(targetEntity: Locations::class, mappedBy: 'offre')]
+    private Collection $locations;
+
+    #[ORM\ManyToOne(inversedBy: 'offres')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Vehicules $vehicule = null;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +92,48 @@ class Offres
     public function setStatut(int $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Locations>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Locations $location): static
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->setOffre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Locations $location): static
+    {
+        if ($this->locations->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getOffre() === $this) {
+                $location->setOffre(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getVehicule(): ?Vehicules
+    {
+        return $this->vehicule;
+    }
+
+    public function setVehicule(?Vehicules $vehicule): static
+    {
+        $this->vehicule = $vehicule;
 
         return $this;
     }

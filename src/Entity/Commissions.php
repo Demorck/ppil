@@ -19,6 +19,10 @@ class Commissions
     #[ORM\Column]
     private ?float $pourcentage = null;
 
+    #[ORM\OneToOne(inversedBy: 'commissions', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Paiements $paiement = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -44,6 +48,18 @@ class Commissions
     public function setPourcentage(float $pourcentage): static
     {
         $this->pourcentage = $pourcentage;
+
+        return $this;
+    }
+
+    public function getPaiement(): ?Paiements
+    {
+        return $this->paiement;
+    }
+
+    public function setPaiement(Paiements $paiement): static
+    {
+        $this->paiement = $paiement;
 
         return $this;
     }

@@ -29,6 +29,20 @@ class Locations
     #[ORM\Column(nullable: true)]
     private ?int $kilometre = null;
 
+    #[ORM\OneToOne(mappedBy: 'location', cascade: ['persist', 'remove'])]
+    private ?Paiements $paiements = null;
+
+    #[ORM\OneToOne(mappedBy: 'location', cascade: ['persist', 'remove'])]
+    private ?Litiges $litiges = null;
+
+    #[ORM\ManyToOne(inversedBy: 'locations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Offres $offre = null;
+
+    #[ORM\ManyToOne(inversedBy: 'locations')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Locataires $locataire = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +104,64 @@ class Locations
     public function setKilometre(?int $kilometre): static
     {
         $this->kilometre = $kilometre;
+
+        return $this;
+    }
+
+    public function getPaiements(): ?Paiements
+    {
+        return $this->paiements;
+    }
+
+    public function setPaiements(Paiements $paiements): static
+    {
+        // set the owning side of the relation if necessary
+        if ($paiements->getLocation() !== $this) {
+            $paiements->setLocation($this);
+        }
+
+        $this->paiements = $paiements;
+
+        return $this;
+    }
+
+    public function getLitiges(): ?Litiges
+    {
+        return $this->litiges;
+    }
+
+    public function setLitiges(Litiges $litiges): static
+    {
+        // set the owning side of the relation if necessary
+        if ($litiges->getLocation() !== $this) {
+            $litiges->setLocation($this);
+        }
+
+        $this->litiges = $litiges;
+
+        return $this;
+    }
+
+    public function getOffre(): ?Offres
+    {
+        return $this->offre;
+    }
+
+    public function setOffre(?Offres $offre): static
+    {
+        $this->offre = $offre;
+
+        return $this;
+    }
+
+    public function getLocataire(): ?Locataires
+    {
+        return $this->locataire;
+    }
+
+    public function setLocataire(?Locataires $locataire): static
+    {
+        $this->locataire = $locataire;
 
         return $this;
     }
