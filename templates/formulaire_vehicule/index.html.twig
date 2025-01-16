@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FormulaireVehiculeController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div style="margin: 10px 50px 10px;">
+    <h1>Ajouter un véhicule</h1>
+    {{ form_start(vehiculeForm)}}
+    <div class="form-group">
+        {{ form_label(vehiculeForm.marque) }}
+        {{ form_widget(vehiculeForm.marque) }}
+        {{ form_errors(vehiculeForm.marque) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(vehiculeForm.modele) }}
+        {{ form_widget(vehiculeForm.modele) }}
+        {{ form_errors(vehiculeForm.modele) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(vehiculeForm.immatriculation) }}
+        {{ form_widget(vehiculeForm.immatriculation) }}
+        {{ form_errors(vehiculeForm.immatriculation) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(vehiculeForm.annee) }}
+        {{ form_widget(vehiculeForm.annee) }}
+        {{ form_errors(vehiculeForm.annee) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(vehiculeForm.nombrePlace) }}
+        {{ form_widget(vehiculeForm.nombrePlace) }}
+        {{ form_errors(vehiculeForm.nombrePlace) }}
+    </div><div class="form-group">
+        {{ form_label(vehiculeForm.typeCarburant) }}
+        {{ form_widget(vehiculeForm.typeCarburant) }}
+        {{ form_errors(vehiculeForm.typeCarburant) }}
+    </div>
+    <div class="form-group">
+        {{ form_label(vehiculeForm.kilometrage) }}
+        {{ form_widget(vehiculeForm.kilometrage) }}
+        {{ form_errors(vehiculeForm.kilometrage) }}
+    </div>
+
+
+    <div class="form-group">
+        <button type="submit" class="btn">Save</button>
+    </div>
+    {{ form_end(vehiculeForm)}}
+</div>
+
+{% endblock %}
