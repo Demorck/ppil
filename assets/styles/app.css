@@ -2,6 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    background-color: skyblue;
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin: 8px 0;
+    outline: none;
+    padding: 8px;
+    box-sizing: border-box;
+    transition: 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="date"]:focus,
+select:focus {
+    border-color: dodgerBlue;
+    box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+.form-calendar-year select[id*="month"],
+.form-calendar-year select[id*="day"] {
+    display: none;
+}
+
+button {
+    @apply px-4 py-2 rounded-full text-3xl
+}
+
+.btn-rainbow {
+    background: linear-gradient(135deg,
+                #ff0000, #ff7300, #ffeb00, #47ff00,
+                #00ffee, #2b65ff, #8000ff, #ff00e1);
+    background-size: 300%;
+    animation: rainbow 1.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+/***************************/
+/*   KEYFRAMES   */
+/**************************/
+@keyframes upper {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-5px); }
+}
+
+@keyframes rainbow {
+    0% { background-position: 0 0; }
+    100% { background-position: 100% -150%; }
 }

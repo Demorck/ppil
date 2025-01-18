@@ -66,3 +66,6 @@ yarn-error.log
 ### Autres
 /.idea
 /dist
+/migrations/*
+*.exe
+var

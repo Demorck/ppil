@@ -30,19 +30,26 @@ class FormulaireVehiculeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //$vehicule->setProprietaire($proprietaries);
-            
             $entMan->persist($vehicule);
             $entMan->flush();
 
-
-            return $this->redirectToRoute('app_formulaire_ajoutVehicule');
+            return $this->redirectToRoute('app_formulaire_vehicules');
         }
 
         return $this->render('formulaire_vehicule/index.html.twig', [
-            'controller_name' => 'FormulaireVehiculeController',
-            'vehiculeForm' => $form->createView(),
-            'vehicule' => $vehicule,
+            'controller_name'   => 'FormulaireVehiculeController',
+            'vehiculeForm'      => $form->createView(),
+            'vehicule'          => $vehicule,
+            'title'             => 'Nouveau Véhicule'
+        ]);
+    }
+
+    #[Route('/vehicules', name: 'app_formulaire_vehicules')]
+    public function display_vehicules(Request $request, EntityManagerInterface $entMan): Response
+    {
+        return $this->render('formulaire_vehicule/vehicules.html.twig', [
+            'controller_name'   => 'FormulaireVehiculeController',
+            'title'             => 'Nouveau Véhicule'
         ]);
     }
 }
