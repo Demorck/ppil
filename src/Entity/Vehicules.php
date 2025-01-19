@@ -44,7 +44,7 @@ class Vehicules
     private Collection $offres;
 
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Proprietaires $proprietaire = null;
 
     public function __construct()
