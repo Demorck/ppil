@@ -1,1 +1,3 @@
-console.log('test typescript');
+document.addEventListener('DOMContentLoaded', () => {
+
+})

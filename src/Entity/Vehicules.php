@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\VehiculesRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -25,7 +26,7 @@ class Vehicules
     private ?string $immatriculation = null;
 
     #[ORM\Column]
-    private ?int $annee = null;
+    private ?DateTime $annee = null;
 
     #[ORM\Column]
     private ?int $nombrePlace = null;
@@ -43,7 +44,7 @@ class Vehicules
     private Collection $offres;
 
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Proprietaires $proprietaire = null;
 
     public function __construct()
@@ -92,12 +93,12 @@ class Vehicules
         return $this;
     }
 
-    public function getAnnee(): ?int
+    public function getAnnee(): ?\DateTime
     {
         return $this->annee;
     }
 
-    public function setAnnee(int $annee): static
+    public function setAnnee(DateTime $annee): static
     {
         $this->annee = $annee;
 
