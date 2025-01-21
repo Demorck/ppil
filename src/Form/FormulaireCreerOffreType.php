@@ -15,7 +15,7 @@ class FormulaireCreerOffreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         // $userId = $options['user']['id'];
-        $userId = 1; // Utilisateur 1 pour exemple
+        $userId = 1;
     
         $builder
             ->add('dateDebut', null, [
@@ -32,12 +32,21 @@ class FormulaireCreerOffreType extends AbstractType
                               ->where('vehicule.proprietaire = :userId')
                               ->setParameter('userId', $userId);
                 },
-                'choice_label' => 'id',
+                'choice_label' => function (Vehicules $vehicule) {
+                    return $vehicule->getModele();
+                },
+                'choice_attr' => function (Vehicules $vehicule) {
+                    return [
+                        // 'data-chemin-image' => $vehicule->getCheminImage(),
+                        'cheminImage' => "images/default.jpg",
+                        'modele' => $vehicule->getModele(),
+                    ];
+                },
+                'placeholder' => 'vehicule',
             ])
         ;
     }
     
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([

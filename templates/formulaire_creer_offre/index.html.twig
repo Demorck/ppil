@@ -1,14 +1,18 @@
 {% extends 'base.html.twig' %}
-
 {% block title %}Creation offre{% endblock %}
-
 {% block body %}
     <div class="container">
         <h1>Creer une offre</h1>
-
         {{ form_start(form) }}
         
-        {{ form_row(form.vehicule) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.vehicule) }}
+            </div>
+            <div class="col-md-6">
+                <img id="vehiculeImage" src="/images/default.jpg" alt="Image du véhicule" style="max-width: 300px; display: none;">
+            </div>
+        </div>
 
         <h4>Periode de disponibilité du vehicule</h4>
         
@@ -19,4 +23,23 @@
         <button type="submit" class="btn btn-primary">Publier</button>
         {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const selectVehicule = document.getElementById('{{ form.vehicule.vars.id }}');
+    const image = document.getElementById('vehiculeImage');
+
+    selectVehicule.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        if (selectedOption.value) {
+            image.src = '/' + selectedOption.getAttribute('cheminImage');
+            image.style.display = 'block';
+        } else {
+            image.style.display = 'none';
+        }
+    });
+});
+</script>
 {% endblock %}
