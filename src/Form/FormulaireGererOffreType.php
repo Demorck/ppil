@@ -8,14 +8,11 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Doctrine\ORM\EntityRepository;
 
-class FormulaireCreerOffreType extends AbstractType
+class FormulaireGererOffreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // $userId = $options['user_id'];
-
         $builder
             ->add('dateDebut', null, [
                 'widget' => 'single_text',
@@ -24,11 +21,9 @@ class FormulaireCreerOffreType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('prix')
+            ->add('statut')
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicules::class,
-                'query_builder' => function (EntityRepository $er) use ($userId) {
-                    return $er->createQueryBuilder('vehicule')->where('v.proprietaireId = :userId')->setParameter('userId', $userId);
-                },
                 'choice_label' => 'id',
             ])
         ;
@@ -38,7 +33,6 @@ class FormulaireCreerOffreType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Offres::class,
-            'user' => null,
         ]);
     }
 }
