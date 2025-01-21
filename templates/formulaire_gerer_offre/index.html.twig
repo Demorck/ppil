@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello FormulaireGererOffreController!{% endblock %}
+{% block title %}Gerer une offre{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="container">
+        <h1>Creer une offre</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        {{ form_start(form) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/home/quidam/ppil/src/Controller/FormulaireGererOffreController.php</code></li>
-        <li>Your template at <code>/home/quidam/ppil/templates/formulaire_gerer_offre/index.html.twig</code></li>
-    </ul>
-</div>
+        {{ form_row(form.vehicule) }}
+        
+        <h4>Periode de disponibilité du vehicule</h4>
+        {{ form_row(form.dateDebut) }}
+        {{ form_row(form.dateFin) }}
+        {{ form_row(form.prix) }}
+            
+        <button type="submit" class="btn btn-primary">Publier</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}

@@ -14,8 +14,9 @@ class FormulaireCreerOffreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // $userId = $options['user_id'];
-
+        // $userId = $options['user']['id'];
+        $userId = 1; // Utilisateur 1 pour exemple
+    
         $builder
             ->add('dateDebut', null, [
                 'widget' => 'single_text',
@@ -27,12 +28,15 @@ class FormulaireCreerOffreType extends AbstractType
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicules::class,
                 'query_builder' => function (EntityRepository $er) use ($userId) {
-                    return $er->createQueryBuilder('vehicule')->where('v.proprietaireId = :userId')->setParameter('userId', $userId);
+                    return $er->createQueryBuilder('vehicule')
+                              ->where('vehicule.proprietaire = :userId')
+                              ->setParameter('userId', $userId);
                 },
                 'choice_label' => 'id',
             ])
         ;
     }
+    
 
     public function configureOptions(OptionsResolver $resolver): void
     {
