@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="container">
-        <h1>Creer une offre</h1>
+        <h1>Gerer l'offre</h1>
 
         {{ form_start(form) }}
 
@@ -16,6 +16,8 @@
         {{ form_row(form.prix) }}
             
         <button type="submit" class="btn btn-primary">Publier</button>
+
+        <button type="submit" class="btn btn-danger">Supprimer</button>
         {{ form_end(form) }}
     </div>
-{% endblock %}
+{% endblock %} 
