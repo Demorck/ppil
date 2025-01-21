@@ -10,7 +10,10 @@ module.exports = {
         'primary': "#F55ED5",
         'secondary': "#FCD0F3",
         'accent': "#801D6B",
-        'accentHover': '#a7278b'
+        'accentHover': '#a7278b',
+
+        'tab': "#fcb6dc",
+        'row': "#c4719e",
       }
     },
   },

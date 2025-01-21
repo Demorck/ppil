@@ -58,7 +58,7 @@ class FormulaireVehiculeController extends AbstractController
         return $this->render('formulaire_vehicule/vehicules.html.twig', [
             'controller_name'   => 'MesVehiculesController',
             'vehicules'         => $vehicules,
-            'title'             => 'Nouveau Véhicule'
+            'title'             => 'Liste des véhicules'
         ]);
     }
 }
