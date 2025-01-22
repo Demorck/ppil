@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+    background-image: url("/roze.png");
+    background-position: center;
+    background-size: cover;
+}
 
 input[type="text"],
 input[type="number"],
 input[type="date"],
+input[type="password"],
+input[type="email"],
 select {
     width: 100%;
     border: 2px solid #aaa;
@@ -20,9 +27,41 @@ select {
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus,
 select:focus {
     border-color: dodgerBlue;
     box-shadow: 0 0 8px 0 dodgerBlue;
+}
+
+button {
+    @apply px-4 py-2 rounded-full text-3xl
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-label {
+    @apply relative flex items-center relative m-0 cursor-pointer
+}
+
+.checkbox-input + label:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid theme('colors.accent');
+    margin-right: 10px;
+    @apply rounded-md
+}
+
+.checkbox-input:checked + label:before {
+    background-color: theme('colors.primary');
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .form-calendar-year select[id*="month"],
@@ -30,16 +69,17 @@ select:focus {
     display: none;
 }
 
-button {
-    @apply px-4 py-2 rounded-full text-3xl
+button[type="submit"] {
+    background: theme(colors.accent);
+    @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
 }
 
-.btn-rainbow {
+.btn-rainbow:hover {
     background: linear-gradient(135deg,
                 #ff0000, #ff7300, #ffeb00, #47ff00,
                 #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
-    animation: rainbow 1.5s cubic-bezier(0.4, 0, 1, 1) forwards;
+    animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
 }
 
 /***************************/
@@ -52,5 +92,6 @@ button {
 
 @keyframes rainbow {
     0% { background-position: 0 0; }
+    50% { background-position: 100% -150%; }
     100% { background-position: 100% -150%; }
 }
