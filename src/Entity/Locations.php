@@ -41,7 +41,7 @@ class Locations
 
     #[ORM\ManyToOne(inversedBy: 'locations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Locataires $locataire = null;
+    private ?Utilisateurs $locataire = null;
 
     public function getId(): ?int
     {
@@ -154,12 +154,12 @@ class Locations
         return $this;
     }
 
-    public function getLocataire(): ?Locataires
+    public function getLocataire(): ?Utilisateurs
     {
         return $this->locataire;
     }
 
-    public function setLocataire(?Locataires $locataire): static
+    public function setLocataire(?Utilisateurs $locataire): static
     {
         $this->locataire = $locataire;
 
