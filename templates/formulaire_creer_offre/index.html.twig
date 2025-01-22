@@ -1,28 +1,50 @@
 {% extends 'base.html.twig' %}
 {% block title %}Creation offre{% endblock %}
 {% block body %}
-    <div class="container">
-        <h1>Creer une offre</h1>
-        {{ form_start(form) }}
-        
-        <div class="row">
-            <div class="col-md-6">
-                {{ form_row(form.vehicule) }}
+{{ form_start(form)}}
+<div class="w-full bg-secondary flex flex-col p-4 gap-4">
+    <div class="text-4xl font-bold text-center">
+        Nouvelle offre
+    </div>
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col w-1/5">
+            <div class="flex">
+                <img id="vehiculeImage" src="{{ asset('images/default.jpg') }}" alt="Image du véhicule" style="max-width: 300px">
             </div>
-            <div class="col-md-6">
-                <img id="vehiculeImage" src="/images/default.jpg" alt="Image du véhicule" style="max-width: 300px; display: none;">
+            <div class="flex">Carousel</div>
+        </div>
+        <div class="flex flex-col gap-4 w-4/5 flex-wrap">
+            <div class="flex sm:flex-row flex-col gap-5">
+                <div class="form-group">
+                    {{ form_row(form.vehicule) }}
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <div class="form-group form-calendar-year">
+                    {{ form_row(form.dateDebut) }}
+                </div>
+                <div class="form-group">
+                    {{ form_row(form.dateFin) }}
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <div class="form-group">
+                    {{ form_row(form.prix) }}
+                </div>
             </div>
         </div>
-
-        <h4>Periode de disponibilité du vehicule</h4>
-        
-        {{ form_row(form.dateDebut) }}
-        {{ form_row(form.dateFin) }}
-        {{ form_row(form.prix) }}
-            
-        <button type="submit" class="btn btn-primary">Publier</button>
-        {{ form_end(form) }}
     </div>
+    <div class="flex flex-row justify-center">
+        <button
+                type="submit"
+                class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300"
+        >
+            Publier
+        </button>
+    </div>
+</div>
+
+{{ form_end(form) }}
 {% endblock %}
 
 {% block javascripts %}

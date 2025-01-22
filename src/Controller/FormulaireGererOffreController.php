@@ -8,10 +8,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class FormulaireGererOffreController extends AbstractController
 {
-    #[Route('/formulaire/gerer/offre', name: 'app_formulaire_gerer_offre')]
+    #[Route('/offre/gerer', name: 'app_formulaire_gerer_offre')]
     public function index(): Response
     {
         return $this->render('formulaire_gerer_offre/index.html.twig', [
+            'title' => 'Gérer une offre',
             'controller_name' => 'FormulaireGererOffreController',
         ]);
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UtilisateursRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -39,6 +41,31 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $statut = null;
+
+    /**
+     * @var Collection<int, Vehicules>
+     */
+    #[ORM\OneToMany(targetEntity: Vehicules::class, mappedBy: 'proprietaire', orphanRemoval: true)]
+    private Collection $vehicules;
+
+    /**
+     * @var Collection<int, Litiges>
+     */
+    #[ORM\OneToMany(targetEntity: Litiges::class, mappedBy: 'juriste')]
+    private Collection $litiges_juriste;
+
+    /**
+     * @var Collection<int, Locations>
+     */
+    #[ORM\OneToMany(targetEntity: Locations::class, mappedBy: 'locataire')]
+    private Collection $locations;
+
+    public function __construct()
+    {
+        $this->vehicules = new ArrayCollection();
+        $this->litiges_juriste = new ArrayCollection();
+        $this->locations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -147,6 +174,96 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     public function setStatut(int $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vehicules>
+     */
+    public function getVehicules(): Collection
+    {
+        return $this->vehicules;
+    }
+
+    public function addVehicule(Vehicules $vehicule): static
+    {
+        if (!$this->vehicules->contains($vehicule)) {
+            $this->vehicules->add($vehicule);
+            $vehicule->setProprietaire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicule(Vehicules $vehicule): static
+    {
+        if ($this->vehicules->removeElement($vehicule)) {
+            // set the owning side to null (unless already changed)
+            if ($vehicule->getProprietaire() === $this) {
+                $vehicule->setProprietaire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Litiges>
+     */
+    public function getLitigesJuriste(): Collection
+    {
+        return $this->litiges_juriste;
+    }
+
+    public function addLitigesJuriste(Litiges $litigesJuriste): static
+    {
+        if (!$this->litiges_juriste->contains($litigesJuriste)) {
+            $this->litiges_juriste->add($litigesJuriste);
+            $litigesJuriste->setJuriste($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLitigesJuriste(Litiges $litigesJuriste): static
+    {
+        if ($this->litiges_juriste->removeElement($litigesJuriste)) {
+            // set the owning side to null (unless already changed)
+            if ($litigesJuriste->getJuriste() === $this) {
+                $litigesJuriste->setJuriste(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Locations>
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Locations $location): static
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations->add($location);
+            $location->setLocataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Locations $location): static
+    {
+        if ($this->locations->removeElement($location)) {
+            // set the owning side to null (unless already changed)
+            if ($location->getLocataire() === $this) {
+                $location->setLocataire(null);
+            }
+        }
 
         return $this;
     }

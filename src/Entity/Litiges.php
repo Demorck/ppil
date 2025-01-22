@@ -23,9 +23,9 @@ class Litiges
     #[ORM\JoinColumn(nullable: false)]
     private ?Locations $location = null;
 
-    #[ORM\ManyToOne(inversedBy: 'litiges')]
+    #[ORM\ManyToOne(inversedBy: 'litiges_juriste')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Juriste $juriste = null;
+    private ?Utilisateurs $juriste = null;
 
     public function getId(): ?int
     {
@@ -68,12 +68,12 @@ class Litiges
         return $this;
     }
 
-    public function getJuriste(): ?Juriste
+    public function getJuriste(): ?Utilisateurs
     {
         return $this->juriste;
     }
 
-    public function setJuriste(?Juriste $juriste): static
+    public function setJuriste(?Utilisateurs $juriste): static
     {
         $this->juriste = $juriste;
 

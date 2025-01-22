@@ -44,8 +44,8 @@ class Vehicules
     private Collection $offres;
 
     #[ORM\ManyToOne(inversedBy: 'vehicules')]
-    #[ORM\JoinColumn(nullable: true)]
-    private ?Proprietaires $proprietaire = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateurs $proprietaire = null;
 
     public function __construct()
     {
@@ -171,12 +171,12 @@ class Vehicules
         return $this;
     }
 
-    public function getProprietaire(): ?Proprietaires
+    public function getProprietaire(): ?Utilisateurs
     {
         return $this->proprietaire;
     }
 
-    public function setProprietaire(?Proprietaires $proprietaire): static
+    public function setProprietaire(?Utilisateurs $proprietaire): static
     {
         $this->proprietaire = $proprietaire;
 

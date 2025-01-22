@@ -6,6 +6,7 @@ use App\Entity\Offres;
 use App\Entity\Vehicules;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -24,7 +25,7 @@ class FormulaireCreerOffreType extends AbstractType
             ->add('dateFin', null, [
                 'widget' => 'single_text',
             ])
-            ->add('prix')
+            ->add('prix', IntegerType::class)
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicules::class,
                 'query_builder' => function (EntityRepository $er) use ($userId) {
@@ -52,6 +53,7 @@ class FormulaireCreerOffreType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Offres::class,
             'user' => null,
+            'csrf_protection' => false
         ]);
     }
 }

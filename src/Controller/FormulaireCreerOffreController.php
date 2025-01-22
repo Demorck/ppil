@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -13,9 +14,13 @@ use App\Entity\Offres;
 
 final class FormulaireCreerOffreController extends AbstractController
 {
-    #[Route('/formulaire/creer/offre', name: 'app_formulaire_creer_offre')]
-    public function index(Request $request): Response
+    #[Route('/offre/creer', name: 'app_formulaire_creer_offre')]
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
         $offre = new Offres();
         $user = $this->getUser();
         
@@ -25,15 +30,16 @@ final class FormulaireCreerOffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $offre->setStatut(0);
             $entityManager->persist($offre);
             $entityManager->flush();
         
-            return $this->redirectToRoute('some_route_name');
+            return $this->redirectToRoute('app_formulaire_vehicules');
         }
 
         return $this->render('formulaire_creer_offre/index.html.twig', [
             'form' => $form->createView(),
+            'title' => "Créer une offre",
         ]);
     }
 }
