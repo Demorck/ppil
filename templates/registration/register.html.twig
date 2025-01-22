@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+
+{{ form_start(registrationForm, {
+    'attr': {
+        'data-turbo': 'false'
+    }
+}) }}
+<section>
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
+{#        <a href=""><img src="{{ asset('img/Placeholder.png') }}" width="32px" alt=""></a>#}
+        <div class="w-full bg-white rounded-xl shadow sm:max-w-md">
+            <div class="p-6">
+                <h1 class="text-3xl font-bold text-center text-gray-500">
+                    Créer un compte
+                </h1>
+                <div>
+                    {{ form_row(registrationForm.email) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.plainPassword, {
+                        'label': 'Mot de passe'
+                    }) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.nom) }}
+                </div>
+                <div>
+                    {{ form_row(registrationForm.prenom) }}
+                </div>
+                <div>
+                    {{ form_label(registrationForm.roles) }}
+                    {{ form_errors(registrationForm.roles) }}
+                    <div class="flex flex-row justify-evenly">
+                        {% for role in registrationForm.roles %}
+                            <div class="checkbox-wrapper">
+                                {{ form_widget(role, { 'attr': { 'class': 'checkbox-input' } }) }}
+                                {{ form_label(role, null, { 'label_attr': { 'class': 'checkbox-label' } }) }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="checkbox-wrapper">
+                    {{ form_widget(registrationForm.agreeTerms, { 'attr': {'class': 'checkbox-input'} }) }}
+                    {{ form_label(registrationForm.agreeTerms, null, { 'label_attr': {'class': 'checkbox-label'} }) }}
+                    {{ form_errors(registrationForm.agreeTerms) }}
+                </div>
+                {{ form_widget(registrationForm._token) }}
+                <div class="flex justify-center">
+                    <button type="submit" class="btn-rainbow">Register</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{{ form_end(registrationForm, {render_rest: false}) }}
+{% endblock %}
