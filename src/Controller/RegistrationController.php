@@ -30,49 +30,17 @@ class RegistrationController extends AbstractController
             // encode the plain password
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
-            $user -> setStatut(0);
+            $user->setStatut(0);
 
-            $user -> setRoles($form->get('roles')->getData());
+            $user->setRoles($form->get('roles')->getData());
 
-            if(in_array('ROLE_LOCATAIRE', $user->getRoles())){
-                $locataire = new Locataires();
-                $locataire->setEmail($user->getEmail());
-                $locataire->setPrenom($user->getPrenom());
-                $locataire->setNom($user->getNom());
-                $locataire->setPassword($user->getPassword());
-                $locataire->setRoles($user->getRoles());
-                $locataire->setStatut($user->getStatut());
-                $entityManager->persist($locataire);
-
-            }
-            if(in_array('ROLE_PROPRIETAIRE', $user->getRoles())){
-                $proprietaire = new Proprietaires();
-                $proprietaire->setEmail($user->getEmail());
-                $proprietaire->setPrenom($user->getPrenom());
-                $proprietaire->setNom($user->getNom());
-                $proprietaire->setPassword($user->getPassword());
-                $proprietaire->setRoles($user->getRoles());
-                $proprietaire->setStatut($user->getStatut());
-                $entityManager->persist($proprietaire);
-            }
-
-
-
-            try{
-                $entityManager->flush();
-            }catch(\Doctrine\DBAL\Exception $e){
-                dump($e->getMessage());
-            }
-                
-
-            // do anything else you need here, like send an email
-
-            
-
+            $entityManager->persist($user);
+            $entityManager->flush();
             return $this->redirectToRoute('app_home_page');
         }
 
         return $this->render('registration/register.html.twig', [
+            'title' => "Enregistrement",
             'registrationForm' => $form->createView(),
         ]);
     }

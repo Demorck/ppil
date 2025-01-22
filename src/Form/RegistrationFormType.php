@@ -23,11 +23,7 @@ class RegistrationFormType extends AbstractType
             ->add('nom')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
+                'label' => "Veuillez accepter nos conditions d'utilisation.",
             ])
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -47,15 +43,13 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('roles', ChoiceType::class,[
-                'mapped' => false,
-                'required' => false,
-                'label' => 'Vous Voulez utiliser Prékar en tant que :',
+                'label' => 'Vous voulez utiliser Prékar en tant que :',
                 'multiple' => true,
+                'expanded' => true,
                 'choices' => [
                     'Locataire' => 'ROLE_LOCATAIRE',
                     'Propriétaire' => 'ROLE_PROPRIETAIRE',
-                    'Locataire et Propriétaire' => 'ROLE_LOCATAIRE|ROLE_PROPRIETAIRE',
-                ],
+                ]
             ])
         ;
     }
@@ -64,6 +58,9 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Utilisateurs::class,
+            'csrf_protection' => true,
+            'csrf_field_name' => '_token',
+            'csrf_token_id'   => 'form_register',
         ]);
     }
 }

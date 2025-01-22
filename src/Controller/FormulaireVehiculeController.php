@@ -17,10 +17,10 @@ class FormulaireVehiculeController extends AbstractController
     #[Route('/vehicule/ajoutVehicule', name: 'app_formulaire_ajoutVehicule')]
     public function renseignerInfo(Request $request, EntityManagerInterface $entMan): Response
     {
-        // if ($this->getUser() === null) {
-        //     return $this->redirectToRoute('app_login');
-        // }
-        // $currentUser = $this->getUser();
+         if ($this->getUser() === null) {
+             return $this->redirectToRoute('app_login');
+         }
+         $currentUser = $this->getUser();
 
         $vehicule = new Vehicules();
 
@@ -29,7 +29,7 @@ class FormulaireVehiculeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            $vehicule->setProprietaire($currentUser);
             $entMan->persist($vehicule);
             $entMan->flush();
 
@@ -47,10 +47,11 @@ class FormulaireVehiculeController extends AbstractController
     #[Route('/vehicules', name: 'app_formulaire_vehicules')]
     public function display_vehicules(Request $request, EntityManagerInterface $entMan): Response
     {
-        // if ($this->getUser() === null) {
-        //     return $this->redirectToRoute('app_login');
-        // }
-        // $currentUser = $this->getUser();
+         if ($this->getUser() === null) {
+             return $this->redirectToRoute('app_login');
+         }
+
+         $currentUser = $this->getUser();
 
 
         $vehicules = $entMan->getRepository(Vehicules::class)->findAll();
