@@ -26,9 +26,6 @@ class Abonnements
     #[ORM\Column]
     private ?int $statut = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Locataires $locataire = null;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -78,18 +75,6 @@ class Abonnements
     public function setStatut(int $statut): static
     {
         $this->statut = $statut;
-
-        return $this;
-    }
-
-    public function getLocataire(): ?Locataires
-    {
-        return $this->locataire;
-    }
-
-    public function setLocataire(?Locataires $locataire): static
-    {
-        $this->locataire = $locataire;
 
         return $this;
     }
