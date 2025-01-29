@@ -1,48 +1,57 @@
-
-
 <nav class="bg-accent">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" class="flex items-center">
+    <div class="max-w-7/8 flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="{{ path('app_home_page') }}" class="flex items-center">
             <img src="{{ asset('roze.png') }}" class="h-8" alt="Logo prékar" />
             <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Prékar</span>
         </a>
         
         {% if app.user %}
             <div class="flex items-center md:order-2">
-                <button type="button" class="flex text-sm rounded-full" id="user-menu-button">
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('img/Placeholder.png') }}" alt="Photo utilisateur ?">
-                </button>
-                <div class="bg-secondary px-4 py-2 rounded-lg">
-                    <a href="{{ path('app_logout') }}">Logout</a>
+                <div class="relative">
+                    <div class="hover:cursor-pointer">
+                        <button type="button" class="flex text-sm rounded-full" id="user-menu-button">
+                            <img class="w-8 h-8 rounded-full" src="{{ asset('img/Placeholder.png') }}" alt="Photo utilisateur ?">
+                        </button>
+                    </div>
+
+                    <div class="hidden" id="dropdown-menu-profile">
+                        <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profile</a>
+                        {% if is_granted('ROLE_LOCATAIRE') %}
+                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes locations</a>
+                        {% endif %}
+                        {% if is_granted('ROLE_PROPRIETAIRE') %}
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes voitures</a>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes offres</a>
+                        {% endif %}
+                        <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Déconnexion</a>
+                    </div>
                 </div>
             </div>
         {% else %}
             <div class="flex flex-row gap-4 text-sm items-center md:order-2">
-                <div class="bg-tab px-4 py-2 rounded-lg">
+                <div class="bg-tab hover:bg-row px-4 py-2 rounded-lg">
                     <a href="{{ path('app_register') }}">Register</a>
                 </div>
-                <div class="bg-row px-4 py-2 rounded-lg">
+                <div class="bg-row hover:bg-tab px-4 py-2 rounded-lg">
                     <a href="{{ path('app_login') }}">Login</a>
                 </div>
             </div>
         {% endif %}
 
-        <div class="items-center justify-between w-full md:flex md:w-auto">
-            <ul class="flex text-white flex-col font-medium text-lg p-4 md:p-0 md:space-x-8 md:flex-row">
-                <li>
-                    <a href="{{ path('app_home_page') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Accueil</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_formulaire_creer_offre') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Offres</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_formulaire_ajoutVehicule') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Ajouter une voiture</a>
-                </li>
-                <li>
-                    <a href="{{ path('app_formulaire_vehicules') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Liste des voitures</a>
-                </li>
-            </ul>
-        </div>
+{#        <div class="items-center justify-between w-full md:flex md:w-auto">#}
+{#            <ul class="flex text-white flex-col font-medium text-lg p-4 md:p-0 md:space-x-8 md:flex-row">#}
+{#                <li>#}
+{#                    <a href="{{ path('app_formulaire_creer_offre') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Offres</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path('app_formulaire_ajoutVehicule') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Ajouter une voiture</a>#}
+{#                </li>#}
+{#                <li>#}
+{#                    <a href="{{ path('app_formulaire_vehicules') }}" class="hover:bg-gray-100 hover:text-accent px-4 py-2">Liste des voitures</a>#}
+{#                </li>#}
+{#            </ul>#}
+{#        </div>#}
 
     </div>
 </nav>

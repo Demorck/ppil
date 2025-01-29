@@ -16,6 +16,21 @@ body {
     background-size: cover;
 }
 
+#dropdown-menu-profile {
+    @apply absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-20 bg-secondary
+}
+
+#dropdown-menu-profile a {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-tab border-b border-row
+}
+
+#dropdown-menu-profile a:first-child {
+    @apply border-t
+}
+
+/***************************/
+/*   FORMULAIRES   */
+/**************************/
 input[type="text"],
 input[type="number"],
 input[type="date"],
