@@ -1,4 +1,14 @@
-@import "tailwindcss"; 
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #F55ED5;
+    --color-secondary: #FCD0F3;
+    --color-accent: #801D6B;
+    --color-accentHover: #a7278b;
+
+    --color-tab: #fcb6dc;
+    --color-row: #c4719e;
+}
 
 body {
     background-image: url("/roze.png");
@@ -49,13 +59,13 @@ button {
     display: inline-block;
     width: 20px;
     height: 20px;
-    border: 2px solid var(--colors-accent);
+    border: 2px solid var(--color-accent);
     margin-right: 10px;
     @apply rounded-md
 }
 
 .checkbox-input:checked + label:before {
-    background-color: var(--colors-primary);
+    background-color: var(--color-primary);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
     background-size: 80%;
     background-repeat: no-repeat;
@@ -68,14 +78,14 @@ button {
 }
 
 button[type="submit"] {
-    background: var(--colors-accent);
+    background: #f00;
     @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
 }
 
 .btn-rainbow:hover {
     background: linear-gradient(135deg,
-                #ff0000, #ff7300, #ffeb00, #47ff00,
-                #00ffee, #2b65ff, #8000ff, #ff00e1);
+    #ff0000, #ff7300, #ffeb00, #47ff00,
+    #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
     animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
 }
