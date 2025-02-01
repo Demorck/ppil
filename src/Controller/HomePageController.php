@@ -12,7 +12,7 @@ class HomePageController extends AbstractController
     #[Route('', name: 'app_home_page')]
     public function index(): Response
     {
-        $dateAujourdhui = (new DateTime())->format('Y-m-d\TH:i');
+        $dateAujourdhui = (new DateTime())->format('Y-m-d');
 
         return $this->render('home_page/index.html.twig', [
             'title' => "Accueil",

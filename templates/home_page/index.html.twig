@@ -4,20 +4,24 @@
 
 {% block body %}
 
-<div class="conteneur">
+<div class="conteneur bg-pink-500">
     <div class="boiteDeRecherche">
         <input type="text" placeholder="Mots clefs" id="motsClefs">
         <div class="date">
             <label for="dateDebut">Début : </label>
-            <input type="datetime-local" placeholder="Date début" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            <input type="date" placeholder="Date début" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
             <label for="dateFin">Fin : </label>
-            <input type="datetime-local" placeholder="Date fin" id="DateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            <input type="date" placeholder="Date fin" id="DateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
         </div>
-        <button id="BoutonRecherche">Rechercher</button>
+        <button id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+            Rechercher
+        </button>
     </div>
     <div class="souscriptionAbonnement">
         <label for="BoutonSouscriptionAbonnement">Pensez à prendre votre abonnement : </label>
-        <button id="BoutonSouscriptionAbonnement">Abonnement</button>
+        <button id="BoutonSouscriptionAbonnement" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+            Abonnement
+        </button>
     </div>
 </div>
 
