@@ -4,24 +4,37 @@
 
 {% block body %}
 
-<div class="conteneur bg-pink-500">
-    <div class="boiteDeRecherche">
-        <input type="text" placeholder="Mots clefs" id="motsClefs">
+<div class="conteneur bg-pink-500 flex-col">
+    <form method="GET" action="/recherche" class="boiteDeRecherche flex flex-col">
+        <label for="nbPlace">Nombre de places : </label>
+        <select name="nbPlace" id="nbPlace">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        
         <div class="date">
             <label for="dateDebut">Début : </label>
-            <input type="date" placeholder="Date début" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            <input type="date" name="dateDebut" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            
             <label for="dateFin">Fin : </label>
-            <input type="date" placeholder="Date fin" id="DateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            <input type="date" name="dateFin" id="dateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
         </div>
-        <button id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+        
+        <button type="submit" id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
             Rechercher
         </button>
-    </div>
-    <div class="souscriptionAbonnement">
-        <label for="BoutonSouscriptionAbonnement">Pensez à prendre votre abonnement : </label>
-        <button id="BoutonSouscriptionAbonnement" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+    </form>
+
+    <div class="souscriptionAbonnement  bg-pink-500 flex flex-col">
+        <label class="flex justify-center" >Pensez à prendre votre abonnement : </label>
+        <a href="{{ path('routeAbonnement') }}" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300 flex justify-center">
             Abonnement
-        </button>
+        </a>
     </div>
 </div>
 
