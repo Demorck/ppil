@@ -11,3 +11,7 @@ Lien vers : [tableau d'avancement](https://docs.google.com/spreadsheets/d/1mbxSq
 
 ### Spécification  
 Lien vers : [document de spécialisation](Rendu.pdf)
+
+### Fiche de redirection  
+Fiche qui met en valeur toute les redirections (lien d'une page vers une autre) qu'attend chaque page du site.  
+A retrouver ici : [fiche de redirection](https://github.com/Demorck/ppil/blob/main/ficheDeRedirection.md)
