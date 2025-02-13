@@ -57,8 +57,13 @@ select:focus {
     box-shadow: 0 0 8px 0 dodgerBlue;
 }
 
+input[disabled] {
+    background: #000;
+    color: var(--color-white);
+}
+
 button {
-    @apply px-4 py-2 rounded-full text-3xl
+    @apply px-4 py-2 rounded-full
 }
 
 .checkbox-wrapper input[type="checkbox"] {

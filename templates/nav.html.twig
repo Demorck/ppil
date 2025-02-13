@@ -9,7 +9,7 @@
             <div class="flex items-center md:order-2">
                 <div class="relative">
                     <div class="hover:cursor-pointer">
-                        <button type="button" class="flex text-sm rounded-full" id="user-menu-button">
+                        <button type="button" class="flex text-sm rounded-full hover:cursor-pointer" id="user-menu-button">
                             <img class="w-8 h-8 rounded-full" src="{{ asset('img/Placeholder.png') }}" alt="Photo utilisateur ?">
                         </button>
                     </div>
@@ -30,12 +30,16 @@
             </div>
         {% else %}
             <div class="flex flex-row gap-4 text-sm items-center md:order-2">
-                <div class="bg-tab hover:bg-row px-4 py-2 rounded-lg">
-                    <a href="{{ path('app_register') }}">Register</a>
-                </div>
-                <div class="bg-row hover:bg-tab px-4 py-2 rounded-lg">
-                    <a href="{{ path('app_login') }}">Login</a>
-                </div>
+                <a href="{{ path('app_register') }}">
+                    <div class="bg-tab hover:bg-row px-4 py-2 rounded-lg">
+                    Register
+                    </div>
+                </a>
+                <a href="{{ path('app_login') }}">
+                    <div class="bg-row hover:bg-tab px-4 py-2 rounded-lg">
+                    Login
+                    </div>
+                </a>
             </div>
         {% endif %}
 
