@@ -75,6 +75,9 @@ class FormulaireVehiculeController extends AbstractController
 
         $vehicule = $entMan->getRepository(Vehicules::class)->findOneBy(['id' => $id, 'proprietaire' => $currentUser]);
 
+        if ($vehicule === null) {
+            return $this->redirectToRoute('app_formulaire_vehicules');
+        }
         $form = $this->createForm(VehiculeModifFormType::class, $vehicule);
 
         $form->handleRequest($request);
