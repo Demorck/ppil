@@ -26,14 +26,18 @@ class VehiculeModifFormType extends AbstractType
                     'placeholder' => 'Marque du véhicule',
                     'required' => true,
                 ],
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['data']->getMarque(),
             ])
             ->add('modele', TextType::class, [
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Modèle du véhicule',
-                    'readonly' => true,
-
                 ],
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['data']->getModele()
             ])
             ->add('immatriculation', TextType::class, [
                 'required' => true,
@@ -45,9 +49,11 @@ class VehiculeModifFormType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Année de mise en circulation',
-                    'readonly' => true,
 
                 ],
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['data']->getAnnee(),
                 'format' => 'yyyy-MM-dd',
                 'years' => range(date('Y') - 50, date('Y')),
             ])
@@ -55,9 +61,10 @@ class VehiculeModifFormType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'placeholder' => 'Nombre de places',
-                    'readonly' => true,
-
                 ],
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['data']->getNombrePlace()
             ])
             ->add('typeCarburant', ChoiceType::class, [
                 'choices' => [
@@ -66,9 +73,9 @@ class VehiculeModifFormType extends AbstractType
                     'Electrique' => 'Electrique',
                     'Hybride' => 'Hybride',
                 ],
-                'attr' => [
-                    'readonly' => true,
-                ],
+                'disabled' => true,
+                'mapped' => false,
+                'data' => $options['data']->getTypeCarburant(),
                 'required' => true,
             ])
             ->add('kilometrage', IntegerType::class, [
