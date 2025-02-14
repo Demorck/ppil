@@ -75,6 +75,9 @@ class FormulaireVehiculeController extends AbstractController
 
         $vehicule = $entMan->getRepository(Vehicules::class)->findOneBy(['id' => $id, 'proprietaire' => $currentUser]);
 
+        if ($vehicule === null) {
+            return $this->redirectToRoute('app_formulaire_vehicules');
+        }
         $form = $this->createForm(VehiculeModifFormType::class, $vehicule);
 
         $form->handleRequest($request);
@@ -93,6 +96,23 @@ class FormulaireVehiculeController extends AbstractController
             'vehiculeGerer'      => $form->createView(),
 
         ]);
+    }
+
+    #[Route('/vehicules/{id}/delete', name: 'app_formulairevehicule_deletevehicule')]
+    public function deleteVehicule(Request $request, EntityManagerInterface $entMan, $id): Response
+    {
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
+
+        $currentUser = $this->getUser();
+
+        $vehicule = $entMan->getRepository(Vehicules::class)->findOneBy(['id' => $id, 'proprietaire' => $currentUser]);
+
+        $entMan->remove($vehicule);
+        $entMan->flush();
+
+        return $this->redirectToRoute('app_formulaire_vehicules');
     }
 
 }
