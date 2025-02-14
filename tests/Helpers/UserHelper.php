@@ -17,19 +17,19 @@ class UserHelper
         $this->entityManager = $entityManager;
     }
 
-    public function createLocataire(): Utilisateurs
+    public function createLocataire(string $email): Utilisateurs
     {
-        return $this->createUser(['ROLE_LOCATAIRE']);
+        return $this->createUser(['ROLE_LOCATAIRE'], $email);
     }
 
-    public function createUser(array $roles): Utilisateurs
+    private function createUser(array $roles, string $email): Utilisateurs
     {
         $userRepository = $this->entityManager->getRepository(Utilisateurs::class);
-        $user = $userRepository->findOneBy(['email' => 'test@example.com']);
+        $user = $userRepository->findOneBy(['email' => $email]);
 
         if (!$user) {
             $user = new Utilisateurs();
-            $user->setEmail('test@example.com');
+            $user->setEmail($email);
             $user->setPassword(password_hash('password', PASSWORD_BCRYPT));
             $user->setNom("Déesse de la putréfaction");
             $user->setPrenom("Malenia");
