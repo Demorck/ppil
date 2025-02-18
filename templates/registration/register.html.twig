@@ -4,11 +4,7 @@
 
 {% block body %}
 
-{{ form_start(registrationForm, {
-    'attr': {
-        'data-turbo': 'false'
-    }
-}) }}
+{{ form_start(registrationForm) }}
 <section>
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
 {#        <a href=""><img src="{{ asset('img/Placeholder.png') }}" width="32px" alt=""></a>#}
@@ -18,12 +14,18 @@
                     Créer un compte
                 </h1>
                 <div>
-                    {{ form_row(registrationForm.email) }}
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email) }}
+                    <div class="error">
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
                 </div>
                 <div>
-                    {{ form_row(registrationForm.plainPassword, {
-                        'label': 'Mot de passe'
-                    }) }}
+                    {{ form_label(registrationForm.plainPassword) }}
+                    {{ form_widget(registrationForm.plainPassword) }}
+                    <div class="error">
+                        {{ form_errors(registrationForm.plainPassword) }}
+                    </div>
                 </div>
                 <div>
                     {{ form_row(registrationForm.nom) }}
@@ -46,11 +48,13 @@
                 <div class="checkbox-wrapper">
                     {{ form_widget(registrationForm.agreeTerms, { 'attr': {'class': 'checkbox-input'} }) }}
                     {{ form_label(registrationForm.agreeTerms, null, { 'label_attr': {'class': 'checkbox-label'} }) }}
-                    {{ form_errors(registrationForm.agreeTerms) }}
+                    <div class="error">
+                        {{ form_errors(registrationForm.agreeTerms) }}
+                    </div>
                 </div>
                 {{ form_widget(registrationForm._token) }}
                 <div class="flex justify-center">
-                    <button type="submit" class="btn-rainbow">Register</button>
+                    <button name="register" type="submit" class="btn-rainbow">Register</button>
                 </div>
             </div>
         </div>

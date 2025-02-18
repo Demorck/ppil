@@ -58,7 +58,7 @@ select:focus {
 }
 
 button {
-    @apply px-4 py-2 rounded-full text-3xl
+    @apply px-4 py-2 rounded-full text-3xl cursor-pointer
 }
 
 .checkbox-wrapper input[type="checkbox"] {
@@ -90,6 +90,11 @@ button {
 .form-calendar-year select[id*="month"],
 .form-calendar-year select[id*="day"] {
     display: none;
+}
+
+.error {
+    color: #C63940;
+    font-weight: bolder;
 }
 
 button[type="submit"] {
