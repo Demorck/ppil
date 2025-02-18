@@ -4,6 +4,7 @@ namespace App\Tests\Controllers\Vehicules;
 
 use App\Entity\Vehicules;
 use App\Tests\Helpers\UserHelper;
+use App\Tests\Helpers\Utils;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -11,12 +12,21 @@ class CreationVehiculesTest extends WebTestCase
 {
     private $client;
     private $userHelper;
+    private $entityManager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $entityManager = static::getContainer()->get('doctrine')->getManager();
-        $this->userHelper = new UserHelper($this->client, $entityManager);
+
+        $this->entityManager = static::getContainer()->get('doctrine')->getManager();
+
+        $this->userHelper = new UserHelper($this->client, $this->entityManager);
+    }
+
+    protected function tearDown(): void
+    {
+        Utils::resetDB($this->entityManager);
+        parent::tearDown();
     }
 
     public function testSubmitVehiculeLocataire(): void
