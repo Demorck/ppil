@@ -1,28 +1,39 @@
 <?php
 
-namespace App\Tests\Controllers;
+namespace App\Tests\Controllers\Vehicules;
 
 use App\Entity\Vehicules;
 use App\Tests\Helpers\UserHelper;
+use App\Tests\Helpers\Utils;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class TestsCreationVehiculesTest extends WebTestCase
+class CreationVehiculesTest extends WebTestCase
 {
     private $client;
     private $userHelper;
+    private $entityManager;
 
     protected function setUp(): void
     {
         $this->client = static::createClient();
-        $entityManager = static::getContainer()->get('doctrine')->getManager();
-        $this->userHelper = new UserHelper($this->client, $entityManager);
+
+        $this->entityManager = static::getContainer()->get('doctrine')->getManager();
+
+        $this->userHelper = new UserHelper($this->client, $this->entityManager);
+    }
+
+    protected function tearDown(): void
+    {
+        Utils::resetDB($this->entityManager);
+        parent::tearDown();
     }
 
     public function testSubmitVehiculeLocataire(): void
     {
-        $user = $this->userHelper->createLocataire();
+        $user = $this->userHelper->createLocataire("test@email.com");
         $this->userHelper->login($user);
-        $crawler = $this->client->request('GET', '/vehicule/ajoutVehicule');
+        $crawler = $this->client->request('GET', '/vehicules/ajoutVehicule');
 
         $form = $crawler->selectButton('ajouter')->form([
             'vehicule_form[marque]' => 'Peugeot',
@@ -48,7 +59,7 @@ class TestsCreationVehiculesTest extends WebTestCase
         $this->assertNotNull($vehicule, 'Le véhicule n\'a pas été trouvé dans la base de données');
         $this->assertEquals('Peugeot', $vehicule->getMarque());
         $this->assertEquals('208', $vehicule->getModele());
-        $this->assertEquals(new \DateTime('2025-01-01'), $vehicule->getAnnee());
+        $this->assertEquals(new DateTime('2025-01-01'), $vehicule->getAnnee());
         $this->assertEquals('XX-123-YY', $vehicule->getImmatriculation());
         $this->assertEquals('Essence', $vehicule->getTypeCarburant());
         $this->assertEquals(5, $vehicule->getNombrePlace());
@@ -58,7 +69,7 @@ class TestsCreationVehiculesTest extends WebTestCase
 
     public function testPasLoginVehicules(): void
     {
-        $crawler = $this->client->request('GET', '/vehicule/ajoutVehicule');
+        $this->client->request('GET', '/vehicules/ajoutVehicule');
         $this->assertResponseRedirects('/login');
 
         $crawler = $this->client->request('GET', '/vehicules');
