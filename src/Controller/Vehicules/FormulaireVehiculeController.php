@@ -1,17 +1,16 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Vehicules;
 
-use App\Form\VehiculeModifFormType;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\Request;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Proprietaires;
 use App\Entity\Vehicules;
 use App\Form\VehiculeFormType;
-use App\Entity\Proprietaires;
-use function Symfony\Component\Clock\now;
+use App\Form\VehiculeModifFormType;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Attribute\Route;
 
 class FormulaireVehiculeController extends AbstractController
 {
