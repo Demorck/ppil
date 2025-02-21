@@ -1,7 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateurs;
 
+use App\Entity\Locataires;
+use App\Entity\Proprietaires;
 use App\Entity\Utilisateurs;
 use App\Form\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,8 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\Locataires;
-use App\Entity\Proprietaires;
 
 class RegistrationController extends AbstractController
 {

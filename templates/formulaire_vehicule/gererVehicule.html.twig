@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FormulaireVehiculeController!{% endblock %}
+
+{% block body %}
+
+    {{ form_start(vehiculeGerer)}}
+    <div class="w-full bg-secondary flex flex-col p-4 gap-4">
+        <div class="text-4xl font-bold text-center">
+            Titre véhicule
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <div class="flex flex-col w-1/5">
+                <div class="flex">
+                    <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image" style="cursor: pointer;">
+                    {{ form_widget(vehiculeGerer.image, { 'attr': {'style': 'opacity: 0; position: absolute; width: 20%; height: 40%; cursor: pointer;'} }) }}
+
+                </div>
+                <div class="flex">Carousel</div>
+            </div>
+            <div class="flex flex-col gap-4 w-4/5 flex-wrap">
+                <div class="flex sm:flex-row flex-col gap-5">
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.marque) }}
+                        {{ form_widget(vehiculeGerer.marque) }}
+                        {{ form_errors(vehiculeGerer.marque) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.modele) }}
+                        {{ form_widget(vehiculeGerer.modele) }}
+                        {{ form_errors(vehiculeGerer.modele) }}
+                    </div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.immatriculation, "Plaque d'immatriculation") }}
+                        {{ form_widget(vehiculeGerer.immatriculation) }}
+                        {{ form_errors(vehiculeGerer.immatriculation) }}
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <div class="form-group form-calendar-year">
+                        {{ form_label(vehiculeGerer.annee, "Année de mise en circulation") }}
+                        {{ form_widget(vehiculeGerer.annee) }}
+                        {{ form_errors(vehiculeGerer.annee) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.nombrePlace, "Nombre de place") }}
+                        {{ form_widget(vehiculeGerer.nombrePlace) }}
+                        {{ form_errors(vehiculeGerer.nombrePlace) }}
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row gap-5">
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.typeCarburant, "Type de Carburant") }}
+                        {{ form_widget(vehiculeGerer.typeCarburant) }}
+                        {{ form_errors(vehiculeGerer.typeCarburant) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(vehiculeGerer.kilometrage) }}
+                        {{ form_widget(vehiculeGerer.kilometrage) }}
+                        {{ form_errors(vehiculeGerer.kilometrage) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex flex-row justify-center">
+            <button
+                    type="submit"
+                    name="modifier"
+                    class="relative bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300"
+            >
+                Modifier
+            </button>
+        </div>
+
+
+    </div>
+    {{ form_end(vehiculeGerer)}}
+{% endblock %}
+
