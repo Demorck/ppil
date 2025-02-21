@@ -5,7 +5,7 @@ namespace App\Controller\Utilisateurs;
 use App\Entity\Locataires;
 use App\Entity\Proprietaires;
 use App\Entity\Utilisateurs;
-use App\Form\RegistrationFormType;
+use App\Form\Utilisateurs\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateurs;
 
-use App\Form\user\ModificationProfilType;
+use App\Form\Utilisateurs\ModificationProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-class ProfilePageController extends AbstractController
+class ProfilPageController extends AbstractController
 {
-    #[Route('/profile', name: 'app_profile_page')]
+    #[Route('/profil', name: 'app_profile_page')]
     public function index(Request $request, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         if (!$this->getUser()) {
@@ -20,24 +20,27 @@ class ProfilePageController extends AbstractController
         }
 
         $user = $this->getUser();
-        $form = $this->createForm(ModificationProfilType::class, $user, array('method' => 'PUT'));
+
+        if ($user == null)
+            return $this->redirectToRoute('app_login');
+
+        $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $form->getData();
-            $plainPassword = $form->get('plainPassword')->getData();
+            $plainPassword = $form->get('password')->getData();
             if ($plainPassword != null)
                 $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
 
             $entityManager->persist($user);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home_page');
+            return $this->redirectToRoute('app_profile_page');
         }
 
-        return $this->render('profile_page/index.html.twig', [
+        return $this->render('utilisateurs/profil_page.html.twig', [
             'title' => "Profile",
-            'controller_name' => 'ProfilePageController',
+            'controller_name' => 'ProfilPageController',
             'user' => $user,
             'form' => $form->createView()
         ]);

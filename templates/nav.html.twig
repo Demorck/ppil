@@ -16,7 +16,7 @@
 
                     <div class="hidden" id="dropdown-menu-profile">
                         <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
-                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profile</a>
+                        <a href="{{ path('app_profile_page') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profil</a>
                         {% if is_granted('ROLE_LOCATAIRE') %}
                         <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes locations</a>
                         {% endif %}

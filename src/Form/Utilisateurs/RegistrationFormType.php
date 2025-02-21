@@ -1,19 +1,20 @@
 <?php
 
-namespace App\Form\user;
+namespace App\Form\Utilisateurs;
 
 use App\Entity\Utilisateurs;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\PasswordStrength;
 
-class ModificationProfilType extends AbstractType
+class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -21,10 +22,21 @@ class ModificationProfilType extends AbstractType
             ->add('email')
             ->add('prenom')
             ->add('nom')
-            ->add('password', PasswordType::class, [
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'required' => false,
+                'label' => "Veuillez accepter nos conditions d'utilisation.",
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'Vous devez accepter les conditions pour continuer.',
+                    ]),
+                ],
+            ])
+            ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
+                'label' => "Mot de passe",
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([
@@ -32,11 +44,24 @@ class ModificationProfilType extends AbstractType
                     ]),
                     new Length([
                         'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
+                        'minMessage' => 'Le mot de passe doit faire au moins {{ limit }} caractères.',
                         // max length allowed by Symfony for security reasons
                         'max' => 4096,
                     ]),
+                    new PasswordStrength([
+                        'minScore' => PasswordStrength::STRENGTH_STRONG,
+                        'message' => 'Le mot de passe est trop facile, veuillez mettre un mot de passe plus compliqué.'
+                    ])
                 ],
+            ])
+            ->add('roles', ChoiceType::class,[
+                'label' => 'Vous voulez utiliser Prékar en tant que :',
+                'multiple' => true,
+                'expanded' => true,
+                'choices' => [
+                    'Locataire' => 'ROLE_LOCATAIRE',
+                    'Propriétaire' => 'ROLE_PROPRIETAIRE',
+                ]
             ])
         ;
     }
