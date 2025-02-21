@@ -12,11 +12,14 @@
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex flex-col w-1/5">
                 <div class="flex">
-                    <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image" style="cursor: pointer;">
+                    {% if vehicule.imageName %}
+                        <img src="{{ asset('images/vehicules/' ~ vehicule.imageName) }}" alt="Image du véhicule" id="preview" style="cursor: pointer;">
+                    {% else %}
+                        <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image" id="preview" style="cursor: pointer;">
+                    {% endif %}
                     {{ form_widget(vehiculeGerer.image, { 'attr': {'style': 'opacity: 0; position: absolute; width: 20%; height: 40%; cursor: pointer;'} }) }}
 
                 </div>
-                <div class="flex">Carousel</div>
             </div>
             <div class="flex flex-col gap-4 w-4/5 flex-wrap">
                 <div class="flex sm:flex-row flex-col gap-5">
@@ -79,5 +82,27 @@
 
     </div>
     {{ form_end(vehiculeGerer)}}
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const fileInput = document.querySelector("#vehicule_modif_form_image");
+        const preview = document.querySelector("#preview");
+
+        fileInput.addEventListener("change", function () {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove("hidden");
+                };
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+                preview.classList.add("hidden");
+            }
+        });
+    });
+</script>
 {% endblock %}
 

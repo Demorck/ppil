@@ -47,6 +47,9 @@ class Vehicules
     #[ORM\JoinColumn(nullable: false)]
     private ?Utilisateurs $proprietaire = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageName = null;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
@@ -179,6 +182,18 @@ class Vehicules
     public function setProprietaire(?Utilisateurs $proprietaire): static
     {
         $this->proprietaire = $proprietaire;
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): static
+    {
+        $this->imageName = $imageName;
 
         return $this;
     }
