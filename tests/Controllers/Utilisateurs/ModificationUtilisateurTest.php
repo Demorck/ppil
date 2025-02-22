@@ -40,34 +40,90 @@ class ModificationUtilisateurTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/profil');
 
+        $user = $this->entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $mdp = $user->getPassword();
+
         $form = $crawler->selectButton('Sauvegarder')->form([
-            'modification_profil[password]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz6B',
-            'modification_profil[prenom]' => 'Malenia',
-            'modification_profil[nom]' => 'Déesse de la putréfaction',
+            'modification_profil[password]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz8B',
         ]);
 
         $this->client->submit($form);
-        $this->assertResponseRedirects('/');
+        $this->assertResponseRedirects('/profil');
         $this->client->followRedirect();
 
         $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
         $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
 
         $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
-        $this->assertEquals('waw@csuper.coom', $user->getEmail());
-        $this->assertEquals('Malenia', $user->getPrenom());
-        $this->assertNotNull($user->getPassword());
+        $this->assertNotEquals($mdp, $user->getPassword());
+    }
+
+    public function testModifPasswordCourt(): void
+    {
+        $crawler = $this->client->request('GET', '/profil');
+
+        $user = $this->entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $mdp = $user->getPassword();
+
+        $form = $crawler->selectButton('Sauvegarder')->form([
+            'modification_profil[password]' => 'aaaa',
+        ]);
+
+        $this->client->submit($form);
+        $this->assertAnySelectorTextContains('.error', 'Le mot de passe est trop facile, veuillez mettre un mot de passe plus compliqué.');
+
+
+        $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
+        $this->assertEquals($mdp, $user->getPassword());
     }
 
     public function testModifPrenom(): void
     {
         $crawler = $this->client->request('GET', '/profil');
 
+        $form = $crawler->selectButton('Sauvegarder')->form([
+            'modification_profil[prenom]' => 'HelloTher',
+        ]);
+
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/profil');
+        $this->client->followRedirect();
+
+        $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'HelloTher']);
+
+        $nom = $user->getPrenom();
+        $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
+        $this->assertEquals($nom, "HelloTher");
     }
 
     public function testModifNom(): void
     {
         $crawler = $this->client->request('GET', '/profil');
+
+        $form = $crawler->selectButton('Sauvegarder')->form([
+            'modification_profil[nom]' => 'HelloTher',
+        ]);
+
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/profil');
+        $this->client->followRedirect();
+
+        $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $nom = $user->getNom();
+        $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
+        $this->assertEquals($nom, "HelloTher");
 
     }
 }
