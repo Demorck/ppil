@@ -126,4 +126,47 @@ class ModificationUtilisateurTest extends WebTestCase
         $this->assertEquals($nom, "HelloTher");
 
     }
+
+    public function testModifNomKO(): void
+    {
+        $crawler = $this->client->request('GET', '/profil');
+
+        $form = $crawler->selectButton('Sauvegarder')->form([
+            'modification_profil[nom]' => ' ',
+        ]);
+
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/profil');
+        $this->client->followRedirect();
+
+        $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $nom = $user->getNom();
+        $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
+        $this->assertEquals($nom, "Déesse de la putréfaction");
+
+    }
+
+    public function testModifPrenomKO(): void
+    {
+        $crawler = $this->client->request('GET', '/profil');
+
+        $form = $crawler->selectButton('Sauvegarder')->form([
+            'modification_profil[prenom]' => ' ',
+        ]);
+
+        $this->client->submit($form);
+        $this->assertResponseRedirects('/profil');
+        $this->client->followRedirect();
+
+        $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
+
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+
+        $nom = $user->getPrenom();
+        $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
+        $this->assertEquals($nom, "Malenia");
+    }
 }
