@@ -15,6 +15,7 @@
         <div>Date debut</div>
         <div>Date fin</div>
         <div>Prix</div>
+        <div>Status</div>
     </div>
 
     <div class="flex flex-col divide-y divide-red-500">
@@ -23,8 +24,21 @@
                 <div class="flex-1 px-2">{{ offre.vehicule.marque }}</div>
                 <div class="flex-1 px-2">{{ offre.vehicule.modele }}</div>
                 <div class="flex-1 px-2">{{ offre.prix}} €</div>
+                <div class="flex-1 px-2">
+                    {% if offre.statut == 1 %}
+                        Actif 
+                    {% else %} 
+                        Inactif     
+                    {% endif %}
+                </div>
                 <div class="flex-1 flex px-2">
                     <a href="gerer/{{offre.id}}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Gerer</a>
+
+                    {% if offre.statut == 1 %}
+                        <a href="{{ path('suspendre_offre', { id: offre.id }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Suspendre</a>   
+                    {% else %}   
+                        <a href="{{ path('activer_offre', { id: offre.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Activer</a>
+                    {% endif %}
                 </div>
             </div>
         {% else %}
