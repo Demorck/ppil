@@ -44,7 +44,7 @@ class ModificationUtilisateurTest extends WebTestCase
 
         $mdp = $user->getPassword();
 
-        $form = $crawler->selectButton('Sauvegarder')->form([
+        $form = $crawler->selectButton('sauvegarder')->form([
             'modification_profil[password]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz8B',
         ]);
 
@@ -136,12 +136,11 @@ class ModificationUtilisateurTest extends WebTestCase
         ]);
 
         $this->client->submit($form);
-        $this->assertResponseRedirects('/profil');
-        $this->client->followRedirect();
+        $this->assertAnySelectorTextContains('.error', 'Le nom doit faire au moins 2 caractères');
 
         $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
-
-        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
+//        $entityManager->clear();
+        $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['nom' => 'Déesse de la putréfaction']);
 
         $nom = $user->getNom();
         $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
@@ -158,15 +157,14 @@ class ModificationUtilisateurTest extends WebTestCase
         ]);
 
         $this->client->submit($form);
-        $this->assertResponseRedirects('/profil');
-        $this->client->followRedirect();
+        $this->assertAnySelectorTextContains('.error', 'Le prénom doit faire au moins 2 caractères');
 
         $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
 
         $user = $entityManager->getRepository(Utilisateurs::class)->findOneBy(['prenom' => 'Malenia']);
 
-        $nom = $user->getPrenom();
+        $prenom = $user->getPrenom();
         $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
-        $this->assertEquals($nom, "Malenia");
+        $this->assertEquals($prenom, "Malenia");
     }
 }

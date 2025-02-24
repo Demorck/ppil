@@ -28,7 +28,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez renseigner votre prénom.'
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+[a-zA-Z- ]*[a-zA-Z]+$/',
+                        'pattern' => '/^[[:alpha:]]+[[:alpha:] -]*[[:alpha:]]+$/u',
                         'message' => 'Le prénom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas en ni à la fin)'
                     ])
                 ]
@@ -39,7 +39,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'Veuillez renseigner votre nom.'
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+[a-zA-Z- ]*[a-zA-Z]+$/',
+                        'pattern' => '/^[[:alpha:]]+[[:alpha:] -]*[[:alpha:]]+$/u',
                         'message' => 'Le nom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas en ni à la fin)'
                     ])
                 ]

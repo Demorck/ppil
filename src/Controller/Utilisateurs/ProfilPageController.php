@@ -27,15 +27,18 @@ class ProfilPageController extends AbstractController
         $form = $this->createForm(ModificationProfilType::class, $user);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $plainPassword = $form->get('password')->getData();
-            if ($plainPassword != null)
-                $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
+        if ($form->isSubmitted()) {
+            if ($form->isValid()) {
+                $plainPassword = $form->get('password')->getData();
+                if ($plainPassword != null)
+                    $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
-
-            $entityManager->persist($user);
-            $entityManager->flush();
-            return $this->redirectToRoute('app_profile_page');
+                $entityManager->persist($user);
+                $entityManager->flush();
+                return $this->redirectToRoute('app_profile_page');
+            } else {
+                $entityManager->refresh($user);
+            }
         }
 
         return $this->render('utilisateurs/profil_page.html.twig', [

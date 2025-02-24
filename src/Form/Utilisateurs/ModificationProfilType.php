@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\PasswordStrength;
 use Symfony\Component\Validator\Constraints\Regex;
 
@@ -26,24 +27,26 @@ class ModificationProfilType extends AbstractType
                 'disabled' => true
             ])
             ->add('prenom', TextType::class, [
+                'trim' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre prénom.'
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+[a-zA-Z- ]*[a-zA-Z]+$/',
-                        'message' => 'Le prénom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas en ni à la fin)'
+                        'pattern' => '/^[[:alpha:]]+[[:alpha:] -]*[[:alpha:]]+$/u',
+                        'message' => 'Le prénom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas au début ni à la fin)'
                     ])
                 ]
             ])
             ->add('nom', TextType::class, [
+                'trim' => false,
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Veuillez renseigner votre nom.'
                     ]),
                     new Regex([
-                        'pattern' => '/^[a-zA-Z]+[a-zA-Z- ]*[a-zA-Z]+$/',
-                        'message' => 'Le nom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas en ni à la fin)'
+                        'pattern' => '/^[[:alpha:]]+[[:alpha:] -]*[[:alpha:]]+$/u',
+                        'message' => 'Le nom doit faire au moins 2 caractères et ne doit contenir que des lettres, des tirets ou espaces. (mais pas au début ni à la fin)'
                     ])
                 ]
             ])
