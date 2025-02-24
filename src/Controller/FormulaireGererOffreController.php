@@ -43,4 +43,24 @@ final class FormulaireGererOffreController extends AbstractController
             'offre' => $offre,
         ]);
     }
+
+    #[Route('/offre/activer/{id}', name: 'activer_offre', methods: ['GET'])]
+    public function activer(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $offre = $entityManager->getRepository(Offres::class)->find($id);
+        $offre->setStatut(1);
+        $entityManager->persist($offre);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_liste_offres');
+    }
+
+    #[Route('/offre/suspendre/{id}', name: 'suspendre_offre', methods: ['GET'])]
+    public function suspendre(EntityManagerInterface $entityManager, int $id): Response
+    {
+        $offre = $entityManager->getRepository(Offres::class)->find($id);
+        $offre->setStatut(0);
+        $entityManager->persist($offre);
+        $entityManager->flush();
+        return $this->redirectToRoute('app_liste_offres');
+    }
 }
