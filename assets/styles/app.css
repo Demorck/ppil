@@ -1,30 +1,13 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --color-primary: #f55ed5;
-  --color-secondary: #fcd0f3;
-  --color-accent: #801d6b;
-  --color-accent-hover: #a7278b;
-  --color-tab: #fcb6dc;
-  --color-row: #c4719e;
-}
+    --color-primary: #F55ED5;
+    --color-secondary: #FCD0F3;
+    --color-accent: #801D6B;
+    --color-accentHover: #a7278b;
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    --color-tab: #fcb6dc;
+    --color-row: #c4719e;
 }
 
 body {
@@ -33,6 +16,21 @@ body {
     background-size: cover;
 }
 
+#dropdown-menu-profile {
+    @apply absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-20 bg-secondary
+}
+
+#dropdown-menu-profile a {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-tab border-b border-row
+}
+
+#dropdown-menu-profile a:first-child {
+    @apply border-t
+}
+
+/***************************/
+/*   FORMULAIRES   */
+/**************************/
 input[type="text"],
 input[type="number"],
 input[type="date"],
@@ -95,14 +93,14 @@ button {
 }
 
 button[type="submit"] {
-    background: var(--color-accent);
+    background: #f00;
     @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
 }
 
 .btn-rainbow:hover {
     background: linear-gradient(135deg,
-                #ff0000, #ff7300, #ffeb00, #47ff00,
-                #00ffee, #2b65ff, #8000ff, #ff00e1);
+    #ff0000, #ff7300, #ffeb00, #47ff00,
+    #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
     animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
 }
