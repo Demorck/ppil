@@ -4,10 +4,6 @@
 
 {% block body %}
 
-{% if error %}
-    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
-
 {% if app.user %}
 <div class="mb-3">
     You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
@@ -30,13 +26,13 @@
                         <label for="inputPassword">Password</label>
                         <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
                     </div>
-                    <div>
-{#                        <input type="hidden" name="_csrf_token"#}
-{#                               value="{{ csrf_token('authenticate') }}"#}
-{#                        >#}
+                    <div class="error">
+                        {% if error %}
+                           {{ error.messageKey|trans(error.messageData, 'security') }}
+                        {% endif %}
                     </div>
                     <div class="flex justify-center">
-                        <button type="submit" class="btn-rainbow">Login</button>
+                        <button type="submit" name="login" class="btn-rainbow">Login</button>
                     </div>
                 </div>
             </div>

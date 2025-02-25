@@ -3,9 +3,18 @@ document.addEventListener('DOMContentLoaded', () => {
     if (icon_profile != null) {
         icon_profile.addEventListener('click', dropdown_menu_profile);
     }
+
+    let input_change_on_click = document.querySelectorAll('[data-type="change-on-click"]') as NodeListOf<HTMLInputElement>;
+    if (input_change_on_click != null)
+    {
+        input_change_on_click.forEach((input) => {
+            let name = input.dataset.for!;
+            input.addEventListener('click', () => toggle_enabled_input(name));
+        })
+    }
 })
 
-function dropdown_menu_profile() {
+function dropdown_menu_profile() : void {
     let dropdown = document.getElementById('dropdown-menu-profile')!;
     if (dropdown.classList.contains('active')) {
         dropdown.classList.add('hidden');
@@ -14,4 +23,10 @@ function dropdown_menu_profile() {
         dropdown.classList.remove('hidden');
         dropdown.classList.add('active');
     }
+}
+
+function toggle_enabled_input(name: string) : void {
+    console.log('input[name=" ' + name  + ' "]');
+    let input = document.querySelector('input[name="' + name  + '"]') as HTMLInputElement;
+    input.disabled = !input.disabled;
 }

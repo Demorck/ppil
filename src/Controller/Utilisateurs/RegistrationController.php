@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Utilisateurs;
 
+use App\Entity\Locataires;
+use App\Entity\Proprietaires;
 use App\Entity\Utilisateurs;
-use App\Form\RegistrationFormType;
+use App\Form\Utilisateurs\RegistrationFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Entity\Locataires;
-use App\Entity\Proprietaires;
 
 class RegistrationController extends AbstractController
 {
@@ -39,7 +39,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('app_home_page');
         }
 
-        return $this->render('registration/register.html.twig', [
+        return $this->render('utilisateurs/register.html.twig', [
             'title' => "Enregistrement",
             'registrationForm' => $form->createView(),
         ]);

@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Offres;
 
+use App\Entity\Offres;
+use App\Form\FormulaireCreerOffreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-use App\Form\FormulaireCreerOffreType;
-use App\Entity\Offres;
 
 final class FormulaireCreerOffreController extends AbstractController
 {

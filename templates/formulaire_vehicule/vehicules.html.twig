@@ -20,9 +20,9 @@
                 <div class="flex-1 px-2">{{ vehicule.immatriculation }}</div>
                 <div class="flex-1 px-2">{{ vehicule.kilometrage }}km</div>
                 <div class="flex-1 flex px-2">
-                    <a href="#" class="bg-blue-500 px-4 py-2 rounded-full hover:underline">Détails</a>
-                    <a href="#" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Modifier</a>
-                    <a href="#" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Supprimer</a>
+                    <!-- En attente d'une éventuelle implémantation <a href="#" class="bg-blue-500 px-4 py-2 rounded-full hover:underline">Détails</a>-->
+                    <a href="vehicules/{{ vehicule.id }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Modifier</a>
+                    <a href="#" onclick="deleteVehicule({{ vehicule.id }})" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Supprimer</a>
                 </div>
             </div>
         {% else %}
@@ -33,6 +33,13 @@
             </div>
         {% endfor %}
     </div>
+    <script>
+        function deleteVehicule(id) {
+            if (confirm('Voulez-vous vraiment supprimer ce véhicule ?')) {
+                window.location.href = 'vehicules/' + id + '/delete';
+            }
+        }
+    </script>
 </div>
 {% endblock %}
 
