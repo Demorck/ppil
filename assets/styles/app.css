@@ -8,10 +8,16 @@
 
     --color-tab: #fcb6dc;
     --color-row: #c4719e;
+
+    --color-background: #E8B0CA;
+    --color-header: #B13076;
+    --color-wrapper: #F4D7E5;
+    --color-accent-dark: #3F132B;
+    --color-content: #CD8EAB;
 }
 
 body {
-    background-image: url("/roze.png");
+    background: var(--color-background);
     background-position: center;
     background-size: cover;
 }
@@ -36,15 +42,18 @@ input[type="number"],
 input[type="date"],
 input[type="password"],
 input[type="email"],
+input:-webkit-autofill,
 select {
-    width: 100%;
-    border: 2px solid #aaa;
+    border: 2px solid var(--color-accent-dark);
     border-radius: 4px;
     margin: 8px 0;
     outline: none;
     padding: 8px;
     box-sizing: border-box;
     transition: 0.3s;
+    background-color: transparent;;
+
+    @apply placeholder:text-accent-dark sm:text-lg
 }
 
 input[type="text"]:focus,
@@ -52,10 +61,23 @@ input[type="number"]:focus,
 input[type="date"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
+input:-webkit-autofill:focus,
 select:focus {
-    border-color: dodgerBlue;
-    box-shadow: 0 0 8px 0 dodgerBlue;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 8px 0 var(--color-accent);
 }
+
+/**
+    * Enlève l'autofill et la transition permet que ça ne revienne pas (ça marche ?)
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    background-color: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 
 input[disabled] {
     background: #000;
@@ -63,7 +85,7 @@ input[disabled] {
 }
 
 button {
-    @apply px-4 py-2 rounded-full text-3xl cursor-pointer
+    @apply px-4 py-2 rounded-full text-lg cursor-pointer
 }
 
 .checkbox-wrapper input[type="checkbox"] {
@@ -103,9 +125,14 @@ button {
 }
 
 button[type="submit"] {
-    background: #f00;
-    @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
+    background: var(--color-accent-dark);
+    -webkit-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    -moz-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    @apply relative text-content font-bold py-2 px-16 text-xl overflow-hidden transition duration-300
 }
+
+
 
 .btn-rainbow:hover {
     background: linear-gradient(135deg,
@@ -113,6 +140,7 @@ button[type="submit"] {
     #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
     animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
+    color: var(--color-accent-dark);
 }
 
 /***************************/

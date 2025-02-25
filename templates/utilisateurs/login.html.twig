@@ -2,6 +2,10 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block bandeau %}
+{% include 'bandeau.html.twig' with { title: "Connexion" } %}
+{% endblock %}
+
 {% block body %}
 
 {% if app.user %}
@@ -11,20 +15,18 @@
 {% else %}
 <form method="post" action="{{ path('app_login') }}" data-turbo="false">
     <section>
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto">
-{#            <a href=""><img src="{{ asset('img/Placeholder.png') }}" width="32px" alt=""></a>#}
-            <div class="w-full bg-white rounded-xl shadow sm:max-w-md">
-                <div class="p-6">
-                    <h1 class="text-3xl font-bold text-center text-gray-500">
-                        Se connecter
-                    </h1>
-                    <div>
-                        <label for="inputEmail">Email</label>
-                        <input type="email" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                    </div>
-                    <div>
-                        <label for="inputPassword">Password</label>
-                        <input type="password" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto w-3/4">
+            <div class="w-full bg-content rounded-xl py-16 shadow">
+                <div class="p-6 flex flex-1 items-center flex-col gap-8">
+                    <div class="flex flex-1 w-full items-center justify-center flex-col gap-4">
+                        <div class="w-full sm:w-1/2 flex flex-col">
+                            <label for="inputEmail">E-mail</label>
+                            <input type="email" placeholder="E-mail" value="{{ last_username }}" name="_username" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                        </div>
+                        <div class="w-full sm:w-1/2 flex flex-col">
+                            <label for="inputPassword">Mot de passe</label>
+                            <input type="password" placeholder="Mot de passe" name="_password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        </div>
                     </div>
                     <div class="error">
                         {% if error %}
@@ -32,7 +34,10 @@
                         {% endif %}
                     </div>
                     <div class="flex justify-center">
-                        <button type="submit" name="login" class="btn-rainbow">Login</button>
+                        <button type="submit" name="login" class="btn-rainbow">Se connecter</button>
+                    </div>
+                    <div class="flex justify-center text-accent-dark font-bold">
+                        Pas de compte ?&nbsp; <a class="text-header underline hover:text-accent" href="{{ path('app_register') }}">S'inscrire</a>
                     </div>
                 </div>
             </div>

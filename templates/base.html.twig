@@ -16,6 +16,7 @@
     </head>
     <body class="bg-gray-400 flex flex-col h-screen">
             {% include 'nav.html.twig' %}
+            {% block bandeau %}{% endblock %}
             <div class="px-4 mt-5 flex-grow">
                 {% block body %}{% endblock %}
             </div>

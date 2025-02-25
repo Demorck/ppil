@@ -77,7 +77,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
             ->add('roles', ChoiceType::class,[
-                'label' => 'Vous voulez utiliser Prékar en tant que :',
+                'label' => 'Rôles :',
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => [
