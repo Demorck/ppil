@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Offres;
 
 use App\Entity\Abonnements;
 use App\Entity\Offres;
@@ -8,7 +8,7 @@ use App\Repository\AbonnementsRepository;
 use App\Repository\OffresRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 class AbonnementController extends AbstractController
 {
