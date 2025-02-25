@@ -14,6 +14,10 @@ class Abonnements
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\ManyToOne(targetEntity: Utilisateurs::class, inversedBy: "abonnements")]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Utilisateurs $utilisateur = null;
+
     #[ORM\Column]
     private ?int $type = null;
 
@@ -29,6 +33,17 @@ class Abonnements
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUtilisateur(): ?Utilisateurs
+    {
+        return $this->utilisateur;
+    }
+
+    public function setUtilisateur(?Utilisateurs $utilisateur): static
+    {
+        $this->utilisateur = $utilisateur;
+        return $this;
     }
 
     public function getType(): ?int

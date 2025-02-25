@@ -60,11 +60,15 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Locations::class, mappedBy: 'locataire')]
     private Collection $locations;
 
+    #[ORM\OneToMany(mappedBy: "utilisateur", targetEntity: Abonnements::class, orphanRemoval: true)]
+    private Collection $abonnements;
+
     public function __construct()
     {
         $this->vehicules = new ArrayCollection();
         $this->litiges_juriste = new ArrayCollection();
         $this->locations = new ArrayCollection();
+        $this->abonnements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -265,6 +269,30 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+        return $this;
+    }
+
+    public function getAbonnements(): Collection
+    {
+        return $this->abonnements;
+    }
+
+    public function addAbonnement(Abonnements $abonnement): static
+    {
+        if (!$this->abonnements->contains($abonnement)) {
+            $this->abonnements->add($abonnement);
+            $abonnement->setUtilisateur($this);
+        }
+        return $this;
+    }
+
+    public function removeAbonnement(Abonnements $abonnement): static
+    {
+        if ($this->abonnements->removeElement($abonnement)) {
+            if ($abonnement->getUtilisateur() === $this) {
+                $abonnement->setUtilisateur(null);
+            }
+        }
         return $this;
     }
 }
