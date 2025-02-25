@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Offres;
+namespace App\Controller\Utilisateurs;
 
 use App\Entity\Abonnements;
 use App\Entity\Offres;
