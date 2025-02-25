@@ -40,7 +40,6 @@
         </div>
 
         <button type="submit" id="edit-profile" class="btn-rainbow hover:cursor-pointer text-xl">Sauvegarder</button>
-
     </div>
     {{ form_end(form)}}
 
@@ -49,4 +48,11 @@
             document.querySelectorAll('input[disabled]').forEach(input => input.removeAttribute('disabled'));
         });
     </script>
+    
+    <div class="text-center">
+        <form action="{{ path('app_abonnement') }}" method="get">
+            <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mes abonnements</button>
+        </form>
+    </div>
+
 {% endblock %}
