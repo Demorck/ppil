@@ -22,11 +22,11 @@ public function index(AbonnementsRepository $abonnementRepo, OffresRepository $o
         return $this->redirectToRoute('app_login');
     }
 
-    $vehicules = $user->getVehicules();
+    $locations = $user->getLocations();
 
     $offres = [];
-    foreach ($vehicules as $vehicule) {
-        foreach ($vehicule->getOffres() as $offre) {
+    foreach ($locations as $location) {
+        foreach($location->getOffre() as $offre) {
             $offres[] = $offre;
         }
     }
