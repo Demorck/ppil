@@ -58,7 +58,7 @@ class ModificationProfilType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new PasswordStrength([
-                        'minScore' => PasswordStrength::STRENGTH_STRONG,
+                        'minScore' => PasswordStrength::STRENGTH_MEDIUM,
                         'message' => 'Le mot de passe est trop facile, veuillez mettre un mot de passe plus compliqué.'
                     ])
                 ],

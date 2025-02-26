@@ -30,6 +30,12 @@ class VehiculeModifFormType extends AbstractType
                 'mapped' => false,
                 'data' => $options['data']->getMarque(),
             ])
+            ->add('titre', TextType::class, [
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Titre de votre véhicule',
+                ],
+            ])
             ->add('modele', TextType::class, [
                 'required' => true,
                 'attr' => [

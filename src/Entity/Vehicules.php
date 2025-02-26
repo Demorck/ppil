@@ -50,6 +50,9 @@ class Vehicules
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $titre = null;
+
     public function __construct()
     {
         $this->offres = new ArrayCollection();
@@ -194,6 +197,18 @@ class Vehicules
     public function setImageName(?string $imageName): static
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    public function getTitre(): ?string
+    {
+        return $this->titre;
+    }
+
+    public function setTitre(string $titre): static
+    {
+        $this->titre = $titre;
 
         return $this;
     }

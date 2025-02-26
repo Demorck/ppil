@@ -119,6 +119,10 @@ button {
     display: none;
 }
 
+.form-group {
+    @apply flex flex-col flex-1
+}
+
 .error {
     color: #C63940;
     font-weight: bolder;

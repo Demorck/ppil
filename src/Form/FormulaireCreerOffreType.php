@@ -15,8 +15,8 @@ class FormulaireCreerOffreType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        // $userId = $options['user']['id'];
-        $userId = 1;
+         $user = $options['user'];
+         $userID = $user->getId();
     
         $builder
             ->add('dateDebut', null, [
@@ -28,19 +28,21 @@ class FormulaireCreerOffreType extends AbstractType
             ->add('prix', IntegerType::class)
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicules::class,
-                'query_builder' => function (EntityRepository $er) use ($userId) {
+                'query_builder' => function (EntityRepository $er) use ($userID) {
                     return $er->createQueryBuilder('vehicule')
                               ->where('vehicule.proprietaire = :userId')
-                              ->setParameter('userId', $userId);
+                              ->setParameter('userId', $userID);
                 },
                 'choice_label' => function (Vehicules $vehicule) {
-                    return $vehicule->getModele();
+                    return $vehicule->getTitre();
                 },
                 'choice_attr' => function (Vehicules $vehicule) {
                     return [
-                        // 'data-chemin-image' => $vehicule->getCheminImage(),
+                        'data-chemin-image' => $vehicule->getImageName(),
                         'cheminImage' => "images/default.jpg",
-                        'modele' => $vehicule->getModele(),
+                        'data-modele' => $vehicule->getModele(),
+                        'data-plaque' => $vehicule->getImmatriculation(),
+                        'data-marque' => $vehicule->getMarque(),
                     ];
                 },
                 'placeholder' => 'vehicule',
