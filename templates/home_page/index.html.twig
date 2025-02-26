@@ -4,37 +4,57 @@
 
 {% block body %}
 
-<div class="conteneur bg-pink-500 flex-col">
-    <form method="GET" action="/recherche" class="boiteDeRecherche flex flex-col">
-        <label for="nbPlace">Nombre de places : </label>
-        <select name="nbPlace" id="nbPlace">
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4" selected>4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-        </select>
-        
-        <div class="date">
-            <label for="dateDebut">Début : </label>
-            <input type="date" name="dateDebut" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
-            
-            <label for="dateFin">Fin : </label>
-            <input type="date" name="dateFin" id="dateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
-        </div>
-        
-        <button type="submit" id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
-            Rechercher
-        </button>
-    </form>
+<div class="flex justify-center items-center h-full">
+    <div class="bg-wrapper w-full flex flex-col lg:px-16 lg:py-8 gap-4 lg:w-3/4 rounded-xl">
+        <form method="GET" action="/offres" class="boiteDeRecherche flex flex-col">
+            <label for="nbPlace">Nombre de places : </label>
+            <select name="nbPlace" id="nbPlace">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4" selected>4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+            </select>
 
-    <div class="souscriptionAbonnement  bg-pink-500 flex flex-col">
-        <label class="flex justify-center" >Pensez à prendre votre abonnement : </label>
-        <a href="{{ path('routeAbonnement') }}" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300 flex justify-center">
-            Abonnement
-        </a>
+            <div class="flex flex-row justify-evenly">
+                <div class="flex flex-col lg:w-2/6">
+                    <label for="dateDebut">Début</label>
+                    <input type="date" name="dateDebut" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+                </div>
+                <div class="flex flex-col lg:w-2/6">
+                    <label for="dateFin">Fin</label>
+                    <input type="date" name="dateFin" id="dateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+                </div>
+
+                <div class="flex flex-col">
+                    <label for="BoutonRecherche">&nbsp;</label>
+                    <button type="submit" id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold overflow-hidden transition duration-300">
+                        Rechercher
+                    </button>
+                </div>
+            </div>
+        </form>
+
+        <hr>
+
+        <div class="souscriptionAbonnement flex flex-col gap-4">
+            <h1 class="flex justify-center text-2xl" >Pensez à prendre votre abonnement !</h1>
+            {% if app.user %}
+                <div class="flex flex-row justify-center gap-4">
+                    <a href="{{ path('app_abonnement') }}" class="btn-rainbow btn-submit rounded-full">
+                        Souscrire
+                    </a>
+                </div>
+            {% else %}
+                <div class="flex flex-row justify-center gap-4">
+                    <a href="{{ path('app_login') }}" class="btn-rainbow btn-submit rounded-full">
+                        Connexion
+                    </a>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 

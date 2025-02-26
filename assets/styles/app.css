@@ -14,6 +14,7 @@
     --color-wrapper: #F4D7E5;
     --color-accent-dark: #3F132B;
     --color-content: #CD8EAB;
+    --color-dark: #6A3851;
 }
 
 body {
@@ -128,7 +129,7 @@ button {
     font-weight: bolder;
 }
 
-button[type="submit"] {
+button[type="submit"], .btn-submit {
     background: var(--color-accent-dark);
     -webkit-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
     -moz-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));

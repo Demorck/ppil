@@ -28,7 +28,7 @@ final class FormulaireCreerOffreController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            $offre->setStatut(0);
+            $offre->setStatut(1);
             $entityManager->persist($offre);
             $entityManager->flush();
         
