@@ -16,10 +16,16 @@
                     <div class="flex flex-col flex-1">
                         {{ form_label(registrationForm.nom) }}
                         {{ form_widget(registrationForm.nom, { 'attr': { 'placeholder': 'Nom' } }) }}
+                        <div class="error">
+                            {{ form_errors(registrationForm.nom) }}
+                        </div>
                     </div>
                     <div class="flex flex-col flex-1">
                         {{ form_label(registrationForm.prenom) }}
                         {{ form_widget(registrationForm.prenom, { 'attr': { 'placeholder': 'Prénom' } }) }}
+                        <div class="error">
+                            {{ form_errors(registrationForm.prenom) }}
+                        </div>
                     </div>
                 </div>
                 <div class="flex gap-4 flex-1">

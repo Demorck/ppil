@@ -135,7 +135,7 @@ button[type="submit"] {
 
 
 .btn-rainbow:hover {
-    background: linear-gradient(135deg,
+    background: linear-gradient(45deg,
     #ff0000, #ff7300, #ffeb00, #47ff00,
     #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
@@ -153,6 +153,6 @@ button[type="submit"] {
 
 @keyframes rainbow {
     0% { background-position: 0 0; }
-    50% { background-position: 100% -150%; }
-    100% { background-position: 100% -150%; }
+    50% { background-position: 100% 150%; }
+    100% { background-position: 100% 150%; }
 }

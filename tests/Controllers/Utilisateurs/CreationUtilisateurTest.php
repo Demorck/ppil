@@ -35,10 +35,10 @@ class CreationUtilisateurTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register');
 
-        $form = $crawler->selectButton('Register')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]' => 'test@email.com',
             'registration_form[plainPassword]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz6B',
-            'registration_form[nom]' => 'O.Moriah',
+            'registration_form[nom]' => 'O-Moriah',
             'registration_form[prenom]' => 'Magdalene',
         ]);
 
@@ -49,7 +49,7 @@ class CreationUtilisateurTest extends WebTestCase
         $this->client->followRedirect();
 
         $entityManager = static::getContainer()->get('doctrine.orm.entity_manager');
-        $user =  $entityManager->getRepository(Utilisateurs::class)->findOneBy(['nom' => 'O.Moriah']);
+        $user =  $entityManager->getRepository(Utilisateurs::class)->findOneBy(['nom' => 'O-Moriah']);
 
         $this->assertNotNull($user, 'L\'utilisateur n\'a pas été trouvé dans la base de données.');
         $this->assertEquals('test@email.com', $user->getEmail());
@@ -61,9 +61,9 @@ class CreationUtilisateurTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register');
 
-        $form = $crawler->selectButton('Register')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]' => 'test@email.com',
-            'registration_form[nom]' => 'O.Moriah',
+            'registration_form[nom]' => 'O-Moriah',
             'registration_form[prenom]' => 'Magdalene',
         ]);
 
@@ -83,10 +83,10 @@ class CreationUtilisateurTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register');
 
-        $form = $crawler->selectButton('Register')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]' => 'test@email.com',
             'registration_form[plainPassword]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz6B',
-            'registration_form[nom]' => 'O.Moriah',
+            'registration_form[nom]' => 'O-Moriah',
             'registration_form[prenom]' => 'Magdalene',
         ]);
 
@@ -98,10 +98,10 @@ class CreationUtilisateurTest extends WebTestCase
     {
         $crawler = $this->client->request('GET', '/register');
 
-        $form = $crawler->selectButton('Register')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]' => 'test@email.com',
             'registration_form[plainPassword]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz6B',
-            'registration_form[nom]' => 'O.Moriah',
+            'registration_form[nom]' => 'O-Moriah',
             'registration_form[prenom]' => 'Magdalene',
         ]);
 
@@ -110,16 +110,16 @@ class CreationUtilisateurTest extends WebTestCase
 
         $crawler = $this->client->request('GET', '/register');
 
-        $form = $crawler->selectButton('Register')->form([
+        $form = $crawler->selectButton('S\'inscrire')->form([
             'registration_form[email]' => 'test@email.com',
             'registration_form[plainPassword]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz6B',
-            'registration_form[nom]' => 'O.Moriah',
+            'registration_form[nom]' => 'O-Moriah',
             'registration_form[prenom]' => 'Magdalene',
         ]);
 
         $form['registration_form[agreeTerms]']->tick();
 
         $this->client->submit($form);
-        $this->assertSelectorTextContains('.error', 'Un compte existe déjà avec cet email');
+        $this->assertAnySelectorTextContains('.error', 'Un compte existe déjà avec cet email');
     }
 }
