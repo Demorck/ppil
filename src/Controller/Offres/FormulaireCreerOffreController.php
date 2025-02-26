@@ -32,11 +32,11 @@ final class FormulaireCreerOffreController extends AbstractController
             $entityManager->persist($offre);
             $entityManager->flush();
         
-            return $this->redirectToRoute('app_formulaire_vehicules');
+            return $this->redirectToRoute('app_liste_offres');
         }
 
         return $this->render('formulaire_creer_offre/index.html.twig', [
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'title' => "Créer une offre",
         ]);
     }
