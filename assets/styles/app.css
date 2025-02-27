@@ -24,15 +24,15 @@ body {
 }
 
 #dropdown-menu-profile {
-    @apply absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-20 bg-secondary
+    @apply absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-20 bg-secondary;
 }
 
 #dropdown-menu-profile a {
-    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-tab border-b border-row
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-tab border-b border-row;
 }
 
 #dropdown-menu-profile a:first-child {
-    @apply border-t
+    @apply border-t;
 }
 
 /***************************/
@@ -52,7 +52,7 @@ select {
     padding: 8px;
     box-sizing: border-box;
     transition: 0.3s;
-    background-color: transparent;;
+    background-color: transparent;
 
     @apply placeholder:text-accent-dark sm:text-lg
 }
