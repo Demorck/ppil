@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement{% endblock %}
+
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "El PAIEMENT" } %}
+{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col justify-center px-6 py-8 mx-auto w-3/4">
+
+        <div class="w-full bg-content rounded-xl py-16 flex justify-center">
+
+            <div class="p-6 flex flex-col lg:w-3/4 justify-center gap-2">
+                <h1 class="text-3xl text-accent">Formulaire de paiement</h1>
+                <h1 class="text-2xl text-accent">Montant {{ montant }} €</h1>
+
+                <h1 class="text-accent">Véhicule : </h1>
+                <h1 class="text-accent"> {{ vehicule.marque }} {{ vehicule.modele }}</h1>
+                <h1 class="text-accent">Immatriculation : {{ vehicule.immatriculation }}</h1>
+                <h1 class="text-accent">KMs : {{ vehicule.kilometrage }}</h1>
+
+                {{ form_start(paiementForm, {'attr': {'id': 'paiement-form'}}) }}
+
+                <div class="form-body">
+                    <div class="flex flex-col flex-1">
+                        <input type="text" class="card-number" placeholder="Numéro de carte" id="cardNumber" required>
+                        <span id="cardError" style="color: red; display: none;">Numéro de carte invalide</span>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                        <div class="date-field flex gap-4">
+                            <div class="month">
+                                <select name="Month">
+                                    <option value="01">Janvier</option>
+                                    <option value="02">Février</option>
+                                    <option value="03">Mars</option>
+                                    <option value="04">Avril</option>
+                                    <option value="05">Mai</option>
+                                    <option value="06">Juin</option>
+                                    <option value="07">Juillet</option>
+                                    <option value="08">Août</option>
+                                    <option value="09">Septembre</option>
+                                    <option value="10">Octobre</option>
+                                    <option value="11">Novembre</option>
+                                    <option value="12">Décembre</option>
+                                </select>
+                            </div>
+                            <div class="year">
+                                <select name="Year">
+                                    <option value="2025">2025</option>
+                                    <option value="2026">2026</option>
+                                    <option value="2027">2027</option>
+                                    <option value="2028">2028</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col flex-1">
+                        <input type="text" placeholder="CVV" id="cvv" maxlength="3" required>
+                        <span id="cvvError" style="color: red; display: none;">CVV invalide</span>
+                    </div>
+
+                    <button name="payer" type="submit" class="btn-rainbow">Payer</button>
+                </div>
+
+                {{ form_end(paiementForm) }}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("cardNumber").addEventListener("input", function () {
+            let cardInput = this.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+            this.value = cardInput.replace(/(\d{4})/g, "$1 ").trim(); // Formatte par groupes de 4 chiffres
+
+            document.getElementById("cardError").style.display = cardInput.length === 16 ? "none" : "block";
+        });
+
+        document.getElementById("cvv").addEventListener("input", function () {
+            let cvvInput = this.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
+            this.value = cvvInput;
+
+            document.getElementById("cvvError").style.display = cvvInput.length === 3 ? "none" : "block";
+        });
+    </script>
+{% endblock %}
