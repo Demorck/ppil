@@ -4,11 +4,10 @@ namespace App\Controller\Vehicules;
 
 use App\Entity\Proprietaires;
 use App\Entity\Vehicules;
-use App\Form\VehiculeFormType;
-use App\Form\VehiculeModifFormType;
+use App\Form\Vehicules\VehiculeFormType;
+use App\Form\Vehicules\VehiculeModifFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
