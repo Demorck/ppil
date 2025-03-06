@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello OffreController!{% endblock %}
+
+{% block body %}
+{{ form_start(form) }}
+    {{ form_widget(form.dateDebut) }}
+    {{ form_widget(form.dateFin) }}
+
+    <button type="submit">Louer</button>
+{{ form_end(form) }}
+{% endblock %}
