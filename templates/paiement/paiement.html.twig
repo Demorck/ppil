@@ -24,7 +24,7 @@
 
                 <div class="form-body">
                     <div class="flex flex-col flex-1">
-                        <input type="text" class="card-number" placeholder="Numéro de carte" id="cardNumber" required>
+                        <input type="text" class="card-number" placeholder="Numéro de carte" id="cardNumber" maxlength="19" minlength="16" required>
                         <span id="cardError" style="color: red; display: none;">Numéro de carte invalide</span>
                     </div>
 
@@ -56,6 +56,7 @@
                             </div>
                         </div>
                     </div>
+                    <span id="dateError" style="color: red; display: none;">Date invalide</span>
 
                     <div class="flex flex-col flex-1">
                         <input type="text" placeholder="CVV" id="cvv" maxlength="3" required>
@@ -71,18 +72,64 @@
     </div>
 
     <script>
-        document.getElementById("cardNumber").addEventListener("input", function () {
-            let cardInput = this.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
-            this.value = cardInput.replace(/(\d{4})/g, "$1 ").trim(); // Formatte par groupes de 4 chiffres
+        document.addEventListener("DOMContentLoaded", function () {
+            const cardNumber = document.getElementById("cardNumber");
+            const cvv = document.getElementById("cvv");
+            const monthSelect = document.querySelector(".month select");
+            const yearSelect = document.querySelector(".year select");
+            const cardError = document.getElementById("cardError");
+            const cvvError = document.getElementById("cvvError");
+            const dateError = document.getElementById("dateError");
+            const payButton = document.querySelector("button[name='payer']");
+            const form = document.getElementById("paiement-form");
 
-            document.getElementById("cardError").style.display = cardInput.length === 16 ? "none" : "block";
-        });
+            function validateCard() {
+                let cardInput = cardNumber.value.replace(/\D/g, "");
+                cardNumber.value = cardInput.replace(/(\d{4})/g, "$1 ").trim();
+                let isValid = cardInput.length === 16;
+                cardError.style.display = isValid ? "none" : "block";
+                return isValid;
+            }
 
-        document.getElementById("cvv").addEventListener("input", function () {
-            let cvvInput = this.value.replace(/\D/g, ""); // Supprime tout sauf les chiffres
-            this.value = cvvInput;
+            function validateCVV() {
+                let cvvInput = cvv.value.replace(/\D/g, "");
+                cvv.value = cvvInput;
+                let isValid = cvvInput.length === 3;
+                cvvError.style.display = isValid ? "none" : "block";
+                return isValid;
+            }
 
-            document.getElementById("cvvError").style.display = cvvInput.length === 3 ? "none" : "block";
+            function validateDate() {
+                let month = parseInt(monthSelect.value, 10);
+                let year = parseInt(yearSelect.value, 10);
+                let currentDate = new Date();
+                let cardDate = new Date(year, month - 1);
+
+                let isValid = cardDate > currentDate;
+                dateError.style.display = isValid ? "none" : "block"; // Affiche ou masque l'erreur
+                return isValid;
+            }
+
+            function validateForm() {
+                let isCardValid = validateCard();
+                let isCVVValid = validateCVV();
+                let isDateValid = validateDate();
+
+                payButton.disabled = !(isCardValid && isCVVValid && isDateValid);
+            }
+
+            cardNumber.addEventListener("input", validateForm);
+            cvv.addEventListener("input", validateForm);
+            monthSelect.addEventListener("change", validateForm);
+            yearSelect.addEventListener("change", validateForm);
+
+            form.addEventListener("submit", function (event) {
+                if (payButton.disabled) {
+                    event.preventDefault();
+                }
+            });
         });
     </script>
+
+
 {% endblock %}

@@ -31,8 +31,8 @@ class   PaiementController extends AbstractController
             return $this->redirectToRoute('app_home_page');
         }
 
-        $testPaiement = $entMan->getRepository(Paiements::class)->find($id);
-        if ($testPaiement !== null) {
+        $testPaiement = $entMan->getRepository(Paiements::class)->findBy(['location' => $id]);
+        if ($testPaiement != null) {
             return $this->redirectToRoute('app_home_page');
         }
 
