@@ -3,10 +3,74 @@
 {% block title %}Hello OffreController!{% endblock %}
 
 {% block body %}
-{{ form_start(form) }}
-    {{ form_widget(form.dateDebut) }}
-    {{ form_widget(form.dateFin) }}
+{{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}}) }}
+<div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col w-2/6">
+            <div class="flex">
+                {% if offre.vehicule.imageName %}
+                    <img src="{{ asset('images/vehicules/' ~ offre.vehicule.imageName) }}" alt="Image de la voiture" class="aspect-square"/>
+                {% else %}
+                    <img src="{{ asset('images/default.jpg') }}" alt="Image de la voiture" class="aspect-square"/>
+                {% endif %}
+            </div>
+        </div>
+        <div class="flex flex-col gap-4 w-4/5 flex-wrap">
+            <div class="flex flex-col gap-2">
+                <div>
+                    <h1 class="text-2xl font-bold">{{ offre.vehicule.titre }}</h1>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Marque:</div>
+                    <div>&nbsp; {{ offre.vehicule.marque }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Modèle:</div>
+                    <div>&nbsp; {{ offre.vehicule.modele }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Année:</div>
+                    <div>&nbsp; {{ offre.vehicule.annee|date('Y') }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Places:</div>
+                    <div>&nbsp; {{ offre.vehicule.nombrePlace }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Carburant:</div>
+                    <div>&nbsp; {{ offre.vehicule.typeCarburant }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Kilométrage:</div>
+                    <div>&nbsp; {{ offre.vehicule.kilometrage }}</div>
+                </div>
+                <div class="flex flex-row">
+                    <div class="font-bold underline">Prix:</div>
+                    <div>&nbsp; {{ offre.prix }} €</div>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-between">
+                    <div class="flex flex-col">
+                        {{ form_label(form.dateDebut) }}
+                        {{ form_widget(form.dateDebut) }}
+                        <div class="error">
+                            {{ form_errors(form.dateDebut) }}
+                        </div>
+                    </div>
 
-    <button type="submit">Louer</button>
+                    <div class="flex flex-col">
+                        {{ form_label(form.dateFin) }}
+                        {{ form_widget(form.dateFin) }}
+                        <div class="error">
+                            {{ form_errors(form.dateFin) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex flex-row justify-center">
+        <button type="submit">Louer</button>
+    </div>
+</div>
 {{ form_end(form) }}
 {% endblock %}

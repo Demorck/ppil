@@ -26,12 +26,11 @@ class NoDateOverlapValidator extends ConstraintValidator
             $existingStart = $range['dateDebut'];
             $existingEnd = $range['dateFin'];
 
-            if (
-                ($dateDebut < $existingEnd && $dateFin > $existingStart)
-            ) {
+            // Vérifier la condition de chevauchement
+            if ($dateDebut < $existingEnd && $dateFin > $existingStart) {
                 $this->context->buildViolation($constraint->message)
                     ->addViolation();
-                break;
+                return;
             }
         }
     }

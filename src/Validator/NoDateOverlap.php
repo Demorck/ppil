@@ -6,7 +6,7 @@ use Symfony\Component\Validator\Constraint;
 
 class NoDateOverlap extends Constraint
 {
-    public string $message = "La plage de date se chevauche avec une autre";
+    public string $message = "Le véhicule est déjà réservé pour cette période.";
 
     public array $existingRanges = [];
 

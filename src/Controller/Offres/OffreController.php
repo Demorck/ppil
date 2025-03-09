@@ -25,9 +25,13 @@ class OffreController extends AbstractController
 
         $offre = $entityManager->getRepository(Offres::class)->find($id);
         $user = $this->getUser();
-        $range = [
-            ['dateDebut' => $offre->getDateDebut(), 'dateFin' => $offre->getDateFin()]
-        ];
+        $range = [];
+        foreach ($offre->getLocations() as $location) {
+            $range[] = [
+                'dateDebut' => $location->getDateDebut(),
+                'dateFin' => $location->getDateFin(),
+            ];
+        }
         
         if (!$offre) {
             throw $this->createNotFoundException('Offre non trouvée.');
@@ -36,7 +40,7 @@ class OffreController extends AbstractController
         $location = new Locations();
         $form = $this->createForm(OffreType::class, $location, [
             'offre' => $offre,
-            'existingRanges' => $range,
+            'existing_ranges' => $range,
         ]);
         $form->handleRequest($request);
 
