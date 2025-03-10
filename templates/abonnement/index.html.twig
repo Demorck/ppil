@@ -10,7 +10,7 @@
     </div>
     <div class="flex flex-col divide-y divide-red-500">
         {% for abonnement in abonnements %}
-            <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
+            <div class="abonnement flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
                 <div class="flex-1 px-2">Type : {{ abonnement.type }}</div>
                 <div class="flex-1 px-2">Début : {{ abonnement.dateDebut|date("d/m/Y") }}</div>
                 <div class="flex-1 px-2">Fin : {{ abonnement.dateFin|date("d/m/Y") }}</div>
@@ -32,7 +32,7 @@
     </div>
     <div class="flex flex-col divide-y divide-red-500">
         {% for offre in offres %}
-            <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
+            <div class="offre flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
                 <div class="flex-1 px-2">{{ offre.nom }}</div>
                 <div class="flex-1 px-2">Description : {{ offre.description }}</div>
                 <div class="flex-1 px-2">Prix : {{ offre.prix }} €</div>
