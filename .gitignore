@@ -69,6 +69,3 @@ yarn-error.log
 /migrations/*
 *.exe
 /var
-.vscode/settings.json
-.phpunit.result.cache
-composer.lock
