@@ -31,12 +31,15 @@
         </div>
     </div>
 
-    <div class="w-full flex justify-center my-8">
-        <a href="/validation-permis" class="btn-rainbow btn-submit rounded-full opacity-50 cursor-not-allowed" 
-           id="validate-btn" style="pointer-events: none;">
-            Valider le permis
-        </a>
-    </div>
+    <form method="POST" action="{{ path('app_page_envoie_permis') }}">
+        <div class="w-full flex justify-center my-8">
+            <button type="submit" class="btn-rainbow btn-submit rounded-full opacity-50 cursor-not-allowed" 
+                id="validate-btn" style="pointer-events: none;">
+                Valider le permis
+            </button>
+        </div>
+    </form>
+
 
 </div>
 
