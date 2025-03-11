@@ -28,6 +28,12 @@ class VehiculeFormType extends AbstractType
                     'placeholder' => 'Marque du véhicule',
                 ],
             ])
+            ->add('titre', TextType::class, [
+                'required' => true,
+                'attr' => [
+                    'placeholder' => 'Titre de votre véhicule',
+                ],
+            ])
             ->add('modele', TextType::class, [
                 'required' => true,
                 'attr' => [

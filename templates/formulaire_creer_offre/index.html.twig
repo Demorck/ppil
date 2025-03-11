@@ -1,35 +1,52 @@
 {% extends 'base.html.twig' %}
 {% block title %}Creation offre{% endblock %}
+
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Nouvelle offre" } %}
+{% endblock %}
+
 {% block body %}
-{{ form_start(form)}}
-<div class="w-full bg-secondary flex flex-col p-4 gap-4">
-    <div class="text-4xl font-bold text-center">
-        Nouvelle offre
-    </div>
+{{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}}) }}
+<div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl">
     <div class="flex flex-col sm:flex-row gap-4">
-        <div class="flex flex-col w-1/5">
+        <div class="flex flex-col w-2/6">
             <div class="flex">
-                <img id="vehiculeImage" src="{{ asset('images/default.jpg') }}" alt="Image du véhicule" style="max-width: 300px">
+                <img id="vehiculeImage" src="{{ asset('images/default.jpg') }}" alt="Image du véhicule">
             </div>
-            <div class="flex">Carousel</div>
         </div>
         <div class="flex flex-col gap-4 w-4/5 flex-wrap">
-            <div class="flex sm:flex-row flex-col gap-5">
+            <div class="flex flex-row gap-5">
                 <div class="form-group">
-                    {{ form_row(form.vehicule) }}
+                    {{ form_label(form.vehicule) }}
+                    {{ form_widget(form.vehicule) }}
+                </div>
+                <div class="form-group flex flex-col">
+                    <div class="font-medium">Marque: <span class="font-normal no-underline" id="marque_voiture"></span></div>
+                    <div class="font-medium">Modèle: <span class="font-normal no-underline" id="modele_voiture"></span></div>
+                    <div class="font-medium">Plaque: <span class="font-normal no-underline" id="plaque_voiture"></span></div>
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-5">
                 <div class="form-group form-calendar-year">
-                    {{ form_row(form.dateDebut) }}
+                    {{ form_label(form.dateDebut) }}
+                    {{ form_widget(form.dateDebut) }}
                 </div>
                 <div class="form-group">
-                    {{ form_row(form.dateFin) }}
+                    {{ form_label(form.dateFin) }}
+                    {{ form_widget(form.dateFin) }}
                 </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-5">
                 <div class="form-group">
-                    {{ form_row(form.prix) }}
+                    {{ form_label(form.prix) }}
+                    <div class="flex flex-row items-center gap-4">
+                        {{ form_widget(form.prix) }}
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="">Surcoût (n'est pas implémenté pour le moment)</label>
+                    <input type="text">
                 </div>
             </div>
         </div>
@@ -53,13 +70,29 @@ document.addEventListener('DOMContentLoaded', function() {
     const selectVehicule = document.getElementById('{{ form.vehicule.vars.id }}');
     const image = document.getElementById('vehiculeImage');
 
+    let marqueSpan = document.querySelector('#marque_voiture');
+    let modeleSpan = document.querySelector('#modele_voiture');
+    let plaqueSpan = document.querySelector('#plaque_voiture');
+
     selectVehicule.addEventListener('change', function() {
         const selectedOption = this.options[this.selectedIndex];
         if (selectedOption.value) {
-            image.src = '/' + selectedOption.getAttribute('cheminImage');
-            image.style.display = 'block';
+            imageName = selectedOption.dataset.cheminImage;
+            image.src = '/images/vehicules/' + imageName;
+
+            let marque = selectedOption.dataset.marque;
+            let modele = selectedOption.dataset.modele;
+            let plaque = selectedOption.dataset.plaque;
+
+            marqueSpan.textContent = marque;
+            modeleSpan.textContent = modele;
+            plaqueSpan.textContent = plaque;
         } else {
-            image.style.display = 'none';
+            image.src = '/images/default.jpg';
+
+            marqueSpan.textContent = '';
+            modeleSpan.textContent = '';
+            plaqueSpan.textContent = '';
         }
     });
 });

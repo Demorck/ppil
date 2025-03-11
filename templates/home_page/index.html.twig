@@ -1,8 +1,43 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomePageController!{% endblock %}
+{% block title %} Prékar {% endblock %}
 
 {% block body %}
 
-Bonjour :)
+<div class="conteneur bg-pink-500 flex-col">
+    <form method="GET" action="/recherche" class="boiteDeRecherche flex flex-col">
+        <label for="nbPlace">Nombre de places : </label>
+        <select name="nbPlace" id="nbPlace">
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4" selected>4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+        </select>
+        
+        <div class="date">
+            <label for="dateDebut">Début : </label>
+            <input type="date" name="dateDebut" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+            
+            <label for="dateFin">Fin : </label>
+            <input type="date" name="dateFin" id="dateFin" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
+        </div>
+        
+        <button type="submit" id="BoutonRecherche" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+            Rechercher
+        </button>
+    </form>
+
+    <div class="souscriptionAbonnement  bg-pink-500 flex flex-col">
+        <label class="flex justify-center" >Pensez à prendre votre abonnement : </label>
+        <a href="{{ path('routeAbonnement') }}" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300 flex justify-center">
+            Abonnement
+        </a>
+    </div>
+</div>
+
+
+
 {% endblock %}

@@ -3,8 +3,8 @@
 {% block title %}Hello FormulaireVehiculeController!{% endblock %}
 
 {% block body %}
-<div class="container bg-secondary mx-auto p-4 rounded-xl">
-    <div class="flex flex-row font-bold bg-gray-100 p-2 border-b border-gray-300 text-center">
+<div class="container bg-content mx-auto p-4 rounded-xl">
+    <div class="flex flex-row font-bold bg-header p-2 border-gray-300 text-center text-green-200">
         <div class="flex-1 px-2">Marque</div>
         <div class="flex-1 px-2">Modèle</div>
         <div class="flex-1 px-2">Immatriculation</div>
@@ -12,7 +12,7 @@
         <div class="flex-1 px-2">Actions</div>
     </div>
 
-    <div class="flex flex-col divide-y divide-red-500">
+    <div class="flex flex-col divide-y text-slate-800">
         {% for vehicule in vehicules %}
             <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
                 <div class="flex-1 px-2">{{ vehicule.marque }}</div>
@@ -26,12 +26,18 @@
                 </div>
             </div>
         {% else %}
-            <div class="flex flex-row items-center p-2 text-gray-500">
+            <div class="flex flex-row items-center p-2 font-medium">
                 <div class="flex-1 text-center">
                     Vous n'avez pas encore de véhicule en location.
                 </div>
             </div>
         {% endfor %}
+
+        <div class="flex justify-center mt-2">
+            <a href="{{ path('app_formulaire_ajoutVehicule') }}" class="px-4 py-2 rounded-3xl btn-rainbow bg-accent-dark text-white font-bold">
+                + Ajouter un véhicule
+            </a>
+        </div>
     </div>
     <script>
         function deleteVehicule(id) {

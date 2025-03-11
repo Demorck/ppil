@@ -94,15 +94,24 @@ button {
     display: none;
 }
 
+.form-group {
+    @apply flex flex-col flex-1
+}
+
+.error {
+    color: #C63940;
+    font-weight: bolder;
+}
+
 button[type="submit"] {
     background: var(--color-accent);
     @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
 }
 
 .btn-rainbow:hover {
-    background: linear-gradient(135deg,
-                #ff0000, #ff7300, #ffeb00, #47ff00,
-                #00ffee, #2b65ff, #8000ff, #ff00e1);
+    background: linear-gradient(45deg,
+    #ff0000, #ff7300, #ffeb00, #47ff00,
+    #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
     animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
 }
@@ -117,6 +126,6 @@ button[type="submit"] {
 
 @keyframes rainbow {
     0% { background-position: 0 0; }
-    50% { background-position: 100% -150%; }
-    100% { background-position: 100% -150%; }
+    50% { background-position: 100% 150%; }
+    100% { background-position: 100% 150%; }
 }
