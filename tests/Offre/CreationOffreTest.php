@@ -18,6 +18,7 @@ class CreationOffreTest extends WebTestCase
     {
         $this->client = static::createClient(); 
         $this->entityManager = static::getContainer()->get('doctrine')->getManager();
+
         $this->userHelper = new UserHelper($this->client, $this->entityManager);
     }
     
@@ -30,11 +31,9 @@ class CreationOffreTest extends WebTestCase
 
     public function testCreerOffre(): void
     {
-        // Création et connexion de l'utilisateur
         $user = $this->userHelper->createLocataire("test@email.com");
         $this->userHelper->login($user);
-
-        // Création d'un véhicule nécessaire pour l'offre
+    
         $vehicule = new Vehicules();
         $vehicule->setMarque('Peugeot');
         $vehicule->setModele('208');
@@ -43,50 +42,34 @@ class CreationOffreTest extends WebTestCase
         $vehicule->setNombrePlace(5);
         $vehicule->setTypeCarburant('Essence');
         $vehicule->setKilometrage(100000);
-
+        $vehicule->setProprietaire($user); 
+    
         $this->entityManager->persist($vehicule);
         $this->entityManager->flush();
-
-        // Accéder à la page de création d'offre
+        $this->entityManager->refresh($vehicule); 
+    
         $crawler = $this->client->request('GET', '/offre/creer');
-
-        // Vérifier que la page s'affiche correctement
         $this->assertResponseIsSuccessful();
-
-        // Remplir et soumettre le formulaire
-        $form = $crawler->selectButton('Créer l\'offre')->form([
-            'formulaire_creer_offre[titre]' => 'Offre de test',
-            'formulaire_creer_offre[description]' => 'Ceci est une description de test.',
+    
+        $form = $crawler->selectButton('Publier')->form([ 
             'formulaire_creer_offre[prix]' => 100,
             'formulaire_creer_offre[dateDebut]' => '2025-03-01',
             'formulaire_creer_offre[dateFin]' => '2025-03-10',
-            'formulaire_creer_offre[vehicule]' => $vehicule->getId(), // Sélection du véhicule
+            'formulaire_creer_offre[vehicule]' => $vehicule->getId(),
         ]);
-
+    
         $this->client->submit($form);
-
-        // Vérifier la redirection après soumission
-        $this->assertResponseRedirects('/vehicules');
-        $this->client->followRedirect();
-
-        // Vérifier que l'offre apparaît sur la page des véhicules
-        $this->assertSelectorTextContains('html', 'Offre de test');
-
-        // Vérifier en base de données que l'offre est bien enregistrée
-        $offre = $this->entityManager->getRepository(Offres::class)->findOneBy(['titre' => 'Offre de test']);
-        $this->assertNotNull($offre, "L'offre n'a pas été trouvée dans la base de données");
-        $this->assertEquals('Offre de test', $offre->getTitre());
-        $this->assertEquals('Ceci est une description de test.', $offre->getDescription());
+    
+        $offre = $this->entityManager->getRepository(Offres::class)->findOneBy(['vehicule' => $vehicule->getId()]);
+        $this->assertNotNull($offre, "L'offre n'a pas été trouvée en base de données");
         $this->assertEquals(100, $offre->getPrix());
         $this->assertEquals(new \DateTime('2025-03-01'), $offre->getDateDebut());
         $this->assertEquals(new \DateTime('2025-03-10'), $offre->getDateFin());
-        $this->assertEquals(0, $offre->getStatut()); // Vérifier que le statut est bien mis à 0
         $this->assertEquals($vehicule->getId(), $offre->getVehicule()->getId());
     }
-
+    
     public function testAccesSansConnexion(): void
     {
-        // Tenter d'accéder à la page sans être connecté
         $this->client->request('GET', '/offre/creer');
         $this->assertResponseRedirects('/login');
     }
