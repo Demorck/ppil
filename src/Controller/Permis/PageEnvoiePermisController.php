@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Permis;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\HttpFoundation\Request;
 
 class PageEnvoiePermisController extends AbstractController
 {
@@ -23,10 +23,10 @@ class PageEnvoiePermisController extends AbstractController
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('/verificationPermis');
+            return $this->redirectToRoute('app_permis_validation');
         }
 
-        return $this->render('page_envoie_permis/index.html.twig', [
+        return $this->render('permis/envoie_permis.html.twig', [
             'controller_name' => 'PageEnvoiePermisController',
         ]);
     }

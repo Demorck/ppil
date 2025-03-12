@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ListeLitigeController extends AbstractController
 {
-    #[Route('/litiges', name: 'app_litiges')]
+    #[Route('/litiges', name: 'app_liste_litiges')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser() === null) {
@@ -25,7 +25,7 @@ class ListeLitigeController extends AbstractController
 
         dump($litiges);
 
-        return $this->render('liste_litige/index.html.twig', [
+        return $this->render('litiges/liste_litiges.html.twig', [
             'controller_name' => 'litigesController',
             'litiges' => $litiges,   
         ]);

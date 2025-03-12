@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Utilisateurs;
+namespace App\Controller\Utilisateurs\Abonnements;
 
 use App\Entity\Abonnements;
 use App\Form\Utilisateurs\AbonnementType;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class SouscriptionAbonnementController extends AbstractController
 {
-    #[Route('/abonnement/new', name: 'app_souscription_abonnement')]
+    #[Route('/abonnement/nouveau', name: 'app_souscription_abonnement')]
     public function index(EntityManagerInterface $entityManager, Request $request): Response
     {
         if (!$this->getUser()) {

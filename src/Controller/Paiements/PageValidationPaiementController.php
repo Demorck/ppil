@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Paiement;
+namespace App\Controller\Paiements;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,7 +17,7 @@ class PageValidationPaiementController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('page_validation_paiement/index.html.twig', [
+        return $this->render('paiements/validation_paiement.html.twig', [
             'controller_name' => 'PageValidationPaiementController',
         ]);
     }

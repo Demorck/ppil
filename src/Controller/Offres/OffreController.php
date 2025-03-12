@@ -24,6 +24,10 @@ class OffreController extends AbstractController
 
 
         $offre = $entityManager->getRepository(Offres::class)->find($id);
+        if (!$offre) {
+            throw $this->createNotFoundException('Offre non trouvée.');
+        }
+
         $user = $this->getUser();
         $range = [];
         foreach ($offre->getLocations() as $location) {
@@ -31,10 +35,6 @@ class OffreController extends AbstractController
                 'dateDebut' => $location->getDateDebut(),
                 'dateFin' => $location->getDateFin(),
             ];
-        }
-        
-        if (!$offre) {
-            throw $this->createNotFoundException('Offre non trouvée.');
         }
 
         $location = new Locations();
@@ -54,7 +54,7 @@ class OffreController extends AbstractController
             return $this->redirectToRoute('app_home_page');
         }
 
-        return $this->render('offre/index.html.twig', [
+        return $this->render('offres/page_offre.html.twig', [
             'form'  => $form->createView(),
             'controller_name' => 'OffreController',
             'offre' => $offre,

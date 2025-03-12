@@ -1,9 +1,7 @@
 <?php
 
-namespace App\Controller\Utilisateurs;
+namespace App\Controller\Utilisateurs\Abonnements;
 
-use App\Entity\Abonnements;
-use App\Entity\Offres;
 use App\Repository\AbonnementsRepository;
 use App\Repository\OffresRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,7 +26,7 @@ class AbonnementController extends AbstractController
 
         return $this->render('abonnement/index.html.twig', [
             'abonnements' => $abonnements,
-            'offres' => $locations,
+            'locations' => $locations,
         ]);
     }
 }

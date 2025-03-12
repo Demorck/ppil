@@ -7,15 +7,19 @@
     {% for offre in offres %}
         <div class="flex flex-1 flex-row bg-content p-6 rounded-2xl gap-6">
             <div class="max-h-64 ">
+                <a href="{{ path('app_offre', {id: offre.id}) }}">
                 {% if offre.vehicule.imageName %}
                     <img src="{{ asset('images/vehicules/' ~ offre.vehicule.imageName) }}" alt="Image de la voiture" class="w-64 aspect-square"/>
                 {% else %}
                     <img src="{{ asset('images/default.jpg') }}" alt="Image de la voiture" class="w-64 aspect-square"/>
                 {% endif %}
+                </a>
             </div>
             <div class="flex flex-col flex-1">
                 <div class="flex flex-col flex-1">
-                    <h1 class="font-bold text-accent-dark text-3xl">{{ offre.vehicule.titre }}</h1>
+                    <a href="{{ path('app_offre', {id: offre.id}) }}">
+                        <h1 class="font-bold text-accent-dark text-3xl">{{ offre.vehicule.titre }}</h1>
+                    </a>
                     <div><span class="underline font-bold">Marque:</span>&nbsp;{{ offre.vehicule.marque }}</div>
                     <div><span class="underline font-bold">Modèle:</span>&nbsp;{{ offre.vehicule.modele }}</div>
                     <div><span class="underline font-bold">Nombre de place:</span>&nbsp;{{ offre.vehicule.nombrePlace }}</div>

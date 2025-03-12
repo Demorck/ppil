@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class PermisValidationController extends AbstractController
 {
-    #[Route('/permis/permis/validation', name: 'app_permis_permis_validation')]
+    #[Route('/permis/validation', name: 'app_permis_validation')]
     public function index(): Response
     {
         $user = $this->getUser();
@@ -17,7 +17,7 @@ class PermisValidationController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        return $this->render('permis/permis_validation/index.html.twig', [
+        return $this->render('permis/validation_permis.html.twig', [
             'controller_name' => 'PermisValidationController',
         ]);
     }

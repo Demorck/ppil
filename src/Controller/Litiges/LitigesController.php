@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class LitigesController extends AbstractController
 {
-    #[Route('/location/{id1}/litiges/{id}', name: 'app_litiges')]
+    #[Route('/location/{id1}/litiges/{id}', name: 'app_litige_location')]
     public function index(Request $request, EntityManagerInterface $entMan, $id, $id1): Response
     {
         if ($this->getUser() === null) {
@@ -44,7 +44,7 @@ class LitigesController extends AbstractController
 
         $litigeId = $litige->getId();
 
-        return $this->render('litiges/index.html.twig', [
+        return $this->render('litiges/page_litige.html.twig', [
             'controller_name' => 'LitigesController',
             'litigeText' => $litigeText,
             'litigeStatus' => $litigeStatus,

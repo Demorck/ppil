@@ -1,19 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Validation de paiement{% endblock %}
+{% block title %}ValidationController{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: bold 24px/1.5 sans-serif; text-align:center; padding-top: 100px}
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-    button { margin: 20px;}
-</style>
+<div class="flex flex-col justify-center items-center h-full gap-8">
+    <h1 class="text-2xl font-bold">Votre Permis a bien été validé !</h1>
+    <div class="flex flex-row justify-around gap-8">
 
-<div class="example-wrapper">
-    <h1>Votre paiement à bien été validé !</h1>
-</div>
-<div class="flex justify-center items-center">
-    <div class="flex flex-row justify-between">
         <div class="flex flex-col">
             <form action="{{ path('app_home_page') }}" method="get">
                 <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Retour à l'accueil</button>
@@ -26,5 +19,4 @@
         </div>
     </div>
 </div>
-
 {% endblock %}
