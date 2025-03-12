@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Offre;
+namespace App\Tests\Controllers\Offres;
 
 use App\Entity\Offres;
 use App\Entity\Vehicules;
