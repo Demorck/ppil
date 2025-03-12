@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PageEnvoiePermisController!{% endblock %}
+
+{% block body %}
+<div class="flex flex-col justify-center items-center gap-4">
+
+    <div class="bg-wrapper w-full lg:px-16 lg:py-8 gap-4">
+        <h1 class="flex justify-center items-center h-full text-3xl">Vérification du permis</h1>
+    </div>
+
+    <div class="bg-wrapper w-full lg:px-16 lg:py-8 gap-4 flex justify-center">
+        <div class="hero">
+            <label for="input-file1" id="drop-area1" class="drop-area">
+                <input type="file" accept="image/*" id="input-file1" hidden>
+                <div id="img-view1" class="img-view">
+                    <p>Ajoutez le recto de votre permis ici</p>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <div class="bg-wrapper w-full lg:px-16 lg:py-8 gap-4 flex justify-center">
+        <div class="hero">
+            <label for="input-file2" id="drop-area2" class="drop-area">
+                <input type="file" accept="image/*" id="input-file2" hidden>
+                <div id="img-view2" class="img-view">
+                    <p>Ajoutez le verso de votre permis ici</p>
+                </div>
+            </label>
+        </div>
+    </div>
+
+    <form method="POST" action="{{ path('app_page_envoie_permis') }}">
+        <div class="w-full flex justify-center my-8">
+            <button type="submit" class="btn-rainbow btn-submit rounded-full opacity-50 cursor-not-allowed" 
+                id="validate-btn" style="pointer-events: none;">
+                Valider le permis
+            </button>
+        </div>
+    </form>
+
+
+</div>
+
+<script>
+    function uploadImage(inputId, imgViewId) {
+        const inputFile = document.getElementById(inputId);
+        const imageView = document.getElementById(imgViewId);
+
+        inputFile.addEventListener("change", function() {
+            if (inputFile.files && inputFile.files[0]) {
+                let imgLink = URL.createObjectURL(inputFile.files[0]);
+                imageView.style.backgroundImage = `url(${imgLink})`;
+                imageView.textContent = ""; 
+                imageView.style.border = "none";
+                imageView.style.backgroundSize = "cover";
+                imageView.style.backgroundPosition = "center";
+                checkValidation();
+            }
+        });
+    }
+
+    function checkValidation() {
+        const file1 = document.getElementById("input-file1").files.length > 0;
+        const file2 = document.getElementById("input-file2").files.length > 0;
+        const validateBtn = document.getElementById("validate-btn");
+
+        if (file1 && file2) {
+            validateBtn.classList.remove("opacity-50", "cursor-not-allowed");
+            validateBtn.style.pointerEvents = "auto";
+        } else {
+            validateBtn.classList.add("opacity-50", "cursor-not-allowed");
+            validateBtn.style.pointerEvents = "none";
+        }
+    }
+
+    uploadImage("input-file1", "img-view1");
+    uploadImage("input-file2", "img-view2");
+</script>
+
+<style>
+    .img-view {
+        width: 300px;
+        height: 150px;
+        border: 2px dashed #ccc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #666;
+    }
+</style>
+
+{% endblock %}
