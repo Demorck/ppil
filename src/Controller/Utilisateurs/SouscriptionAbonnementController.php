@@ -31,7 +31,7 @@ class SouscriptionAbonnementController extends AbstractController
             [
                 'type' => 'Hebdomadaire',
                 'prix' => 15,
-                'description' => 'Abonnement quotidien, valide 24 heures.',
+                'description' => 'Abonnement hebdomadaire, valide 7 jours heures.',
             ],
             [
                 'type' => 'Mensuel',
@@ -44,6 +44,22 @@ class SouscriptionAbonnementController extends AbstractController
                 'description' => 'Abonnement annuel, valide pendant 365 jours.',
             ],
         ];
+
+        $actifs = $entityManager->getRepository(Abonnements::class)->findBy([
+            'utilisateur' => $this->getUser(),
+            'statut' => 1
+        ]);
+
+        $now = new \DateTime();
+        $actifs = array_filter($actifs, function (Abonnements $abonnement) use ($now) {
+            return $abonnement->getDateFin() >= $now;
+        });
+
+        $dureeRestante = 0;
+        foreach ($actifs as $abonnement) {
+            $diff = (new \DateTime())->diff($abonnement->getDateFin());
+            $dureeRestante += max(0, $diff->days);
+        }
 
         $abonnements = new Abonnements();
         $form = $this->createForm(AbonnementType::class, $abonnements);
@@ -63,14 +79,19 @@ class SouscriptionAbonnementController extends AbstractController
             return $this->redirectToRoute('app_abonnement');
         }
 
-
+        $dateFin = null;
+        if ($dureeRestante > 0) {
+            $dateFin = (new \DateTime())->add(new \DateInterval('P' . $dureeRestante . 'D'));
+        }
         return $this->render('abonnement/souscription.html.twig', [
             'abonnements' => $abonnements,
             'form' => $form->createView(),
+            'duree' => $dureeRestante,
+            'dateFin' => $dateFin,
         ]);
     }
 
-    private function getDateFin(DateTime $dateDebut, int $typeAbonnement): DateTime
+    private function getDateFin(\DateTime $dateDebut, int $typeAbonnement): \DateTime
     {
         $dateFin = clone $dateDebut;
         switch ($typeAbonnement) {
