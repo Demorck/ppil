@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ValidationController{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: bold 24px/1.5 sans-serif; text-align:center; padding-top: 100px}
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    button { margin: 20px;}
+</style>
+
+<div class="example-wrapper">
+    <h1>Votre Permis à bien été validé !</h1>
+</div>
+<div class="flex justify-center items-center">
+    <div class="flex flex-row justify-between">
+        <div class="flex flex-col">
+            <form action="{{ path('app_home_page') }}" method="get">
+                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Retour à l'accueil</button>
+            </form>
+        </div>
+        <div class="flex flex-col">
+            <form action="{{ path('app_profile_page') }}" method="get">
+                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mon profil</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

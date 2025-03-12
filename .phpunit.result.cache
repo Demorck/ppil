@@ -1,1 +1,0 @@
-{"version":1,"defects":{"App\\Tests\\Controllers\\Abonnement\\AbonnementControllerTest::testSomething":4,"App\\Tests\\Controllers\\Abonnement\\AbonnementControllerTest::testListeAbonnement":3},"times":{"App\\Tests\\Controllers\\Abonnement\\AbonnementControllerTest::testSomething":0.542,"App\\Tests\\Controllers\\Abonnement\\AbonnementControllerTest::testListeAbonnement":0.736}}

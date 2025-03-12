@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Form;
+namespace App\Form\Vehicules;
 
 use App\Entity\Vehicules;
 use Symfony\Component\Form\AbstractType;
