@@ -18,7 +18,6 @@ class AbonnementController extends AbstractController
         $user = $this->getUser();
 
         if (!$user) {
-            // Rediriger vers la page de connexion ou afficher une erreur si l'utilisateur n'est pas connecté
             return $this->redirectToRoute('app_login');
         }
 
