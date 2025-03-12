@@ -23,18 +23,12 @@ class AbonnementController extends AbstractController
 
         $locations = $user->getLocations();
 
-        $offres = [];
-        foreach ($locations as $location) {
-            foreach($location->getOffre() as $offre) {
-                $offres[] = $offre;
-            }
-        }
 
         $abonnements = $abonnementRepo->findBy(['utilisateur' => $user]);
 
         return $this->render('abonnement/index.html.twig', [
             'abonnements' => $abonnements,
-            'offres' => $offres,
+            'offres' => $locations,
         ]);
     }
 }
