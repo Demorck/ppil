@@ -44,7 +44,7 @@ class ModificationUtilisateurTest extends WebTestCase
 
         $mdp = $user->getPassword();
 
-        $form = $crawler->selectButton('sauvegarder')->form([
+        $form = $crawler->selectButton('Sauvegarder')->form([
             'modification_profil[password]' => '!c5x8qbD*IT@ZY9R8*3ljBey*gZv5FwZS7xd#@@htj4OC#ywRANjUjzO5wHSYzj7^%U3VWICZ&2VHHfLj7J$RG$oNFPZDRZpyu^#52P%aelZp%SLKaV#1JvSFBdJyz8B',
         ]);
 

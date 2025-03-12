@@ -13,30 +13,23 @@ use Symfony\Component\Routing\Attribute\Route;
 class AbonnementController extends AbstractController
 {
     #[Route('/abonnement', name: 'app_abonnement')]
-public function index(AbonnementsRepository $abonnementRepo, OffresRepository $offreRepo): Response
-{
-    $user = $this->getUser();
+    public function index(AbonnementsRepository $abonnementRepo, OffresRepository $offreRepo): Response
+    {
+        $user = $this->getUser();
 
-    if (!$user) {
-        // Rediriger vers la page de connexion ou afficher une erreur si l'utilisateur n'est pas connecté
-        return $this->redirectToRoute('app_login');
-    }
-
-    $locations = $user->getLocations();
-
-    $offres = [];
-    foreach ($locations as $location) {
-        foreach($location->getOffre() as $offre) {
-            $offres[] = $offre;
+        if (!$user) {
+            // Rediriger vers la page de connexion ou afficher une erreur si l'utilisateur n'est pas connecté
+            return $this->redirectToRoute('app_login');
         }
+
+        $locations = $user->getLocations();
+
+
+        $abonnements = $abonnementRepo->findBy(['utilisateur' => $user]);
+
+        return $this->render('abonnement/index.html.twig', [
+            'abonnements' => $abonnements,
+            'offres' => $locations,
+        ]);
     }
-
-    $abonnements = $abonnementRepo->findBy(['utilisateur' => $user]);
-
-    return $this->render('abonnement/index.html.twig', [
-        'abonnements' => $abonnements,
-        'offres' => $offres,
-    ]);
-}
-
 }

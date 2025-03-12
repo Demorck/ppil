@@ -20,6 +20,10 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "tailwindcss": "^4.0.0"
+        "@tailwindcss/cli": "^4.0.0",
+        "@tailwindcss/postcss": "^4.0.9",
+        "postcss": "^8.5.3",
+        "postcss-loader": "^8.1.1",
+        "tailwindcss": "^4.0.9"
     }
 }

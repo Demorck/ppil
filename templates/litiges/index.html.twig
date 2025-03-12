@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LitigesController!{% endblock %}
+
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Consultation d'un litige" } %}
+{% endblock %}
+
+{% block body %}
+    <div class="flex flex-col justify-center px-6 py-8 mx-auto w-3/4">
+
+        <div class="w-full bg-content rounded-xl py-16 flex justify-center">
+
+            <div class="p-6 flex flex-col lg:w-3/4 justify-center gap-2">
+                <h1 class="text-3xl text-center text-accent ">Résumé du litige {{ litigeId }}</h1>
+
+
+                <h1 class="text-2xl  py-8 text-accent">Description du litige </h1>
+                <h1 class="text-accent">{{ litigeText }}</h1>
+
+                <h1 class="text-2xl text-accent py-8">Location concernée par le litige :  {{ litigeLocation.id }}</h1>
+
+                <h1 class="text-2xl text-accent py-8">Statut du litige :  {{ litigeStatus }}</h1>
+
+                <h1 class="text-2xl text-accent py-8">Juriste :  {{ litigeJurist.email }}</h1>
+
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

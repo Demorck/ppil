@@ -3,26 +3,25 @@
 {% block title %}Hello ListeOffresController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="container bg-secondary mx-auto p-4 rounded-xl">
-    <div class="flex flex-row font-bold bg-gray-100 p-2 border-b border-gray-300 text-center">
-        <div>Marque</div>
-        <div>Modèle</div>
-        <div>Date debut</div>
-        <div>Date fin</div>
-        <div>Prix</div>
-        <div>Status</div>
+<div class="container bg-content mx-auto p-4 rounded-xl">
+    <div class="flex flex-row font-bold bg-header p-2 border-gray-300 text-center text-green-200">
+        <div class="flex-1">Marque</div>
+        <div class="flex-1">Modèle</div>
+        <div class="flex-1">Date debut</div>
+        <div class="flex-1">Date fin</div>
+        <div class="flex-1">Prix</div>
+        <div class="flex-1">Status</div>
+        <div class="flex-1">Actions</div>
     </div>
 
-    <div class="flex flex-col divide-y divide-red-500">
+    <div class="flex flex-col divide-y">
         {% for offre in offres %}
             <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
                 <div class="flex-1 px-2">{{ offre.vehicule.marque }}</div>
                 <div class="flex-1 px-2">{{ offre.vehicule.modele }}</div>
+                <div class="flex-1 px-2">{{ offre.dateDebut|date('d-m-Y') }}</div>
+                <div class="flex-1 px-2">{{ offre.dateFin|date('d-m-Y') }}</div>
                 <div class="flex-1 px-2">{{ offre.prix}} €</div>
                 <div class="flex-1 px-2">
                     {% if offre.statut == 1 %}
@@ -48,6 +47,12 @@
                 </div>
             </div>
         {% endfor %}
+
+        <div class="flex justify-center mt-2">
+            <a href="{{ path('app_formulaire_creer_offre') }}" class="px-4 py-2 rounded-3xl btn-rainbow bg-accent-dark text-white font-bold">
+                + Ajouter une offre
+            </a>
+        </div>
     </div>
 </div>
 {% endblock %}

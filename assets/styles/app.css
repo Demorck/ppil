@@ -1,52 +1,60 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @theme {
-  --color-primary: #f55ed5;
-  --color-secondary: #fcd0f3;
-  --color-accent: #801d6b;
-  --color-accent-hover: #a7278b;
-  --color-tab: #fcb6dc;
-  --color-row: #c4719e;
-}
+    --color-primary: #F55ED5;
+    --color-secondary: #FCD0F3;
+    --color-accent: #801D6B;
+    --color-accentHover: #a7278b;
 
-/*
-  The default border color has changed to `currentColor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+    --color-tab: #fcb6dc;
+    --color-row: #c4719e;
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentColor);
-  }
+    --color-background: #E8B0CA;
+    --color-header: #B13076;
+    --color-wrapper: #F4D7E5;
+    --color-accent-dark: #3F132B;
+    --color-content: #CD8EAB;
+    --color-dark: #6A3851;
 }
 
 body {
-    background-image: url("/roze.png");
+    background: var(--color-background);
     background-position: center;
     background-size: cover;
 }
 
+#dropdown-menu-profile {
+    @apply absolute right-0 mt-2 w-48 py-2 rounded-md shadow-xl z-20 bg-secondary;
+}
+
+#dropdown-menu-profile a {
+    @apply block px-4 py-2 text-sm text-gray-700 hover:bg-tab border-b border-row;
+}
+
+#dropdown-menu-profile a:first-child {
+    @apply border-t;
+}
+
+/***************************/
+/*   FORMULAIRES   */
+/**************************/
 input[type="text"],
 input[type="number"],
 input[type="date"],
 input[type="password"],
 input[type="email"],
+input:-webkit-autofill,
 select {
-    width: 100%;
-    border: 2px solid #aaa;
+    border: 2px solid var(--color-accent-dark);
     border-radius: 4px;
     margin: 8px 0;
     outline: none;
     padding: 8px;
     box-sizing: border-box;
     transition: 0.3s;
+    background-color: transparent;
+
+    @apply placeholder:text-accent-dark sm:text-lg
 }
 
 input[type="text"]:focus,
@@ -54,20 +62,38 @@ input[type="number"]:focus,
 input[type="date"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
+input:-webkit-autofill:focus,
 select:focus {
-    border-color: dodgerBlue;
-    box-shadow: 0 0 8px 0 dodgerBlue;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 8px 0 var(--color-accent);
+}
+
+/**
+    * Enlève l'autofill et la transition permet que ça ne revienne pas (ça marche ?)
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active{
+    background-color: transparent !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+
+input[disabled] {
+    background: #000;
+    color: var(--color-white);
 }
 
 button {
-    @apply px-4 py-2 rounded-full text-3xl
+    @apply px-4 py-2 rounded-full text-lg cursor-pointer
 }
 
-.checkbox-wrapper input[type="checkbox"] {
+.checkbox-wrapper input[type="checkbox"], .radio-wrapper input[type="radio"] {
     display: none;
 }
 
-.checkbox-label {
+.checkbox-label, .radio-label {
     @apply relative flex items-center relative m-0 cursor-pointer
 }
 
@@ -89,6 +115,24 @@ button {
     background-position: center;
 }
 
+.radio-input + label:before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--color-accent);
+    margin-right: 10px;
+    @apply rounded-full
+}
+
+.radio-input:checked + label:before {
+    background-color: var(--color-primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: 80%;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .form-calendar-year select[id*="month"],
 .form-calendar-year select[id*="day"] {
     display: none;
@@ -103,10 +147,15 @@ button {
     font-weight: bolder;
 }
 
-button[type="submit"] {
-    background: var(--color-accent);
-    @apply relative text-white font-bold py-2 px-4 overflow-hidden transition duration-300
+button[type="submit"], .btn-submit {
+    background: var(--color-accent-dark);
+    -webkit-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    -moz-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
+    @apply relative text-content font-bold py-2 px-16 text-xl overflow-hidden transition duration-300
 }
+
+
 
 .btn-rainbow:hover {
     background: linear-gradient(45deg,
@@ -114,6 +163,7 @@ button[type="submit"] {
     #00ffee, #2b65ff, #8000ff, #ff00e1);
     background-size: 300%;
     animation: rainbow 5s cubic-bezier(0.4, 0, 1, 1);
+    color: var(--color-accent-dark);
 }
 
 /***************************/

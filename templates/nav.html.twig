@@ -18,11 +18,11 @@
                         <!-- Active: "bg-gray-100 outline-hidden", Not Active: "" -->
                         <a href="{{ path('app_profile_page') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Profil</a>
                         {% if is_granted('ROLE_LOCATAIRE') %}
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes locations</a>
+                            <a href="{{ path('app_abonnement') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes locations</a>
                         {% endif %}
                         {% if is_granted('ROLE_PROPRIETAIRE') %}
                             <a href="{{ path('app_formulaire_vehicules') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes voitures</a>
-                            <a href="{{ path('app_formulaire_creer_offre') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes offres</a>
+                            <a href="{{ path('app_liste_offres') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes offres</a>
                         {% endif %}
                         <a href="{{ path('app_logout') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Déconnexion</a>
                     </div>

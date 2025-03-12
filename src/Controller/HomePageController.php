@@ -10,7 +10,6 @@ use DateTime;
 class HomePageController extends AbstractController
 {
     #[Route('', name: 'app_home_page')]
-    #[Route('/abonnement', name: 'routeAbonnement')]
     public function index(): Response
     {
         $dateAujourdhui = (new DateTime())->format('Y-m-d');
@@ -20,10 +19,5 @@ class HomePageController extends AbstractController
             'controller_name' => 'HomePageController',
             'dateAujourdhui' => $dateAujourdhui
         ]);
-    }
-
-    public function abonnement(): Response
-    {
-        return $this->render('abonnement.html.twig');
     }
 } 

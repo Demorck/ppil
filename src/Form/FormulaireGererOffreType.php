@@ -23,6 +23,7 @@ class FormulaireGererOffreType extends AbstractType
             ->add('prix')
             ->add('statut')
             ->add('vehicule', EntityType::class, [
+                'disabled' => true,
                 'class' => Vehicules::class,
                 'choice_label' => 'id',
             ])
