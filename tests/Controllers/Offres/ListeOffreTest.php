@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Controllers\Offres;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\HttpFoundation\Response;
-use App\Tests\Helpers\UserHelper;
-use App\Tests\Helpers\Utils;
 use App\Entity\Offres;
 use App\Entity\Vehicules;
+use App\Tests\Helpers\UserHelper;
+use App\Tests\Helpers\Utils;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ListeOffreTest extends WebTestCase
 {
