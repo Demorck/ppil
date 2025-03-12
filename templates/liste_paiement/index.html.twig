@@ -9,40 +9,15 @@
 </style>
 
 <div class="example-wrapper">
-    {% for offre in offres %}
+    <div class="flex flex-row font-bold bg-header p-2 border-gray-300 text-center text-green-200">
+        <div class="flex-1">Montant</div>
+        <div class="flex-1">Date</div>
+    </div>
+    {% for paiement in paiements %}
         <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
-            <div class="flex-1 px-2">{{ offre.vehicule.marque }}</div>
-            <div class="flex-1 px-2">{{ offre.vehicule.modele }}</div>
-            <div class="flex-1 px-2">{{ offre.dateDebut|date('d-m-Y') }}</div>
-            <div class="flex-1 px-2">{{ offre.dateFin|date('d-m-Y') }}</div>
-            <div class="flex-1 px-2">{{ offre.prix}} €</div>
-            <div class="flex-1 px-2">
-                {% if offre.statut == 1 %}
-                    Actif 
-                {% else %} 
-                    Inactif     
-                {% endif %}
-            </div>
-            <div class="flex-1 flex px-2">
-                <a href="gerer/{{offre.id}}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Gerer</a>
-                {% if offre.statut == 1 %}
-                    <a href="{{ path('suspendre_offre', { id: offre.id }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Suspendre</a>   
-                {% else %}   
-                    <a href="{{ path('activer_offre', { id: offre.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Activer</a>
-                {% endif %}
-            </div>
-        </div>
-    {% else %}
-        <div class="flex flex-row items-center p-2 text-gray-500">
-            <div class="flex-1 text-center">
-                Vous n'avez pas encore de véhicule en location.
-            </div>
+            <div class="flex-1 px-2">{{paiement.montant}}</div>
+            <div class="flex-1 px-2">{{paiement.date|date('d-m-Y')}}</div>
         </div>
     {% endfor %}
-    <div class="flex justify-center mt-2">
-        <a href="{{ path('app_formulaire_creer_offre') }}" class="px-4 py-2 rounded-3xl btn-rainbow bg-accent-dark text-white font-bold">
-            + Ajouter une offre
-        </a>
-    </div>
 </div>
 {% endblock %}
