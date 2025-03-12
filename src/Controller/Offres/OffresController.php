@@ -25,4 +25,4 @@ final class OffresController extends AbstractController
             'offres' => $offres,
         ]);
     }
-}
+} 
