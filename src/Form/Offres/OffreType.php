@@ -31,7 +31,7 @@ class OffreType extends AbstractType
                 'constraints' => [
                     new GreaterThanOrEqual([
                         'value' => new \DateTime(),
-                        'message' => 'La date de début doit être aujourd\'hui ou plus tard.'
+                        'message' => 'La date de début doit être après aujourd\'hui.'
                     ]),
                     new GreaterThanOrEqual([
                         'value' => $offre->getDateDebut(),
@@ -39,7 +39,7 @@ class OffreType extends AbstractType
                     ]),
                     new LessThanOrEqual([
                         'value' => $offre->getDateFin(),
-                        'message' => 'La date de début doit être après la date de début de l\'offre.'
+                        'message' => 'La date de début doit être avant la date de fin de l\'offre.'
                     ]),
                 ]
             ])
