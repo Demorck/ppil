@@ -21,7 +21,7 @@
                 <div class="flex-1 px-2">{{ vehicule.kilometrage }}km</div>
                 <div class="flex-1 flex px-2">
                     <!-- En attente d'une éventuelle implémantation <a href="#" class="bg-blue-500 px-4 py-2 rounded-full hover:underline">Détails</a>-->
-                    <a href="vehicules/{{ vehicule.id }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Modifier</a>
+                    <a href="{{ path('app_formulaire_modifier_vehicule', { id: vehicule.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Modifier</a>
                     <a href="#" onclick="deleteVehicule({{ vehicule.id }})" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Supprimer</a>
                 </div>
             </div>
@@ -34,7 +34,7 @@
         {% endfor %}
 
         <div class="flex justify-center mt-2">
-            <a href="{{ path('app_formulaire_ajoutVehicule') }}" class="px-4 py-2 rounded-3xl btn-rainbow bg-accent-dark text-white font-bold">
+            <a href="{{ path('app_nouveau_vehicule') }}" class="px-4 py-2 rounded-3xl btn-rainbow bg-accent-dark text-white font-bold">
                 + Ajouter un véhicule
             </a>
         </div>

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ValidationController{% endblock %}
+
+{% block body %}
+<div class="flex flex-col justify-center items-center h-full gap-8">
+    <h1 class="text-2xl font-bold">Votre Permis a bien été validé !</h1>
+    <div class="flex flex-row justify-around gap-8">
+
+        <div class="flex flex-col">
+            <form action="{{ path('app_home_page') }}" method="get">
+                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Retour à l'accueil</button>
+            </form>
+        </div>
+        <div class="flex flex-col">
+            <form action="{{ path('app_profile_page') }}" method="get">
+                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mon profil</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

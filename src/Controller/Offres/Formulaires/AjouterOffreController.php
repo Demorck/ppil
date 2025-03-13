@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Offres;
+namespace App\Controller\Offres\Formulaires;
 
 use App\Entity\Offres;
 use App\Form\FormulaireCreerOffreType;
@@ -10,9 +10,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class FormulaireCreerOffreController extends AbstractController
+class AjouterOffreController extends AbstractController
 {
-    #[Route('/offre/creer', name: 'app_formulaire_creer_offre')]
+    #[Route('/offre/ajouter', name: 'app_ajouter_offre')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         if ($this->getUser() === null) {
@@ -35,7 +35,7 @@ final class FormulaireCreerOffreController extends AbstractController
             return $this->redirectToRoute('app_liste_offres');
         }
 
-        return $this->render('formulaire_creer_offre/index.html.twig', [
+        return $this->render('offres/formulaires/ajouter_offre.html.twig', [
             'form'  => $form->createView(),
             'title' => "Créer une offre",
         ]);

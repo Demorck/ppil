@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choisir un abonnement{% endblock %}
+
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Abonnement" } %}
+{% endblock %}
+
+{% block body %}
+{{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}}) }}
+
+<div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl">
+    {%  if duree > 0 %}
+        <div class="font-bolder text-xl">Vous avez déjà un abonnement jusqu'au {{ dateFin|date('d-m-Y') }}</div>
+    {% else %}
+        <div class="font-bolder text-xl">Vous n'avez encore aucun abonnement</div>
+    {% endif %}
+    <div class="flex flex-row gap-4 flex-1 justify-center">
+        {{ form_label(form.type) }}
+        {{ form_errors(form.type) }}
+        <div class="flex flex-row flex-1 justify-evenly">
+            {% for type in form.type %}
+                <div class="radio-wrapper">
+                    {{ form_widget(type, { 'attr': { 'class': 'radio-input' } }) }}
+                    {{ form_label(type, null, { 'label_attr': { 'class': 'radio-label' } }) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="flex flex-row justify-center">
+        <button type="submit" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+            Choisir
+        </button>
+    </div>
+</div>
+
+{{ form_end(form) }}
+{% endblock %}

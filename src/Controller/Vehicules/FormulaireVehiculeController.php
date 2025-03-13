@@ -2,7 +2,6 @@
 
 namespace App\Controller\Vehicules;
 
-use App\Entity\Proprietaires;
 use App\Entity\Vehicules;
 use App\Form\Vehicules\VehiculeFormType;
 use App\Form\Vehicules\VehiculeModifFormType;
@@ -17,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class FormulaireVehiculeController extends AbstractController
 {
-    #[Route('/vehicules/ajoutVehicule', name: 'app_formulaire_ajoutVehicule')]
+    #[Route('/vehicules/nouveau', name: 'app_nouveau_vehicule')]
     public function renseignerInfo(Request $request, EntityManagerInterface $entMan, SluggerInterface $slugger): Response
     {
          if ($this->getUser() === null) {
@@ -49,7 +48,7 @@ class FormulaireVehiculeController extends AbstractController
                 } catch (FileException $e)
                 {
                     $form->addError(new FormError("L'image que vous avez téléchargé ne peut être sauvegardée"));
-                    return $this->render('formulaire_vehicule/ajoutVehicule.html.twig', [
+                    return $this->render('vehicules/formulaires/ajouter_vehicule.html.twig', [
                         'controller_name'   => 'FormulaireVehiculeController',
                         'vehiculeForm'      => $form->createView(),
                         'vehicule'          => $vehicule,
@@ -65,7 +64,7 @@ class FormulaireVehiculeController extends AbstractController
             return $this->redirectToRoute('app_formulaire_vehicules');
         }
 
-        return $this->render('formulaire_vehicule/ajoutVehicule.html.twig', [
+        return $this->render('vehicules/formulaires/ajouter_vehicule.html.twig', [
             'controller_name'   => 'FormulaireVehiculeController',
             'vehiculeForm'      => $form->createView(),
             'vehicule'          => $vehicule,
@@ -73,7 +72,7 @@ class FormulaireVehiculeController extends AbstractController
         ]);
     }
 
-    #[Route('/vehicules', name: 'app_formulaire_vehicules')]
+    #[Route('/vehicules', name: 'app_liste_vehicules')]
     public function displayVehicules(Request $request, EntityManagerInterface $entMan): Response
     {
          if ($this->getUser() === null) {
@@ -85,14 +84,14 @@ class FormulaireVehiculeController extends AbstractController
 
         $vehicules = $entMan->getRepository(Vehicules::class)->findBy(['proprietaire' => $currentUser]);
 
-        return $this->render('formulaire_vehicule/vehicules.html.twig', [
+        return $this->render('vehicules/liste_vehicules.html.twig', [
             'controller_name'   => 'MesVehiculesController',
             'vehicules'         => $vehicules,
             'title'             => 'Liste des véhicules',
         ]);
     }
 
-    #[Route('/vehicules/{id}', name: 'app_formulaire_vehicule')]
+    #[Route('/vehicules/{id}', name: 'app_formulaire_modifier_vehicule')]
     public function modifyVehicule(Request $request, SluggerInterface $slugger, EntityManagerInterface $entMan, $id): Response
     {
          if ($this->getUser() === null) {
@@ -104,7 +103,7 @@ class FormulaireVehiculeController extends AbstractController
         $vehicule = $entMan->getRepository(Vehicules::class)->findOneBy(['id' => $id, 'proprietaire' => $currentUser]);
 
         if ($vehicule === null) {
-            return $this->redirectToRoute('app_formulaire_vehicules');
+            return $this->redirectToRoute('app_liste_vehicules');
         }
         $form = $this->createForm(VehiculeModifFormType::class, $vehicule);
 
@@ -134,7 +133,7 @@ class FormulaireVehiculeController extends AbstractController
                 } catch (FileException $e)
                 {
                     $form->addError(new FormError("L'image que vous avez téléchargé ne peut être sauvegardée"));
-                    return $this->render('formulaire_vehicule/gererVehicule.html.twig', [
+                    return $this->render('vehicules/formulaires/modifier_vehicule.html.twig', [
                         'controller_name'   => 'MesVehiculesController',
                         'vehicule'          => $vehicule,
                         'title'             => 'Modification du véhicule',
@@ -149,10 +148,10 @@ class FormulaireVehiculeController extends AbstractController
             $entMan->persist($vehicule);
             $entMan->flush();
 
-            return $this->redirectToRoute('app_formulaire_vehicules');
+            return $this->redirectToRoute('app_liste_vehicules');
         }
 
-        return $this->render('formulaire_vehicule/gererVehicule.html.twig', [
+        return $this->render('vehicules/formulaires/modifier_vehicule.html.twig', [
             'controller_name'   => 'MesVehiculesController',
             'vehicule'          => $vehicule,
             'title'             => 'Modification du véhicule',
@@ -161,7 +160,7 @@ class FormulaireVehiculeController extends AbstractController
         ]);
     }
 
-    #[Route('/vehicules/{id}/delete', name: 'app_formulairevehicule_deletevehicule')]
+    #[Route('/vehicules/{id}/delete', name: 'app_supprimer_vehicule')]
     public function deleteVehicule(Request $request, EntityManagerInterface $entMan, $id): Response
     {
         if ($this->getUser() === null) {
@@ -175,7 +174,7 @@ class FormulaireVehiculeController extends AbstractController
         $entMan->remove($vehicule);
         $entMan->flush();
 
-        return $this->redirectToRoute('app_formulaire_vehicules');
+        return $this->redirectToRoute('app_liste_vehicules');
     }
 
 }

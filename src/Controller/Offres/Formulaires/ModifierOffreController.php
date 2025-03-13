@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Controller\Offres;
+namespace App\Controller\Offres\Formulaires;
 
+use App\Entity\Offres;
+use App\Form\FormulaireCreerOffreType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use App\Form\FormulaireCreerOffreType;
-use App\Entity\Offres;
 
-final class FormulaireGererOffreController extends AbstractController
+class ModifierOffreController extends AbstractController
 {
-    #[Route('/offre/gerer/{id}', name: 'app_formulaire_gerer_offre')]
+    #[Route('/offre/modifier/{id}', name: 'app_modifier_offre')]
     public function index(Request $request, EntityManagerInterface $entityManager, int $id): Response
     {
         if ($this->getUser() === null) {
@@ -37,7 +37,7 @@ final class FormulaireGererOffreController extends AbstractController
             return $this->redirectToRoute('app_liste_offres');
         }
 
-        return $this->render('formulaire_gerer_offre/index.html.twig', [
+        return $this->render('offres/formulaires/modifier_offre.html.twig', [
             'form'  => $form->createView(),
             'title' => "Gérer une offre",
             'offre' => $offre,

@@ -43,16 +43,36 @@
     </div>
     {{ form_end(form)}}
 
-    <script>
-        document.getElementById('edit-profile').addEventListener('click', function () {
-            document.querySelectorAll('input[disabled]').forEach(input => input.removeAttribute('disabled'));
-        });
-    </script>
-    
-    <div class="text-center">
-        <form action="{{ path('app_abonnement') }}" method="get">
-            <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mes abonnements et offres</button>
-        </form>
+    <div class="text-center flex justify-center my-4">
+        <div class="lg:w-3/4 flex flex-col gap-6">
+            <div class="flex flex-row justify-around">
+                <a href="{{ path('app_abonnement') }}">
+                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mes abonnements</button>
+                </a>
+                <a href="{{ path('app_souscription_abonnement') }}">
+                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Souscrire un abonnement</button>
+                </a>
+            </div>
+            <div class="flex flex-row justify-around">
+                <a href="{{ path('app_abonnement') }}">
+                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mes locations</button>
+                </a>
+                <a href="{{ path('app_liste_paiement') }}">
+                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Voir mes paiements</button>
+                </a>
+            </div>
+
+            <a href="{{ path('app_page_envoie_permis') }}">
+                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Envoyer mon permis</button>
+            </a>
+        </div>
     </div>
 
+
+
+<script>
+    document.getElementById('edit-profile').addEventListener('click', function () {
+        document.querySelectorAll('input[disabled]').forEach(input => input.removeAttribute('disabled'));
+    });
+</script>
 {% endblock %}

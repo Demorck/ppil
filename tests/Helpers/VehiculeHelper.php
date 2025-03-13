@@ -34,6 +34,7 @@ class VehiculeHelper
             $vehicule->setModele('208');
             $vehicule->setTypeCarburant('Essence');
             $vehicule->setImmatriculation($immat);
+            $vehicule->setTitre("SUPER VEHICULE VROOM VROOM");
 
             $this->entityManager->persist($vehicule);
             $this->entityManager->flush();

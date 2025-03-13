@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Paiement;
+namespace App\Controller\Paiements;
 
 use App\Entity\Locations;
 use App\Entity\Paiements;
@@ -26,7 +26,6 @@ class   PaiementController extends AbstractController
 
         $location = $entMan->getRepository(Locations::class)->findOneBy(['id' => $id, 'locataire' => $userid]);
 
-
         if ($location === null) {
             return $this->redirectToRoute('app_home_page');
         }
@@ -50,7 +49,7 @@ class   PaiementController extends AbstractController
 
             $entMan->persist($paiement);
             $entMan->flush();
-            return $this->redirectToRoute('app_home_page');
+            return $this->redirectToRoute('app_page_validation_paiement');
         }
 
         $montant = $location->getPrix();
@@ -58,7 +57,7 @@ class   PaiementController extends AbstractController
         $vehicule = $location->getOffre()->getVehicule();
 
 
-        return $this->render('paiement/paiement.html.twig', [
+        return $this->render('paiements/paiement.html.twig', [
             'controller_name' => 'PaiementController',
             'title' => 'Paiement',
             'paiementForm' => $form->createView(),

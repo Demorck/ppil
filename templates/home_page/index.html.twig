@@ -6,7 +6,7 @@
 
 <div class="flex justify-center items-center h-full">
     <div class="bg-wrapper w-full flex flex-col lg:px-16 lg:py-8 gap-4 lg:w-3/4 rounded-xl">
-        <form method="GET" action="/offres" class="boiteDeRecherche flex flex-col">
+        <form method="GET" action="{{ path('app_liste_offres') }}" class="boiteDeRecherche flex flex-col">
             <label for="nbPlace">Nombre de places : </label>
             <select name="nbPlace" id="nbPlace">
                 <option value="2">2</option>
@@ -18,7 +18,7 @@
                 <option value="8">8</option>
             </select>
 
-            <div class="flex flex-row justify-evenly">
+            <div class="flex flex-row justify-between">
                 <div class="flex flex-col lg:w-2/6">
                     <label for="dateDebut">Début</label>
                     <input type="date" name="dateDebut" id="dateDebut" value="{{ dateAujourdhui }}" min="{{ dateAujourdhui }}">
