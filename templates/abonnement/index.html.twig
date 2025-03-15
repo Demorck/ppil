@@ -1,10 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes Abonnements et Offres{% endblock %}
+{% block title %}Mes Abonnements{% endblock %}
 
 {% block body %}
 <div class="container bg-content mx-auto p-4 rounded-xl">
-    <!-- Abonnements Section -->
     <div class="font-bold bg-header p-2 text-green-200 text-center">
         <h1>Mes Abonnements</h1>
     </div>
@@ -21,36 +20,6 @@
             <div class="flex flex-row items-center p-2">
                 <div class="flex-1 text-center">
                     Vous n'avez pas encore souscrit d'abonnement.
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <!-- Locations Section -->
-    <div class="font-bold bg-header p-2 text-green-200 text-center mt-4">
-        <h1>Mes locations</h1>
-    </div>
-    <div class="flex flex-col divide-y">
-        {% for location in locations %}
-            <div class="flex flex-row items-center p-2 divide-x hover:bg-row text-center">
-                <div class="flex-1 px-2">Début de la location: {{ location.dateDebut|date('d-m-Y') }}</div>
-                <div class="flex-1 px-2">Fin de la location : {{ location.dateFin|date('d-m-Y') }}</div>
-                <div class="flex-1 px-2">
-                    {% if location.paiements %}
-                        <a href="{{ path('app_paiement', {id: location.paiements.id}) }}">Voir le paiement</a>
-                    {% else %}
-                        Paiement non effectué: <a class="font-extrabold font-stretch-200%" href="{{ path('app_paiement', {id: location.id}) }}">PAYER</a>
-                    {% endif %}
-                </div>
-                <div class="flex-1 px-2">Prix : {{ location.prix }} €</div>
-                <div class="flex-1 px-2">
-                    <a href="{{ path('app_litige_location', { id1: location.id, id: 1 }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Signaler un litige</a>
-                </div>
-            </div>
-        {% else %}
-            <div class="flex flex-row items-center p-2">
-                <div class="flex-1 text-center">
-                    Aucune offre souscrite.
                 </div>
             </div>
         {% endfor %}
