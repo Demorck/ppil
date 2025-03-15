@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class AbonnementController extends AbstractController
 {
     #[Route('/abonnement', name: 'app_abonnement')]
-    public function index(AbonnementsRepository $abonnementRepo, OffresRepository $offreRepo): Response
+    public function index(AbonnementsRepository $abonnementRepo): Response
     {
         $user = $this->getUser();
 
@@ -19,14 +19,10 @@ class AbonnementController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $locations = $user->getLocations();
-
-
         $abonnements = $abonnementRepo->findBy(['utilisateur' => $user]);
 
         return $this->render('abonnement/index.html.twig', [
             'abonnements' => $abonnements,
-            'locations' => $locations,
         ]);
     }
 }
