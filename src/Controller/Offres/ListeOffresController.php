@@ -18,12 +18,10 @@ class ListeOffresController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        // Récupérer les filtres depuis la requête GET
         $nbPlace = $request->query->get('nbPlace');
         $dateDebut = $request->query->get('dateDebut');
         $dateFin = $request->query->get('dateFin');     
         
-        // Récupérer les offres filtrées
         $offres = $entityManager->getRepository(Offres::class)->findByFilters($nbPlace, $dateDebut, $dateFin);
 
         return $this->render('offres/liste_offres.html.twig', [

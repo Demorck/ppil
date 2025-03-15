@@ -20,7 +20,7 @@ class OffresRepository extends ServiceEntityRepository
     {
         $qb = $this->createQueryBuilder('o')
             ->join('o.vehicule', 'v')
-            ->where('o.statut = 1'); // On ne récupère que les offres actives
+            ->where('o.statut = 1'); 
     
         if ($nbPlace) {
             $qb->andWhere('v.nombrePlace = :nbPlace')
@@ -28,7 +28,6 @@ class OffresRepository extends ServiceEntityRepository
         }
     
         if ($dateDebut && $dateFin) {
-            // Vérifier que l'offre chevauche la période demandée
             $qb->andWhere('o.dateDebut <= :dateDebut')
                ->andWhere('o.dateFin >= :dateFin')
                ->setParameter('dateDebut', new \DateTime($dateDebut))
