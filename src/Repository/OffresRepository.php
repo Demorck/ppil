@@ -16,6 +16,28 @@ class OffresRepository extends ServiceEntityRepository
         parent::__construct($registry, Offres::class);
     }
 
+        public function findByFilters(?int $nbPlace, ?string $dateDebut, ?string $dateFin)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->join('o.vehicule', 'v')
+            ->where('o.statut = 1'); // On ne récupère que les offres actives
+    
+        if ($nbPlace) {
+            $qb->andWhere('v.nombrePlace = :nbPlace')
+               ->setParameter('nbPlace', $nbPlace);
+        }
+    
+        if ($dateDebut && $dateFin) {
+            // Vérifier que l'offre chevauche la période demandée
+            $qb->andWhere('o.dateDebut <= :dateDebut')
+               ->andWhere('o.dateFin >= :dateFin')
+               ->setParameter('dateDebut', new \DateTime($dateDebut))
+               ->setParameter('dateFin', new \DateTime($dateFin));
+        }
+    
+        return $qb->getQuery()->getResult();
+    }
+    
     //    /**
     //     * @return Offres[] Returns an array of Offres objects
     //     */
