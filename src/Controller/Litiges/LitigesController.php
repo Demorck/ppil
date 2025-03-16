@@ -25,9 +25,12 @@ class LitigesController extends AbstractController
 
         $litige = $entMan->getRepository(Litiges::class)->findOneBy(['id' => $id, 'location' => $location_id]);
 
-        if ($litige === null) {
+        $test = $entMan->getRepository(Locations::class)->findOneBy(['id' => $id1, 'locataire' => $userid]);
+
+        if ($test === null || $litige === null) {
             return $this->redirectToRoute('app_home_page');
         }
+
 
         $litigeText = $litige->getDescription();
 

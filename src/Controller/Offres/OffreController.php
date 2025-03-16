@@ -44,8 +44,10 @@ class OffreController extends AbstractController
         ]);
         $form->handleRequest($request);
 
+        $days = $range ? $range[0]['dateFin']->diff($range[0]['dateDebut'])->days : 0;
+
         if ($form->isSubmitted() && $form->isValid()) {
-            $location->setPrix(0);
+            $location->setPrix($offre->getPrix()*$days);
             $location->setStatut(0);
             $location->setOffre($offre);
             $location->setLocataire($user);
