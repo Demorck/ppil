@@ -34,17 +34,34 @@ class ExclusionUtilisateurController extends AbstractController
         if ($user->getStatut() == UserStatus::Exclu->value)
         {
             $user->setStatut(UserStatus::Actif->value);
-            $response['text'] = "L'utilisateur a été débanni.";
         } else
         {
             $user->setStatut(UserStatus::Exclu->value);
-            $response['text'] = "L'utilisateur a été banni.";
         }
 
 
         $entityManager->flush();
 
-        $response['statut'] = $user->getStatut();
+        switch ($user->getStatut())
+        {
+            case 0:
+                $response['status'] = "Inactif";
+                $response['parent_class'] = 'bg-green-400';
+                $response['text'] = "Rendre actif";
+                break;
+            case 1:
+            default:
+                $response['status'] = "Actif";
+            $response['parent_class'] = 'bg-red-400';
+            $response['text'] = "Exclure";
+                break;
+            case 2:
+                $response['status'] = "Exclu";
+                $response['parent_class'] = 'bg-green-400';
+                $response['text'] = "Rendre actif";
+                break;
+
+        }
 
         return new Response(json_encode($response));
     }

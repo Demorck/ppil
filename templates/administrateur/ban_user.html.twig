@@ -2,20 +2,55 @@
 
 {% block title %} Prékar {% endblock %}
 
+{% block class_parent%} flex justify-center{% endblock %}
+
 {% block body %}
 
-<div class="flex flex-col">
-    {% for user in users %}
-        <div class="flex flex-row gap-4" data-feur="{{ user.id }}">
-            <div>{{ user.email }}</div>
-            <div>{{ user.nom }}</div>
-            <div data-user="status" >{{ user.statut }}</div>
-            <div><div data-id="{{ user.id }}" class="btn-rainbow hover:cursor-pointer">
-                    BOUTON
-                </div></div>
+<div class="container justify-center flex w-full text-center">
+    <div class="grid border border-gray-300">
+        <div class="grid grid-cols-[0.5fr_1fr_1fr_2fr_1fr_1fr_1fr] bg-gray-200 font-bold border-b">
+            <div class="p-2">Id</div>
+            <div class="p-2">Prénom</div>
+            <div class="p-2">Nom</div>
+            <div class="p-2">Email</div>
+            <div class="p-2">Roles</div>
+            <div class="p-2">Status</div>
+            <div class="p-2">Exclusion</div>
         </div>
-    {% endfor %}
+
+        {% for user in users %}
+            <div class="grid grid-cols-[0.5fr_1fr_1fr_2fr_1fr_1fr_1fr] border-b" data-feur="{{ user.id }}">
+                <div class="p-2">{{ user.id }}</div>
+                <div class="p-2">{{ user.prenom }}</div>
+                <div class="p-2">{{ user.nom }}</div>
+                <div class="p-2 whitespace-nowrap">{{ user.email }}</div>
+                <div class="p-2">{{ user.roles|join(', ') }}</div>
+                <div class="p-2" data-user="status">
+                    {% if user.statut == 0 %}
+                        Inactif
+                    {% elseif user.statut == 1 %}
+                        Actif
+                    {% else %}
+                        Exclu
+                    {% endif %}
+                </div>
+                <div class="p-2">
+                    {% if user.statut == 2 %}
+                        <div data-id="{{ user.id }}" class="bg-green-400 rounded-xl px-4 py-2 hover:cursor-pointer">
+                            Rendre actif
+                        </div>
+                    {% else %}
+                        <div data-id="{{ user.id }}" class="bg-red-400 rounded-xl px-4 py-2 hover:cursor-pointer">
+                            Exclure
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 </div>
+
     
 {% endblock %}
 

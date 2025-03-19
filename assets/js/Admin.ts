@@ -1,5 +1,3 @@
-
-
 document.addEventListener("DOMContentLoaded", () => {
     let divs = document.querySelectorAll('div[data-id]') as NodeListOf<HTMLElement>;
 
@@ -15,7 +13,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 let parent = div.parentElement.parentElement;
                 let test = parent.querySelector('[data-user="status"]');
                 test.textContent = json.status;
-                parent.classList.add('btn-rainbow');
+
+                div.classList.remove("bg-red-400", "bg-green-40");
+                div.classList.add(json.parent_class);
+                div.innerText = json.text;
             } catch (e)
             {
                 console.error(e.toString());

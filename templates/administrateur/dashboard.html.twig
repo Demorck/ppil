@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block title %} Prékar {% endblock %}
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Administrateur" } %}
+{% endblock %}
 
 {% block body %}
 
-    <div>
-        <a href="{{ path('app_admin_ban') }}">LIEN</a>
-    </div>
+<div class="flex flex-row justify-around">
+    <a href="{{ path('app_admin_ban') }}">
+        <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Bannir des utilisateurs</button>
+    </a>
+    <a href="{{ path('app_admin_commission') }}">
+        <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Changer la commission</button>
+    </a>
+</div>
     
 {% endblock %}
