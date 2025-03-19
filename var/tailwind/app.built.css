@@ -18,6 +18,8 @@
     --color-gray-700: oklch(0.373 0.034 259.733);
     --color-white: #fff;
     --spacing: 0.25rem;
+    --breakpoint-xl: 80rem;
+    --container-md: 28rem;
     --text-xs: 0.75rem;
     --text-xs--line-height: calc(1 / 0.75);
     --text-sm: 0.875rem;
@@ -304,6 +306,9 @@
   .aspect-square {
     aspect-ratio: 1 / 1;
   }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
@@ -334,6 +339,9 @@
   .w-6 {
     width: calc(var(--spacing) * 6);
   }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
   .w-16 {
     width: calc(var(--spacing) * 16);
   }
@@ -346,11 +354,17 @@
   .max-w-7\/8 {
     max-width: calc(7/8 * 100%);
   }
+  .max-w-screen-xl {
+    max-width: var(--breakpoint-xl);
+  }
   .flex-1 {
     flex: 1;
   }
   .flex-grow {
     flex-grow: 1;
+  }
+  .basis-1\/5 {
+    flex-basis: calc(1/5 * 100%);
   }
   .transform {
     transform: var(--tw-rotate-x) var(--tw-rotate-y) var(--tw-rotate-z) var(--tw-skew-x) var(--tw-skew-y);
@@ -452,6 +466,10 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
@@ -488,8 +506,14 @@
   .bg-row {
     background-color: var(--color-row);
   }
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
   .bg-tab {
     background-color: var(--color-tab);
+  }
+  .bg-white {
+    background-color: var(--color-white);
   }
   .bg-wrapper {
     background-color: var(--color-wrapper);
@@ -605,8 +629,8 @@
   .text-white {
     color: var(--color-white);
   }
-  .font-stretch-100\% {
-    font-stretch: 100%;
+  .font-stretch-200\% {
+    font-stretch: 200%;
   }
   .no-underline {
     text-decoration-line: none;
@@ -635,9 +659,6 @@
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
-  }
-  .transition-normal {
-    transition-behavior: normal;
   }
   .duration-300 {
     --tw-duration: 300ms;
@@ -700,13 +721,6 @@
       }
     }
   }
-  .hover\:font-stretch-200\% {
-    &:hover {
-      @media (hover: hover) {
-        font-stretch: 200%;
-      }
-    }
-  }
   .hover\:underline {
     &:hover {
       @media (hover: hover) {
@@ -727,6 +741,11 @@
   .sm\:w-1\/2 {
     @media (width >= 40rem) {
       width: calc(1/2 * 100%);
+    }
+  }
+  .sm\:max-w-md {
+    @media (width >= 40rem) {
+      max-width: var(--container-md);
     }
   }
   .sm\:flex-row {
@@ -835,6 +854,11 @@
       line-height: var(--tw-leading, var(--text-7xl--line-height));
     }
   }
+  .dark\:text-white {
+    @media (prefers-color-scheme: dark) {
+      color: var(--color-white);
+    }
+  }
 }
 body {
   background: var(--color-background);
@@ -873,7 +897,7 @@ body {
   border-top-style: var(--tw-border-style);
   border-top-width: 1px;
 }
-input[type="text"], input[type="number"], input[type="date"], input[type="password"], input[type="email"], input:-webkit-autofill, select {
+input[type="text"], input[type="number"], input[type="date"], input[type="password"], input[type="email"], textarea, input:-webkit-autofill, select {
   border: 2px solid var(--color-accent-dark);
   border-radius: 4px;
   margin: 8px 0;
@@ -890,9 +914,14 @@ input[type="text"], input[type="number"], input[type="date"], input[type="passwo
     line-height: var(--tw-leading, var(--text-lg--line-height));
   }
 }
-input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="password"]:focus, input[type="email"]:focus, input:-webkit-autofill:focus, select:focus {
+input[type="text"]:focus, input[type="number"]:focus, input[type="date"]:focus, input[type="password"]:focus, input[type="email"]:focus, textarea:focus, input:-webkit-autofill:focus, select:focus {
   border-color: var(--color-accent);
   box-shadow: 0 0 8px 0 var(--color-accent);
+}
+textarea {
+  display: flex;
+  flex: 1;
+  transition-property: none;
 }
 input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus, input:-webkit-autofill:active {
   background-color: transparent !important;
