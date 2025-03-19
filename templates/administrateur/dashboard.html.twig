@@ -15,5 +15,18 @@
         <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Changer la commission</button>
     </a>
 </div>
-    
+
+<div class="w-1/4 flex items-center">
+    <canvas id="statsChart"></canvas>
+    <canvas id="prix_chart"></canvas>
+</div>
+
+
+<div class="hidden" data-offre-status='{{ stats_month|json_encode|raw }}'></div>
+{#<div class="hidden" data-offre-full='{{ stats.total_offres }}'></div>#}
+<div class="hidden" data-offre-prix='{{ prix|json_encode|raw }}'></div>
+{% endblock %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app_chart_stats') }}
 {% endblock %}
