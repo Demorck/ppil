@@ -13,7 +13,7 @@
                 <div class="flex-1 px-2">Fin de la location : {{ location.dateFin|date('d-m-Y') }}</div>
                 <div class="flex-1 px-2">
                     {% if location.paiements %}
-                        <a href="{{ path('app_paiement', {id: location.paiements.id}) }}">Voir le paiement</a>
+                        <a href="{{ path('app_voir_paiement', {id: location.id}) }}">Voir le paiement</a>
                     {% else %}
                         Paiement non effectué: <a class="font-extrabold font-stretch-200%" href="{{ path('app_paiement', {id: location.id}) }}">PAYER</a>
                     {% endif %}
