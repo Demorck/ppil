@@ -15,10 +15,33 @@
         <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Changer la commission</button>
     </a>
 </div>
-
-<div class="w-1/4 flex items-center">
-    <canvas id="statsChart"></canvas>
-    <canvas id="prix_chart"></canvas>
+    <br><br>
+<div class="flex flex-1 items-center flex-col">
+    <div class="flex justify-center text-center w-full items-center">
+        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="offres">Offres</div>
+        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="locations">Locations</div>
+        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="users">Utilisateurs</div>
+        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="paiements">Paiements</div>
+    </div>
+    <div class="w-full">
+        <div id="offre_charts" class="flex flex-row justify-between items-center">
+            <div class="flex-1/4">
+                <canvas id="statsChart"></canvas>
+            </div>
+            <div class="flex-1/4">
+                <canvas id="prix_chart"></canvas>
+            </div>
+        </div>
+        <div id="locations_charts" class="hidden">
+            OOOOO
+        </div>
+        <div id="users_charts" class="hidden">
+            UUUU
+        </div>
+        <div id="paiements_charts" class="hidden">
+            PPPPPP
+        </div>
+    </div>
 </div>
 
 

@@ -4,6 +4,22 @@ import { Chart, registerables } from "chart.js";
 Chart.register(...registerables);
 
 document.addEventListener('DOMContentLoaded', () => {
+    let tabs = document.querySelectorAll('[data-id-tab]') as NodeListOf<HTMLElement>;
+    let divs = document.querySelectorAll('[id$="charts"]');
+
+    tabs.forEach(element => {
+        element.addEventListener('click', () => {
+            let id = element.dataset.idTab;
+            divs.forEach(div => {
+                div.classList.add('hidden')
+                if (div.id == id + "_charts")
+                    div.classList.remove('hidden');
+            });
+        });
+    });
+
+
+
     init_offres_chart();
     init_offre_prix();
 });
@@ -33,7 +49,6 @@ function init_offres_chart()
             ]
         },
         options: {
-            responsive: true,
             plugins: {
                 title: {
                     display: true,
@@ -68,7 +83,6 @@ function init_offre_prix()
             ]
         },
         options: {
-            responsive: true,
             plugins: {
                 title: {
                     display: true,
