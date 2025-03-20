@@ -61,7 +61,7 @@ class FormulaireVehiculeController extends AbstractController
             $entMan->persist($vehicule);
             $entMan->flush();
 
-            return $this->redirectToRoute('app_formulaire_vehicules');
+            return $this->redirectToRoute('app_liste_vehicules');
         }
 
         return $this->render('vehicules/formulaires/ajouter_vehicule.html.twig', [

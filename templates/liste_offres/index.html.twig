@@ -1,31 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mes Abonnements{% endblock %}
+{% block title %}Mes Offres!{% endblock %}
 
 {% block body %}
-<div class="container bg-content mx-auto p-4 rounded-xl">
-    <div class="font-bold bg-header p-2 text-green-200 text-center">
-        <h1>Mes Abonnements</h1>
-    </div>
-    <div class="flex flex-col divide-y divide-row">
-        {% for abonnement in abonnements %}
-            <div class="flex flex-row items-center p-2 divide-x hover:bg-row text-center">
-                <div class="flex-1 px-2">Type : {{ abonnement.type }}</div>
-                <div class="flex-1 px-2">Début : {{ abonnement.dateDebut|date("d/m/Y") }}</div>
-                <div class="flex-1 px-2">Fin : {{ abonnement.dateFin|date("d/m/Y") }}</div>
-                <div class="flex-1 px-2">Statut : {{ abonnement.statut }}</div>
-                <div class="flex-1 px-2">Prix : €</div>
-            </div>
-        {% else %}
-            <div class="flex flex-row items-center p-2">
-                <div class="flex-1 text-center">
-                    Vous n'avez pas encore souscrit d'abonnement.
-                </div>
-            </div>
-        {% endfor %}
-    </div>
-
-    <!-- Locations Section -->
     <div class="font-bold bg-header p-2 text-green-200 text-center mt-4">
         <h1>Mes locations</h1>
     </div>
@@ -54,5 +31,4 @@
             </div>
         {% endfor %}
     </div>
-</div>
 {% endblock %}
