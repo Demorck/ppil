@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Litiges{% endblock %}
+
+{% block body %}
+<div class="container bg-content mx-auto p-4 rounded-xl">
+    <div class="flex flex-row font-bold bg-header p-2 border-gray-300 text-center text-green-200">
+        <div class="flex-1">Statut</div>
+        <div class="flex-1">Juriste</div>
+        <div class="flex-1">Action</div>
+    </div>
+    {% for litige in litiges %}
+        <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
+            <div class="flex-1 px-2">
+                {% if litige.statut == 1 %}
+                    traité
+                {% else %}
+                    non traité
+                {% endif %}
+            </div>
+            <div class="flex-1 px-2">{{litige.juriste.nom}} {{litige.juriste.prenom}}</div>
+            <div class="flex-1 px-2">
+                <a href="" class="bg-blue-500 px-4 py-2 rounded-full hover:underline ml-2">Gerer</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
