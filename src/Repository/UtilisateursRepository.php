@@ -5,14 +5,17 @@ namespace App\Repository;
 use App\Entity\Utilisateurs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
+use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @extends ServiceEntityRepository<Utilisateurs>
  */
-class UtilisateursRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
+class UtilisateursRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserLoaderInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -31,6 +34,25 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
         $user->setPassword($newHashedPassword);
         $this->getEntityManager()->persist($user);
         $this->getEntityManager()->flush();
+    }
+
+    public function loadUserByIdentifier(string $identifier): ?Utilisateurs
+    {
+        $user = $this->createQueryBuilder('u')
+            ->where('u.email = :email')
+            ->setParameter('email', $identifier)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if (!$user) {
+            throw new CustomUserMessageAuthenticationException('Identifiant incorrect.');
+        }
+
+        if ($user->getStatut() === 2) {
+            throw new CustomUserMessageAuthenticationException("Votre compte est désactivé.");
+        }
+
+        return $user;
     }
 
     //    /**
