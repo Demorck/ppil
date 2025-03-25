@@ -25,10 +25,13 @@ class SignalementLitigeController extends AbstractController
         if (!$this->getUser())
             return $this->redirectToRoute('app_login');
 
-        $location = $entityManager->getRepository(Locations::class)->findOneBy(['id' => $id]);
+        $location = $entityManager->getRepository(Locations::class)->findOneBy([
+            'id' => $id,
+            'locataire' => $this->getUser()
+        ]);
 
         if (!$location || $location->getLitiges())
-            return $this->redirectToRoute('app_abonnement');
+            return $this->redirectToRoute('app_liste_offres_utilisateur_souscrit');
 
         $litige = new Litiges();
         $form = $this->createForm(SignalementLitigeType::class, $litige);
