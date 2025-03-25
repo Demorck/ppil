@@ -65,6 +65,9 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: "utilisateur", targetEntity: Abonnements::class, orphanRemoval: true)]
     private Collection $abonnements;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $resetToken = null;
+
     public function __construct()
     {
         $this->vehicules = new ArrayCollection();
@@ -295,6 +298,18 @@ class Utilisateurs implements UserInterface, PasswordAuthenticatedUserInterface
                 $abonnement->setUtilisateur(null);
             }
         }
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): static
+    {
+        $this->resetToken = $resetToken;
+
         return $this;
     }
 }
