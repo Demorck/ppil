@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GererLitigeController{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <div>
+    </div>
+    <div>    
+        {{ litige.description }}
+    </div>
+    <br>
+        <a href="{{ path('valider_litige', { id: litige.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Valider</a>
+        <a href="{{ path('refuser_litige', { id: litige.id }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Refuser</a>
+    <br>
+</div>
+{% endblock %}

@@ -20,7 +20,7 @@
             </div>
             <div class="flex-1 px-2">{{litige.juriste.nom}} {{litige.juriste.prenom}}</div>
             <div class="flex-1 px-2">
-                <a href="" class="bg-blue-500 px-4 py-2 rounded-full hover:underline ml-2">Gerer</a>
+                <a href=" {{ path('app_gerer_litige', {id: litige.id}) }}" class="bg-blue-500 px-4 py-2 rounded-full hover:underline ml-2">Gerer</a>
             </div>
         </div>
     {% endfor %}
