@@ -5,8 +5,14 @@
 {% block body %}
 <div class="example-wrapper">
     <div>
+        <h2>Détails de la Location:</h2>
+        <p>date debut: {{ litige.location.dateDebut|date('d/m/Y')}}</p>
+        <p>date fin: {{ litige.location.dateFin|date('d/m/Y')}}</p>
+        <p>prix: {{ litige.location.prix}} €</p>
     </div>
-    <div>    
+    <br>
+    <div> 
+        <h2>Description:</h2>    
         {{ litige.description }}
     </div>
     <br>
