@@ -8,7 +8,9 @@ use App\Form\FormulaireCreerOffreType;
 
 
 use App\Form\Offres\OffreType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,6 +32,16 @@ class OffreController extends AbstractController
 
         $user = $this->getUser();
         $range = [];
+
+        $hier = new DateTime();
+        if ($offre->getDateDebut() <= $hier)
+        {
+            $range[] = [
+                'dateDebut' => $offre->getDateDebut(),
+                'dateFin' => $hier
+            ];
+        }
+
         foreach ($offre->getLocations() as $location) {
             $range[] = [
                 'dateDebut' => $location->getDateDebut(),
@@ -54,13 +66,14 @@ class OffreController extends AbstractController
             $location->setLocataire($user);
             $entityManager->persist($location);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home_page');
+            return $this->redirectToRoute('app_paiement', ['id' => $location->getId()]);
         }
 
         return $this->render('offres/page_offre.html.twig', [
             'form'  => $form->createView(),
             'controller_name' => 'OffreController',
             'offre' => $offre,
+            'date_impossible' => json_encode($range),
         ]);
     }
 }

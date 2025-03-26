@@ -21,6 +21,9 @@ Encore
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
     .addEntry('app', './assets/app.ts')
+    .addEntry('app_admin', './assets/js/Admin.ts')
+    .addEntry('app_chart_stats', './assets/js/Stats.ts')
+    // .addEntry('date_range', './assets/js/DateRange.ts')
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
 

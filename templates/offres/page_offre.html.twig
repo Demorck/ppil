@@ -48,29 +48,25 @@
                     <div class="font-bold underline">Prix:</div>
                     <div>&nbsp; {{ offre.prix }} €</div>
                 </div>
-                <div class="flex flex-col sm:flex-row justify-between">
-                    <div class="flex flex-col">
-                        {{ form_label(form.dateDebut) }}
-                        {{ form_widget(form.dateDebut) }}
-                        <div class="error">
-                            {{ form_errors(form.dateDebut) }}
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col">
-                        {{ form_label(form.dateFin) }}
-                        {{ form_widget(form.dateFin) }}
-                        <div class="error">
-                            {{ form_errors(form.dateFin) }}
-                        </div>
+                <div class="flex flex-col justify-between flex-1">
+                    <input type="text" placeholder="Sélectionner une plage de location" data-input id="date-range"
+                           data-date-impossible="{{ date_impossible }}"
+                           data-date-debut="{{ offre.dateDebut|date('m-d-Y') }}"
+                           data-date-fin="{{ offre.dateFin|date('m-d-Y') }}">
+                    <div class="error">
+                        {{ form_errors(form.dateDebut) }}
+                        {{ form_errors(form.dateFin) }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <div class="flex flex-row justify-center">
-        <button type="submit">Louer</button>
+        <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Louer</button>
     </div>
 </div>
+
+    {{ form_widget(form.dateDebut) }}
+    {{ form_widget(form.dateFin) }}
 {{ form_end(form) }}
 {% endblock %}
