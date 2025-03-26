@@ -11,16 +11,15 @@
         {% endblock %}
 
         {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        {{ encore_entry_script_tags('app') }}
     </head>
     <body class="bg-gray-400 flex flex-col h-screen">
             {% include 'nav.html.twig' %}
             {% block bandeau %}{% endblock %}
-            <div class="px-4 mt-5 flex-grow">
+            <div class="px-4 mt-5 {% block class_parent %}{% endblock %} flex-grow">
                 {% block body %}{% endblock %}
             </div>
-        {{ encore_entry_script_tags('app') }}
         {% include 'footer.html.twig' %}
     </body>
 </html>
