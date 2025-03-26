@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\Locations;
 use App\Entity\Offres;
 use App\Entity\Paiements;
+use App\Entity\Utilisateurs;
 use Doctrine\ORM\EntityManagerInterface;
 
 class StatsService
@@ -33,5 +34,15 @@ class StatsService
     public function getPrix(): array
     {
         return $this->entityManager->getRepository(Offres::class)->getPrix();
+    }
+
+    public function get_users_roles(): array
+    {
+        return $this->entityManager->getRepository(Utilisateurs::class)->getRoles();
+    }
+
+    public function get_new_users_by_month(): array
+    {
+        return $this->entityManager->getRepository(Utilisateurs::class)->get_new_users_by_month();
     }
 }

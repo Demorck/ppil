@@ -79,4 +79,19 @@ class UtilisateursRepository extends ServiceEntityRepository implements Password
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getRoles()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.roles')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function get_new_users_by_month()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('COUNT(u.id) as total')
+            ->getQuery()
+            ->getResult();
+    }
 }

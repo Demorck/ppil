@@ -173,6 +173,10 @@ button[type="submit"], .btn-submit {
     color: var(--color-accent-dark);
 }
 
+.active {
+    @apply bg-accent text-white
+}
+
 /***************************/
 /*   KEYFRAMES   */
 /**************************/

@@ -17,7 +17,7 @@ class DashboardController extends AbstractController
     public function index(StatsService $statsService): Response
     {
         $stats = $statsService->getStats();
-        $statsMonth = $statsService->getStatsByMonth();
+        $offre_status = $statsService->getStatsByMonth();
         $prix = $statsService->getPrix();
 
         if (!$this->getUser())
@@ -28,8 +28,11 @@ class DashboardController extends AbstractController
 
         return $this->render('administrateur/dashboard.html.twig', [
             'stats' => $stats,
-            'stats_month' => json_encode($statsMonth),
-            'prix' => $prix
+            'offre_status' => json_encode($offre_status),
+            'prix' => $prix,
+
+            'users_roles' => $statsService->get_users_roles(),
+//            'users_months' => $statsService->get_new_users_by_month(),
         ]);
     }
 }

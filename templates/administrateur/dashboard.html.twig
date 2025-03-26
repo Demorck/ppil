@@ -17,14 +17,14 @@
 </div>
     <br><br>
 <div class="flex flex-1 items-center flex-col">
-    <div class="flex justify-center text-center w-full items-center">
-        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="offres">Offres</div>
-        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="locations">Locations</div>
-        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="users">Utilisateurs</div>
-        <div class="hover:cursor-pointer flex flex-1 justify-center" data-id-tab="paiements">Paiements</div>
+    <div class="flex justify-center text-center w-full items-center border-b border-gray-400">
+        <div class="hover:cursor-pointer flex flex-1 border-x border-gray-100 justify-center active" data-id-tab="offres">Offres</div>
+        <div class="hover:cursor-pointer flex flex-1 border-x border-gray-100 justify-center" data-id-tab="locations">Locations</div>
+        <div class="hover:cursor-pointer flex flex-1 border-x border-gray-100 justify-center" data-id-tab="users">Utilisateurs</div>
+        <div class="hover:cursor-pointer flex flex-1 border-x border-gray-100 justify-center" data-id-tab="paiements">Paiements</div>
     </div>
     <div class="w-full">
-        <div id="offre_charts" class="flex flex-row justify-between items-center">
+        <div id="offres_charts" class="flex flex-row justify-between items-center">
             <div class="flex-1/4">
                 <canvas id="statsChart"></canvas>
             </div>
@@ -33,21 +33,29 @@
             </div>
         </div>
         <div id="locations_charts" class="hidden">
-            OOOOO
+            Rien pour l'instant
         </div>
-        <div id="users_charts" class="hidden">
-            UUUU
+        <div id="users_charts"  class="flex hidden flex-row justify-between items-center">
+            <div class="flex-1/4">
+                <canvas id="user_roles_chart"></canvas>
+            </div>
+            <div class="flex-1/4">
+                <canvas id="user_months_chart"></canvas>
+            </div>
         </div>
         <div id="paiements_charts" class="hidden">
-            PPPPPP
+            Rien pour l'instant
         </div>
     </div>
 </div>
 
 
-<div class="hidden" data-offre-status='{{ stats_month|json_encode|raw }}'></div>
-{#<div class="hidden" data-offre-full='{{ stats.total_offres }}'></div>#}
+<div class="hidden" data-offre-status='{{ offre_status|json_encode|raw }}'></div>
 <div class="hidden" data-offre-prix='{{ prix|json_encode|raw }}'></div>
+
+<div class="hidden" data-users-roles='{{ users_roles|json_encode|raw }}'></div>
+{#<div class="hidden" data-users-months='{{ users_months|json_encode|raw }}'></div>#}
+
 {% endblock %}
 
 {% block javascripts %}
