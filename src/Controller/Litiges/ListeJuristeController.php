@@ -14,14 +14,13 @@ class ListeJuristeController extends AbstractController
     #[Route('/juriste/litiges', name: 'app_juriste_litiges')]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if ($this->getUser() === null) {
+        if ( (!$this->getUser()) || (!in_array("ROLE_JURISTE", $this->getUser()->getRoles())) ) {
             return $this->redirectToRoute('app_login');
         }
+
         $user = $this->getUser();
 
         $litiges = $entityManager->getRepository(Litiges::class)->findBy(['juriste' => $user]);
-
-        dump($litiges);
 
         return $this->render('litiges/juriste_litiges.html.twig', [
             'controller_name' => 'litigesController',
