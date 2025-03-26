@@ -9,10 +9,14 @@
         <div class="flex-1">Date</div>
     </div>
     {% for paiement in paiements %}
-        <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
-            <div class="flex-1 px-2">{{paiement.montant}} €</div>
-            <div class="flex-1 px-2">{{paiement.date|date('d-m-Y')}}</div>
-        </div>
+        <a href="{{ path('app_voir_paiement', {'id': paiement.location.id}) }}">
+            <div class="flex flex-row items-center p-2 divide-x divide-red-500 hover:bg-row text-center">
+
+                <div class="flex-1 px-2">{{paiement.montant}} €</div>
+                <div class="flex-1 px-2">{{paiement.date|date('d-m-Y')}}</div>
+
+            </div>
+        </a>
     {% endfor %}
 </div>
 {% endblock %}

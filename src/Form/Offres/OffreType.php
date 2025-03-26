@@ -28,30 +28,38 @@ class OffreType extends AbstractType
         $builder
             ->add('dateDebut', DateTimeType::class, [
                 'required' => true,
+                'attr' => [
+                    'id' => 'date-debut',
+                    'class' => 'hidden'
+                ],
                 'constraints' => [
                     new GreaterThanOrEqual([
                         'value' => new \DateTime(),
                         'message' => 'La date de début doit être après aujourd\'hui.'
                     ]),
                     new GreaterThanOrEqual([
-                        'value' => $offre->getDateDebut(),
+                        'value' => $offre->getDateDebut()->setTime(0, 0, 0),
                         'message' => 'La date de début doit être après la date de début de l\'offre.'
                     ]),
                     new LessThanOrEqual([
-                        'value' => $offre->getDateFin(),
+                        'value' => $offre->getDateFin()->setTime(23, 59, 59),
                         'message' => 'La date de début doit être avant la date de fin de l\'offre.'
                     ]),
                 ]
             ])
             ->add('dateFin', DateTimeType::class, [
                 'required' => true,
+                'attr' => [
+                    'id' => 'date-fin',
+                    'class' => 'hidden'
+                ],
                 'constraints' => [
                     new GreaterThan([
                         'propertyPath' => 'parent.all[dateDebut].data',
                         'message' => 'La date de fin doit être après la date de début.'
                     ]),
                     new LessThanOrEqual([
-                        'value' => $offre->getDateFin(),
+                        'value' => $offre->getDateFin()->setTime(23, 59, 59),
                         'message' => 'La date de fin doit être avant la date de fin de l\'offre.'
                     ]),
                     new NoDateOverlap([

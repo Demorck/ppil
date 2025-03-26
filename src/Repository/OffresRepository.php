@@ -61,4 +61,22 @@ class OffresRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getStatsByMonth(): array
+    {
+        return $this->createQueryBuilder('o') // Correct ici
+            ->select("o.statut as status, COUNT(o.id) as count")
+            ->groupBy('o.statut')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function getPrix(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select("AVG(o.prix) as prix, o.dateFin - o.dateDebut as duree")
+            ->groupBy("duree")
+            ->getQuery()
+            ->getResult();
+    }
 }

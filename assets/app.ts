@@ -1,3 +1,6 @@
+import {date_range} from "./js/DateRange";
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let icon_profile = document.getElementById("user-menu-button") as HTMLButtonElement;
     if (icon_profile != null) {
@@ -12,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             input.addEventListener('click', () => toggle_enabled_input(name));
         })
     }
+
+    date_range();
 })
 
 function dropdown_menu_profile() : void {
@@ -26,7 +31,9 @@ function dropdown_menu_profile() : void {
 }
 
 function toggle_enabled_input(name: string) : void {
-    console.log('input[name=" ' + name  + ' "]');
-    let input = document.querySelector('input[name="' + name  + '"]') as HTMLInputElement;
-    input.disabled = !input.disabled;
+    let input = document.querySelectorAll('input[name="' + name  + '"]') as NodeListOf<HTMLInputElement>;
+    input.forEach((element) => {
+        element.disabled = !element.disabled;
+    })
+
 }
