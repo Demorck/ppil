@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 class   PaiementController extends AbstractController
 {
     #[Route('/location/{id}/paiement', name: 'app_paiement')]
-    public function index(Request $request, EntityManagerInterface $entMan, $id): Response
+    public function payer(Request $request, EntityManagerInterface $entMan, $id): Response
     {
 
         if ($this->getUser() === null) {
@@ -63,6 +63,35 @@ class   PaiementController extends AbstractController
             'paiementForm' => $form->createView(),
             'montant' => $montant,
             'vehicule' => $vehicule,
+        ]);
+    }
+
+    #[Route('/location/{id}/voirPaiement', name: 'app_voir_paiement')]
+    public function voirPaiement(Request $request, EntityManagerInterface $entMan, $id): Response
+    {
+        if ($this->getUser() === null) {
+            return $this->redirectToRoute('app_login');
+        }
+        $currentUser = $this->getUser();
+        $userid = $currentUser->getId();
+
+        $location = $entMan->getRepository(Locations::class)->findOneBy(['id' => $id, 'locataire' => $userid]);
+
+        if ($location === null) {
+            return $this->redirectToRoute('app_home_page');
+        }
+
+        $paiement = $entMan->getRepository(Paiements::class)->findOneBy(['location' => $id]);
+
+        if ($paiement === null) {
+            return $this->redirectToRoute('app_home_page');
+        }
+
+        return $this->render('paiements/voir_paiement.html.twig', [
+            'controller_name' => 'PaiementController',
+            'title' => 'Voir Paiement',
+            'paiement' => $paiement,
+            'location' => $location,
         ]);
     }
 }
