@@ -21,7 +21,7 @@ class SouscriptionAbonnementController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $abonnements = [
+        $abonnementsDispo = [
             [
                 'type' => 'Journalier',
                 'prix' => 5,
@@ -70,7 +70,7 @@ class SouscriptionAbonnementController extends AbstractController
             $abonnements->setStatut(1);
             $abonnements->setDateDebut(new \DateTime());
             $abonnements->setDateFin($this->getDateFin($abonnements->getDateDebut(), $choixAbonnement));
-//            $abonnements->
+            $abonnements->setPrix($abonnementsDispo[$choixAbonnement]['prix']);
 
             $entityManager->persist($abonnements);
             $entityManager->flush();
