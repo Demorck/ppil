@@ -18,7 +18,11 @@ class ListeOffresController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $offres = $entityManager->getRepository(Offres::class)->findBy(['statut' => 1]);
+        $nbPlace = $request->query->get('nbPlace');
+        $dateDebut = $request->query->get('dateDebut');
+        $dateFin = $request->query->get('dateFin');     
+        
+        $offres = $entityManager->getRepository(Offres::class)->findByFilters($nbPlace, $dateDebut, $dateFin);
 
         return $this->render('offres/liste_offres.html.twig', [
             'controller_name' => 'OffresController',
