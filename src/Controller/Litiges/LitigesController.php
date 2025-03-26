@@ -26,6 +26,7 @@ class LitigesController extends AbstractController
         $litige = $entMan->getRepository(Litiges::class)->findOneBy(['id' => $location_id]);
 
         if ($litige === null) {
+            $this->addFlash('warning', "L'offre n'est pas accessible pour le moment.");
             return $this->redirectToRoute('app_home_page');
         }
 
