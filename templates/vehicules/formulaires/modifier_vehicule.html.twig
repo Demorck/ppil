@@ -12,14 +12,18 @@
         </div>
         <div class="flex flex-col sm:flex-row gap-4">
             <div class="flex flex-col w-1/5">
-                <div class="flex">
-                    {% if vehicule.imageName %}
-                        <img src="{{ asset('images/vehicules/' ~ vehicule.imageName) }}" alt="Image du véhicule" id="preview" style="cursor: pointer;">
-                    {% else %}
-                        <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image" id="preview" style="cursor: pointer;">
-                    {% endif %}
-                    {{ form_widget(vehiculeGerer.image, { 'attr': {'style': 'opacity: 0; position: absolute; width: 20%; height: 40%; cursor: pointer;'} }) }}
-
+                <div class="flex flex-col">
+                    {{ form_widget(vehiculeGerer.image,  { 'attr' : { 'class': 'hidden' }})}}
+                    <label for="vehicule_form_image" class="flex flex-col gap-4 hover:cursor-pointer">
+                        {% if vehicule.imageName %}
+                            <img src="{{ asset('images/vehicules/' ~ vehicule.imageName) }}" alt="Image du véhicule" id="preview">
+                        {% else %}
+                            <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image" id="preview">
+                        {% endif %}
+                        <div class="bg-row flex-1 py-2 text-center font-bold">
+                            Choisir une image
+                        </div>
+                    </label>
                 </div>
             </div>
             <div class="flex flex-col gap-4 w-4/5 flex-wrap">

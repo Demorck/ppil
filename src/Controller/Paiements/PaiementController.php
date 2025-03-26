@@ -2,6 +2,8 @@
 
 namespace App\Controller\Paiements;
 
+use App\Entity\Commission;
+use App\Entity\Commissions;
 use App\Entity\Locations;
 use App\Entity\Paiements;
 use App\Form\Paiements\FormulairePaiementType;
@@ -47,7 +49,15 @@ class   PaiementController extends AbstractController
             $paiement->setStatut(0);
             $paiement->setMontant($location->getPrix());
 
+            $commission = new Commissions();
+            $commission->setPaiement($paiement);
+
+            $pourcentage = $entMan->getRepository(Commission::class)->findOneBy(['id' => 1])->getPourcentage();
+            $commission->setMontant($location->getPrix() * $pourcentage / 100);
+            $commission->setPourcentage($pourcentage);
+
             $entMan->persist($paiement);
+            $entMan->persist($commission);
             $entMan->flush();
             return $this->redirectToRoute('app_page_validation_paiement');
         }

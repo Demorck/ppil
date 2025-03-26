@@ -17,7 +17,7 @@
     <section>
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto w-3/4">
             <div class="w-full bg-content rounded-xl py-16 shadow">
-                <div class="p-6 flex flex-1 items-center flex-col gap-8">
+                <div class="p-6 flex flex-1 items-center flex-col gap-4">
                     <div class="flex flex-1 w-full items-center justify-center flex-col gap-4">
                         <div class="w-full sm:w-1/2 flex flex-col">
                             <label for="inputEmail">E-mail</label>
@@ -38,6 +38,9 @@
                     </div>
                     <div class="flex justify-center text-accent-dark font-bold">
                         Pas de compte ?&nbsp; <a class="text-header underline hover:text-accent" href="{{ path('app_register') }}">S'inscrire</a>
+                    </div>
+                    <div class="flex justify-center text-accent-dark font-bold">
+                       <a class="text-header underline hover:text-accent" href="{{ path('app_forgot_password') }}">Mot de passe oublié ?&nbsp; </a>
                     </div>
                 </div>
             </div>

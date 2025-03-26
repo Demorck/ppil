@@ -31,7 +31,9 @@ function dropdown_menu_profile() : void {
 }
 
 function toggle_enabled_input(name: string) : void {
-    console.log('input[name=" ' + name  + ' "]');
-    let input = document.querySelector('input[name="' + name  + '"]') as HTMLInputElement;
-    input.disabled = !input.disabled;
+    let input = document.querySelectorAll('input[name="' + name  + '"]') as NodeListOf<HTMLInputElement>;
+    input.forEach((element) => {
+        element.disabled = !element.disabled;
+    })
+
 }
