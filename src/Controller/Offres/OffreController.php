@@ -63,7 +63,7 @@ class OffreController extends AbstractController
             $location->setLocataire($user);
             $entityManager->persist($location);
             $entityManager->flush();
-            return $this->redirectToRoute('app_home_page');
+            return $this->redirectToRoute('app_paiement', ['id' => $location->getId()]);
         }
 
         return $this->render('offres/page_offre.html.twig', [
