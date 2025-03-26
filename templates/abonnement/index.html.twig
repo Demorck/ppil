@@ -14,7 +14,7 @@
                 <div class="flex-1 px-2">Début : {{ abonnement.dateDebut|date("d/m/Y") }}</div>
                 <div class="flex-1 px-2">Fin : {{ abonnement.dateFin|date("d/m/Y") }}</div>
                 <div class="flex-1 px-2">Statut : {{ abonnement.statut }}</div>
-                <div class="flex-1 px-2">Prix : €</div>
+                <div class="flex-1 px-2">Prix : {{ abonnement.prix }} €</div>
             </div>
         {% else %}
             <div class="flex flex-row items-center p-2">

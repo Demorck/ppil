@@ -1,3 +1,6 @@
+import {date_range} from "./js/DateRange";
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let icon_profile = document.getElementById("user-menu-button") as HTMLButtonElement;
     if (icon_profile != null) {
@@ -12,6 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
             input.addEventListener('click', () => toggle_enabled_input(name));
         })
     }
+
+    date_range();
 })
 
 function dropdown_menu_profile() : void {

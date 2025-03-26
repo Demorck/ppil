@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Prékar {% endblock %}
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Administrateur" } %}
+{% endblock %}
+
+{% block body %}
+
+<div class="flex flex-col gap-8 items-center">
+    {{ form_start(form) }}
+    {{ form_row(form.pourcentage) }}
+    <button type="submit" class="btn-rainbow">Enregistrer</button>
+    {{ form_end(form) }}
+
+    {% for label, messages in app.flashes(['success', 'warning']) %}
+        {% for message in messages %}
+            <div class="flash-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+</div>
+
+
+{% endblock %}
