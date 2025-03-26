@@ -18,9 +18,8 @@ class AbonnementType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'Journalier' => 0,
-                    'Hebdomadaire' => 1,
-                    'Mensuel' => 2,
-                    'Annuel' => 3,
+                    'Mensuel' => 1,
+                    'Annuel' => 2,
                 ],
                 'label' => 'Choisissez votre abonnement',
                 'expanded' => true,
