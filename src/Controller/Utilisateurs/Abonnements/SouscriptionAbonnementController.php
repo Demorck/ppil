@@ -65,7 +65,7 @@ class SouscriptionAbonnementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $choixAbonnement = $form->get('type')->getData();
             $abonnements->setUtilisateur($this->getUser());
-            $abonnements->setStatut(1);
+            $abonnements->setStatut(0);
             $abonnements->setDateDebut(new \DateTime());
             $abonnements->setDateFin($this->getDateFin($abonnements->getDateDebut(), $choixAbonnement));
             $abonnements->setPrix($abonnementsDispo[$choixAbonnement]['prix']);
@@ -73,7 +73,7 @@ class SouscriptionAbonnementController extends AbstractController
             $entityManager->persist($abonnements);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_abonnement');
+            return $this->redirectToRoute('app_paiement_abo', ['id' => $abonnements->getId()]);
         }
 
         $dateFin = null;

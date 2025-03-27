@@ -13,7 +13,7 @@
                 <div class="flex-1 px-2">Type : {{ abonnement.type }}</div>
                 <div class="flex-1 px-2">Début : {{ abonnement.dateDebut|date("d/m/Y") }}</div>
                 <div class="flex-1 px-2">Fin : {{ abonnement.dateFin|date("d/m/Y") }}</div>
-                <div class="flex-1 px-2">Statut : {{ abonnement.statut }}</div>
+                <div class="flex-1 px-2">Statut : {% if abonnement.dateFin < date() %} Expiré {% elseif abonnement.paiements is null %} Paiement non effectué: <a class="font-extrabold font-stretch-200%" href="{{ path('app_paiement_abo', {id: abonnement.id}) }}">PAYER</a> {% else %} Actif {% endif %}</div>
                 <div class="flex-1 px-2">Prix : {{ abonnement.prix }} €</div>
             </div>
         {% else %}
