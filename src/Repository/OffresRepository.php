@@ -23,7 +23,7 @@ class OffresRepository extends ServiceEntityRepository
             ->where('o.statut = 1'); 
     
         if ($nbPlace) {
-            $qb->andWhere('v.nombrePlace = :nbPlace')
+            $qb->andWhere('v.nombrePlace >= :nbPlace')
                ->setParameter('nbPlace', $nbPlace);
         }
     
