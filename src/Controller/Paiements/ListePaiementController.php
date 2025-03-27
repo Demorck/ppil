@@ -26,8 +26,6 @@ class ListePaiementController extends AbstractController
         $abonnements = $entityManager->getRepository(Abonnements::class)->findBy(['utilisateur' => $user]);
         $paiementsAbo = $entityManager->getRepository(Paiements::class)->findBy(['AbonnementId' => $abonnements]);
 
-        dump($paiementsLoc);
-        dump($paiementsAbo);
 
         return $this->render('paiements/liste_paiements.html.twig', [
             'controller_name' => 'ListePaiementController',
