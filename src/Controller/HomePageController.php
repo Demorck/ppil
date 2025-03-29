@@ -12,12 +12,18 @@ class HomePageController extends AbstractController
     #[Route('', name: 'app_home_page')]
     public function index(): Response
     {
-        $dateAujourdhui = (new DateTime())->format('Y-m-d');
+        $dateDeb = (new DateTime())->format('Y-m-d');
+        $dateFin = (new DateTime())->format('Y-m-d');
+
+        if ($dateFin < $dateDeb) {
+            $dateFin = clone $dateDeb;
+        }
 
         return $this->render('home_page/index.html.twig', [
             'title' => "Accueil",
             'controller_name' => 'HomePageController',
-            'dateAujourdhui' => $dateAujourdhui
+            'dateDeb' => $dateDeb,
+            'dateFin' => $dateFin
         ]);
     }
 } 
