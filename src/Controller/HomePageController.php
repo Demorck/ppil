@@ -14,6 +14,7 @@ class HomePageController extends AbstractController
     {
         $dateDeb = (new DateTime())->format('Y-m-d');
         $dateFin = (new DateTime())->format('Y-m-d');
+        
 
         if ($dateFin < $dateDeb) {
             $dateFin = clone $dateDeb;
