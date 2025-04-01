@@ -11,9 +11,11 @@ use App\Form\Offres\OffreType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use PHPUnit\Util\Json;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class OffreController extends AbstractController
@@ -31,6 +33,9 @@ class OffreController extends AbstractController
         }
 
         $user = $this->getUser();
+        if ($user->getStatut() == 0)
+            return $this->redirectToRoute('app_souscription_abonnement');
+
         $range = [];
 
         $hier = new DateTime();
@@ -60,12 +65,21 @@ class OffreController extends AbstractController
         $days = $form->get('dateDebut')->getData() && $form->get('dateFin')->getData() ? $form->get('dateDebut')->getData()->diff($form->get('dateFin')->getData())->days : $days;
         $days+=1;
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($offre->getVehicule()->getProprietaire() === $user) {
+                $this->addFlash('error', 'Vous ne pouvez pas louer votre propre véhicule.');
+                return $this->redirectToRoute('app_offre', ['id' => $offre->getId()]);
+            }
+
             $location->setPrix($offre->getPrix()*$days);
             $location->setStatut(0);
             $location->setOffre($offre);
             $location->setLocataire($user);
             $entityManager->persist($location);
             $entityManager->flush();
+
+            $this->addFlash('success', 'Offre souscrite, plus qu\'à payer.');
+
+
             return $this->redirectToRoute('app_paiement', ['id' => $location->getId()]);
         }
 

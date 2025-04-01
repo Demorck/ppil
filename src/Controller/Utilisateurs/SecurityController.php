@@ -71,10 +71,8 @@ class SecurityController extends AbstractController
                     ]);
 
                 $mailer->send($email);
-                $this->addFlash('success', 'Un email de réinitialisation vous a été envoyé.');
-            } else {
-                $this->addFlash('success', 'Un email de réinitialisation vous a été envoyé.');
             }
+            $this->addFlash('success', 'Un email de réinitialisation vous a été envoyé.');
         }
 
         return $this->render('utilisateurs/forgot_password.html.twig');

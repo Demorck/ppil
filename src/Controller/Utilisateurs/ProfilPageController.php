@@ -2,6 +2,7 @@
 
 namespace App\Controller\Utilisateurs;
 
+use App\Entity\Abonnements;
 use App\Form\Utilisateurs\ModificationProfilType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,11 +42,38 @@ class ProfilPageController extends AbstractController
             }
         }
 
+        $actifs = $entityManager->getRepository(Abonnements::class)->findBy([
+            'utilisateur' => $this->getUser(),
+            'statut' => 1
+        ]);
+        if ($actifs != null)
+        {
+            $now = new \DateTime();
+            $actifs = array_filter($actifs, function (Abonnements $abonnement) use ($now) {
+                return $abonnement->getDateFin() >= $now;
+            });
+
+            $dureeRestante = 0;
+            foreach ($actifs as $abonnement) {
+                $diff = (new \DateTime())->diff($abonnement->getDateFin());
+                $dureeRestante += max(0, $diff->days);
+            }
+
+            $dateFin = null;
+            if ($dureeRestante > 0) {
+                $dateFin = (new \DateTime())->add(new \DateInterval('P' . $dureeRestante . 'D'));
+            }
+        }
+
         return $this->render('utilisateurs/profil_page.html.twig', [
             'title' => "Profile",
             'controller_name' => 'ProfilPageController',
             'user' => $user,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'vehicules' => $user->getVehicules(),
+            'locations' => $user->getLocations(),
+            'abonnement' => $dateFin,
+            'duree' => $dureeRestante,
         ]);
     }
 }

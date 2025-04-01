@@ -159,7 +159,7 @@ button[type="submit"], .btn-submit {
     -webkit-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
     -moz-filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
     filter: drop-shadow(0px 4px 0 --alpha(var(--color-accent-dark) / 60%));
-    @apply relative text-content font-bold py-2 px-16 text-xl overflow-hidden transition duration-300
+    @apply relative text-content font-bold py-2 px-4 text-xl overflow-hidden transition duration-300
 }
 
 

@@ -56,6 +56,14 @@
                     </button>
                 </div>
             </div>
+
+            <div class="error">
+                <ul>
+                    {% for message in app.flashes('error') %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
         </form>
 
         <hr>

@@ -25,6 +25,9 @@
                             <a href="{{ path('app_liste_offres_utilisateur_souscrit') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes locations</a>
                             <a href="{{ path('app_abonnement') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Mes abonnements</a>
                         {% endif %}
+                        {% if is_granted('ROLE_JURISTE') %}
+                            <a href="{{ path('app_juriste_litiges') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Gérer les litiges</a>
+                       {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('app_admin_dashboard') }}" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Tableau de bord administrateur</a>
                         {% endif %}

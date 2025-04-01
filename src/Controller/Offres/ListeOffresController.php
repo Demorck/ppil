@@ -25,6 +25,11 @@ class ListeOffresController extends AbstractController
         
         $offres = $entityManager->getRepository(Offres::class)->findByFilters($nbPlace, $dateDebut, $dateFin, $typeCarburant);
 
+        if (!$offres) {
+            $this->addFlash('error', 'Aucune offre ne correspond à vos critères de recherche.');
+            return $this->redirectToRoute('app_home_page');
+        }
+
         return $this->render('offres/liste_offres.html.twig', [
             'controller_name' => 'OffresController',
             'offres' => $offres,

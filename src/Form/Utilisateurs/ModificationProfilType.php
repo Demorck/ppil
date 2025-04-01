@@ -57,9 +57,6 @@ class ModificationProfilType extends AbstractType
                 'required' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
                     new Length([
                         'min' => 10,
                         'minMessage' => 'Votre mot de passe doit contenir au moins {{ limit }} caractères.',

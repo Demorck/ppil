@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Prékar {% endblock %}
+
+{% block class_parent%} flex justify-center{% endblock %}
+
+{% block body %}
+
+<div class="container justify-center flex w-full text-center" data-type="offres">
+    <div class="grid border border-gray-300">
+        <div class="grid grid-cols-[0.5fr_1fr_1fr_2fr_1fr_1fr_1fr] bg-gray-200 font-bold border-b">
+            <div class="p-2">Id</div>
+            <div class="p-2">Titre</div>
+            <div class="p-2">Date début</div>
+            <div class="p-2">Date fin</div>
+            <div class="p-2">Prix</div>
+            <div class="p-2">Status</div>
+            <div class="p-2">Type</div>
+        </div>
+
+        {% for offre in offres %}
+            <div class="grid grid-cols-[0.5fr_1fr_1fr_2fr_1fr_1fr_1fr] border-b" data-feur="{{ offre.id }}">
+                <div class="p-2">{{ offre.id }}</div>
+                <div class="p-2">{{ offre.vehicule.titre }}</div>
+                <div class="p-2">{{ offre.dateDebut|format_datetime('full', 'none', locale: 'fr') }}</div>
+                <div class="p-2">{{ offre.dateDebut|format_datetime('full', 'none', locale: 'fr') }}</div>
+                <div class="p-2">{{ offre.prix }}</div>
+                <div class="p-2" data-offre="status">
+                    {% if offre.statut == 0 %}
+                        Inactif
+                    {% elseif offre.statut == 1 %}
+                        Actif
+                    {% elseif offre.statut == 2 %}
+                        Terminée
+                    {% else %}
+                        Suspendue
+                    {% endif %}
+                </div>
+                <div class="p-2">
+                    {% if offre.statut != 3 %}
+                        <div data-id="{{ offre.id }}" class="bg-red-400 rounded-xl px-4 py-2 hover:cursor-pointer">
+                            Suspendre
+                        </div>
+                    {% else %}
+                        <div data-id="{{ offre.id }}" class="bg-green-400 rounded-xl px-4 py-2 hover:cursor-pointer">
+                            Rendre actif
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+    
+{% endblock %}
+
+{% block javascripts %}
+{{ encore_entry_script_tags('app_admin') }}
+{% endblock %}

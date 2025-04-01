@@ -3,12 +3,37 @@
 {% block title %}Hello ProfilePageController!{% endblock %}
 
 {% block body %}
-    {{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}})}}
-    <div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl">
-        <h1 class="text-3xl text-center text-accent">Mon profil</h1>
-        <div class="lg:w-3/4 flex flex-row items-center gap-6">
-            <div class="flex-shrink-0">
-                <img style="width: 200px; height: 200px; border-radius: 50%;" src="{{ asset('img/logoProfil.png') }}" alt="Photo utilisateur">
+{{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}})}}
+<div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-5/6 rounded-xl">
+    <div class="flex flex-col lg:flex-row gap-6 justify-around">
+        <div class="flex-shrink-0 flex items-center">
+            <img style="width: 200px; height: 200px; border-radius: 50%;" src="{{ asset('img/logoProfil.png') }}" alt="Photo utilisateur">
+        </div>
+        <div class="flex flex-col">
+            <div class="flex sm:flex-row flex-col sm:gap-4">
+                <div class="form-group relative flex-1">
+                    {{ form_label(form.nom) }}
+                    {{ form_widget(form.nom, {'attr': {'disabled': 'disabled'}}) }}
+                    <div class="error">{{ form_errors(form.nom) }}</div>
+                    <div data-type="change-on-click" data-for="{{ field_name(form.nom) }}" class="absolute hover:cursor-pointer top-0 right-0 w-4 text-xs">
+                        <svg fill="#000000" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 282.837 282.837" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M19.539,246.006c-1.412-1.413-2.995-2.159-4.576-2.159c-2.361,0-4.33,1.676-5.266,4.482l-9.24,27.723 c-0.701,2.103-0.591,3.95,0.309,5.201c0.736,1.021,1.959,1.584,3.443,1.584c0.79,0,1.655-0.155,2.571-0.461l27.722-9.241 c2.36-0.786,3.907-2.267,4.355-4.167c0.448-1.9-0.273-3.916-2.032-5.675L19.539,246.006z"></path> <path d="M280.205,48.279L234.553,2.627C232.86,0.934,230.599,0,228.189,0c-2.41,0-4.67,0.934-6.363,2.627L51.892,172.561 c-3.212,3.212-6.993,9.33-8.429,13.638l-7.417,22.252c-1.503,4.508,0.008,10.909,3.368,14.27l20.697,20.697 c2.403,2.403,6.48,3.957,10.388,3.957c0,0,0,0,0.001,0c1.404,0,2.71-0.198,3.881-0.589l22.253-7.417 c4.309-1.436,10.426-5.217,13.637-8.428L280.205,61.007C283.714,57.498,283.714,51.788,280.205,48.279z M252.535,70.896 L166.8,156.631c-2.929,2.929-6.768,4.393-10.607,4.393s-7.678-1.465-10.606-4.393c-5.858-5.857-5.858-15.355,0-21.213 l85.735-85.735c5.857-5.857,15.355-5.857,21.213,0C258.393,55.54,258.393,65.038,252.535,70.896z"></path> </g> </g></svg>
+                    </div>
+                </div>
+                <div class="form-group relative flex-1">
+                    {{ form_label(form.prenom) }}
+                    {{ form_widget(form.prenom, {'attr': {'disabled': 'disabled'}}) }}
+                    <div class="error">{{ form_errors(form.prenom) }}</div>
+                    <div data-type="change-on-click" data-for="{{ field_name(form.prenom) }}" class="absolute hover:cursor-pointer top-0 right-0 w-4 text-xs">
+                        <svg fill="#000000" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 282.837 282.837" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M19.539,246.006c-1.412-1.413-2.995-2.159-4.576-2.159c-2.361,0-4.33,1.676-5.266,4.482l-9.24,27.723 c-0.701,2.103-0.591,3.95,0.309,5.201c0.736,1.021,1.959,1.584,3.443,1.584c0.79,0,1.655-0.155,2.571-0.461l27.722-9.241 c2.36-0.786,3.907-2.267,4.355-4.167c0.448-1.9-0.273-3.916-2.032-5.675L19.539,246.006z"></path> <path d="M280.205,48.279L234.553,2.627C232.86,0.934,230.599,0,228.189,0c-2.41,0-4.67,0.934-6.363,2.627L51.892,172.561 c-3.212,3.212-6.993,9.33-8.429,13.638l-7.417,22.252c-1.503,4.508,0.008,10.909,3.368,14.27l20.697,20.697 c2.403,2.403,6.48,3.957,10.388,3.957c0,0,0,0,0.001,0c1.404,0,2.71-0.198,3.881-0.589l22.253-7.417 c4.309-1.436,10.426-5.217,13.637-8.428L280.205,61.007C283.714,57.498,283.714,51.788,280.205,48.279z M252.535,70.896 L166.8,156.631c-2.929,2.929-6.768,4.393-10.607,4.393s-7.678-1.465-10.606-4.393c-5.858-5.857-5.858-15.355,0-21.213 l85.735-85.735c5.857-5.857,15.355-5.857,21.213,0C258.393,55.54,258.393,65.038,252.535,70.896z"></path> </g> </g></svg>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row gap-4">
+                <div class="form-group flex-1 relative">
+                    {{ form_label(form.email) }}
+                    {{ form_widget(form.email) }}
+                    <div class="error">{{ form_errors(form.email) }}</div>
+                </div>
             </div>
             <div class="flex flex-col md:flex-row gap-4">
                 <div class="form-group relative flex-1">
@@ -21,73 +46,85 @@
                 </div>
                 <div class="form-group relative flex-1">
                     <label for="confirm_password">Confirmation du mot de passe </label>
-                    <input type="password" name="{{ field_name(form.password) }}" placeholder="Confirmer le mot de passe" required id="confirm_password" disabled>
+                    <input type="password" name="{{ field_name(form.password) }}" placeholder="Confirmer le mot de passe" id="confirm_password" disabled>
                 </div>
             </div>
-            <div class="flex flex-col md:flex-row gap-4">
-                <div class="form-group relative flex-1">
-                    {{ form_label(form.nom) }}
-                    {{ form_widget(form.nom, {'attr': {'disabled': 'disabled'}}) }}
-                    <div class="error">{{ form_errors(form.nom) }}</div>
-                    <div data-type="change-on-click" data-for="{{ field_name(form.nom) }}" class="absolute hover:cursor-pointer top-0 right-0 w-4 text-xs">
-                        <svg fill="#000000" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 282.837 282.837" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M19.539,246.006c-1.412-1.413-2.995-2.159-4.576-2.159c-2.361,0-4.33,1.676-5.266,4.482l-9.24,27.723 c-0.701,2.103-0.591,3.95,0.309,5.201c0.736,1.021,1.959,1.584,3.443,1.584c0.79,0,1.655-0.155,2.571-0.461l27.722-9.241 c2.36-0.786,3.907-2.267,4.355-4.167c0.448-1.9-0.273-3.916-2.032-5.675L19.539,246.006z"></path> <path d="M280.205,48.279L234.553,2.627C232.86,0.934,230.599,0,228.189,0c-2.41,0-4.67,0.934-6.363,2.627L51.892,172.561 c-3.212,3.212-6.993,9.33-8.429,13.638l-7.417,22.252c-1.503,4.508,0.008,10.909,3.368,14.27l20.697,20.697 c2.403,2.403,6.48,3.957,10.388,3.957c0,0,0,0,0.001,0c1.404,0,2.71-0.198,3.881-0.589l22.253-7.417 c4.309-1.436,10.426-5.217,13.637-8.428L280.205,61.007C283.714,57.498,283.714,51.788,280.205,48.279z M252.535,70.896 L166.8,156.631c-2.929,2.929-6.768,4.393-10.607,4.393s-7.678-1.465-10.606-4.393c-5.858-5.857-5.858-15.355,0-21.213 l85.735-85.735c5.857-5.857,15.355-5.857,21.213,0C258.393,55.54,258.393,65.038,252.535,70.896z"></path> </g> </g></svg>
-                    </div>
-                </div>
-                <div class="flex flex-col md:flex-row gap-4">
-                    <div class="form-group flex-1 relative">
-                        {{ form_label(form.email) }}
-                        {{ form_widget(form.email) }}
-                        <div class="error">{{ form_errors(form.email) }}</div>
-                    </div>
-                    <div class="form-group flex-1 relative">
-                        {{ form_label(form.password, "Mot de passe") }}
-                        {{ form_widget(form.password, {'attr': {'disabled': 'disabled'}}) }}
-                        <div class="error">{{ form_errors(form.password) }}</div>
-                        <div data-type="change-on-click" data-for="{{ field_name(form.password) }}" class="absolute hover:cursor-pointer top-0 right-0 w-4 text-xs">
-                            <svg fill="#000000" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 282.837 282.837" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M19.539,246.006c-1.412-1.413-2.995-2.159-4.576-2.159c-2.361,0-4.33,1.676-5.266,4.482l-9.24,27.723 c-0.701,2.103-0.591,3.95,0.309,5.201c0.736,1.021,1.959,1.584,3.443,1.584c0.79,0,1.655-0.155,2.571-0.461l27.722-9.241 c2.36-0.786,3.907-2.267,4.355-4.167c0.448-1.9-0.273-3.916-2.032-5.675L19.539,246.006z"></path> <path d="M280.205,48.279L234.553,2.627C232.86,0.934,230.599,0,228.189,0c-2.41,0-4.67,0.934-6.363,2.627L51.892,172.561 c-3.212,3.212-6.993,9.33-8.429,13.638l-7.417,22.252c-1.503,4.508,0.008,10.909,3.368,14.27l20.697,20.697 c2.403,2.403,6.48,3.957,10.388,3.957c0,0,0,0,0.001,0c1.404,0,2.71-0.198,3.881-0.589l22.253-7.417 c4.309-1.436,10.426-5.217,13.637-8.428L280.205,61.007C283.714,57.498,283.714,51.788,280.205,48.279z M252.535,70.896 L166.8,156.631c-2.929,2.929-6.768,4.393-10.607,4.393s-7.678-1.465-10.606-4.393c-5.858-5.857-5.858-15.355,0-21.213 l85.735-85.735c5.857-5.857,15.355-5.857,21.213,0C258.393,55.54,258.393,65.038,252.535,70.896z"></path> </g> </g></svg>
-                        </div>
-                    </div>
-                </div>
-                <div class="flex flex-col md:flex-row gap-4">
-                    <button type="submit" id="edit-profile" class="btn-rainbow hover:cursor-pointer text-xl">Sauvegarder</button>
-                    
-                </div>
 
+            <button type="submit" id="edit-profile" class="btn-rainbow hover:cursor-pointer text-xl w-full">Sauvegarder les modifications</button>
+        </div>
+        <div class="flex flex-col justify-around">
+            <div class="flex flex-col gap-2">
+                <h1 class="text-accent text-2xl">Mon abonnement: </h1>
+                {%  if duree > 0 %}
+                    <div class="font-bolder text-xl">Fin le {{ abonnement|format_datetime('full', 'none', locale: 'fr') }}</div>
+                {% else %}
+                    <div class="font-bolder text-xl">Vous n'avez encore aucun abonnement</div>
+                {% endif %}
+                <a href="{{ path('app_abonnement') }}"  class="btn-rainbow hover:cursor-pointer rounded-xl text-xl btn-submit mx-4 mt-4">
+                    Consulter
+                </a>
+                <a href="{{ path('app_souscription_abonnement') }}" class="btn-rainbow hover:cursor-pointer rounded-xl text-xl btn-submit mx-4 mt-4">
+                    Souscrire
+                </a>
+            </div>
+            <div class="flex flex-col gap-2">
+                <h1 class="text-accent text-2xl">Mon permis:</h1>
+                {%  if user.statut == 1 %}
+                    Le permis est validé, tout est bon ! :)
+                {% else %}
+                    <a href="{{ path('app_page_envoie_permis') }}"  class="btn-rainbow hover:cursor-pointer rounded-xl text-xl btn-submit">
+                        Envoyer mon permis
+                    </a>
+                {% endif %}
             </div>
         </div>
     </div>
-    {{ form_end(form)}}
-    <div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl mx-auto flex justify-center items-center">
-        
-        <div class="flex flex-col items-center gap-6 w-full max-w-md">
-            <h2 class="text-2xl text-accent w-full text-left">Mes abonnements :</h2>
-            <div class="flex flex-col md:flex-row gap-4 md:space-x-4 w-full">
-                <a href="{{ path('app_abonnement') }}" class="w-full">
-                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-l w-full">Abonnements</button>
-                </a>
-                <a href="{{ path('app_souscription_abonnement') }}" class="w-full">
-                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl w-full">Souscrire</button>
-                </a>
-            </div>
-        
-            <h2 class="text-2xl text-accent w-full text-left">Mes réservations :</h2>
-            <div class="flex flex-col md:flex-row gap-4 md:space-x-4 w-full">
-                <a href="{{ path('app_liste_offres_utilisateur_souscrit') }}" class="w-full">
-                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl w-full">Locations</button>
-                </a>
-                <a href="{{ path('app_liste_paiement') }}" class="w-full">
-                    <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl w-full">Paiements</button>
-                </a>
-            </div>
-        
-            <h2 class="text-2xl text-accent w-full text-left">Mon permis :</h2>
-            <a href="{{ path('app_page_envoie_permis') }}">
-                <button type="submit" class="btn-rainbow hover:cursor-pointer text-xl">Envoyer mon permis</button>
-            </a>
+    <div class="flex flex-col">
+        <div>
+            <span class="text-accent text-2xl">Mes voitures: </span> <a href="{{ path('app_liste_vehicules') }}" class="underline hover:text-accent">Voir mes véhicules</a>
         </div>
-        
+        <div class="flex sm:flex-row flex-col gap-4 items-center">
+            {% for vehicule in vehicules %}
+                <a href="{{ path('app_liste_vehicules', {id: vehicule.id}) }}">
+                    {% if vehicule.imageName %}
+                        {% if vehicule.imageName starts with 'http' %}
+                            <img src="{{ vehicule.imageName }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                        {% else %}
+                            <img src="{{ asset('images/vehicules/' ~ vehicule.imageName) }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                        {% endif %}
+                    {% else %}
+                        <img src="{{ asset('images/default.jpg') }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
     </div>
-
+    <div>
+        <div>
+            <span class="text-accent text-2xl">Mes réservations: </span> <a href="{{ path('app_liste_offres_utilisateur') }}" class="underline hover:text-accent">Voir mes réservations</a>
+        </div>
+        <div class="flex sm:flex-row flex-col gap-4 items-center">
+            {% for location in locations %}
+                {% if location.paiements %}
+                    <a href="{{ path('app_voir_paiement', {id : location.id}) }}">
+                {% else %}
+                    <a href="{{ path('app_paiement', {id : location.id}) }}">
+                {% endif %}
+                    {% if location.offre.vehicule.imageName %}
+                        {% if location.offre.vehicule.imageName starts with 'http' %}
+                            <img src="{{ location.offre.vehicule.imageName }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                        {% else %}
+                            <img src="{{ asset('images/vehicules/' ~ location.offre.vehicule.imageName) }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                        {% endif %}
+                    {% else %}
+                        <img src="{{ asset('images/default.jpg') }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
 
 
 <script>

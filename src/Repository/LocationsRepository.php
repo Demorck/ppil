@@ -16,6 +16,19 @@ class LocationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Locations::class);
     }
 
+    public function findLocationsInDateRange(int $offreId, \DateTime $dateDebut, \DateTime $dateFin): array
+    {
+        return $this->createQueryBuilder('l')
+            ->where('l.offre = :offreId')
+            ->andWhere('l.dateDebut <= :dateFin')
+            ->andWhere('l.dateFin >= :dateDebut')
+            ->setParameter('offreId', $offreId)
+            ->setParameter('dateDebut', $dateDebut)
+            ->setParameter('dateFin', $dateFin)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Locations[] Returns an array of Locations objects
 //     */

@@ -9,15 +9,17 @@ use App\Entity\Locations;
 use App\Entity\Paiements;
 use App\Form\Paiements\FormulairePaiementType;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class   PaiementController extends AbstractController
 {
     #[Route('/location/{id}/paiement', name: 'app_paiement')]
-    public function payer(Request $request, EntityManagerInterface $entMan, $id): Response
+    public function payer(Request $request, MailerInterface $mailer, EntityManagerInterface $entMan, $id): Response
     {
 
         if ($this->getUser() === null) {
@@ -60,6 +62,30 @@ class   PaiementController extends AbstractController
             $entMan->persist($paiement);
             $entMan->persist($commission);
             $entMan->flush();
+
+
+            $email = (new TemplatedEmail())
+                ->from('isaaconnectfr@gmail.com')
+                ->to($currentUser->getEmail())
+                ->subject('Offre souscrite')
+                ->htmlTemplate('email/offre_souscrite.html.twig')
+                ->context([
+                    'location' => $location,
+                ]);
+
+            $mailer->send($email);
+
+            $email = (new TemplatedEmail())
+                ->from('isaaconnectfr@gmail.com')
+                ->to($location->getOffre()->getVehicule()->getProprietaire()->getEmail())
+                ->subject('Offre souscrite')
+                ->htmlTemplate('email/offre_acceptee.html.twig')
+                ->context([
+                    'location' => $location,
+                ]);
+
+            $mailer->send($email);
+
             return $this->redirectToRoute('app_page_validation_paiement');
         }
 
@@ -78,7 +104,7 @@ class   PaiementController extends AbstractController
     }
 
     #[Route('/abonnement/{id}/paiement', name: 'app_paiement_abo')]
-    public function payerAbo(Request $request, EntityManagerInterface $entMan, $id): Response
+    public function payerAbo(Request $request, MailerInterface $mailer, EntityManagerInterface $entMan, $id): Response
     {
 
         if ($this->getUser() === null) {
@@ -122,6 +148,18 @@ class   PaiementController extends AbstractController
             $entMan->persist($commission);
             $entMan->flush();
             $abonnement->setStatut(1);
+
+            $email = (new TemplatedEmail())
+                ->from('isaaconnectfr@gmail.com')
+                ->to($currentUser->getEmail())
+                ->subject('Offre souscrite')
+                ->htmlTemplate('email/abonnement_souscrit.html.twig')
+                ->context([
+                    'abonnement' => $abonnement,
+                ]);
+
+            $mailer->send($email);
+
             return $this->redirectToRoute('app_page_validation_paiement');
         }
 

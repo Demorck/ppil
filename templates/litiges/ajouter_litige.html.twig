@@ -12,7 +12,11 @@
     <div class="flex flex-col md:flex-row gap-4">
         <div class="flex flex-col basis-1/5">
             {% if location.offre.vehicule.imageName %}
-                <img src="{{ asset('images/vehicules/' ~ location.offre.vehicule.imageName) }}" alt="Image du véhicule">
+                {% if location.offre.vehicule.imageName starts with 'http' %}
+                    <img src="{{ asset('images/vehicules/' ~ location.offre.vehicule.imageName) }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                {% else %}
+                    <img src="{{ location.offre.vehicule.imageName }}" alt="Image de la voiture" class="w-64 aspect-square"/>
+                {% endif %}
             {% else %}
                 <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image">
             {% endif %}

@@ -1,0 +1,20 @@
+{% extends '../../../base.html.twig' %}
+
+{% block title %}Erreur 404{% endblock %}
+
+{% block bandeau %}
+    {% include '../../../bandeau.html.twig' with { title: "Erreur 404" } %}
+{% endblock %}
+
+{% block body %}
+<div class="container bg-content mx-auto p-4 rounded-xl">
+    <div class="font-bold bg-header p-2 text-green-200 text-center">
+        <h1>Erreur 404</h1>
+    </div>
+    <div class="flex flex-col divide-y divide-row">
+        <div class="flex flex-row items-center p-2 divide-x hover:bg-row text-center">
+            <div class="flex-1 px-2">La page demandée n'existe pas.</div>
+        </div>
+    </div>
+</div>
+{% endblock %}
