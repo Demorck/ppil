@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}GererLitigeController{% endblock %}
+
+{% block body %}
+<div class="example-wrapper">
+    <div>
+        <h2>Détails de la Location:</h2>
+        <p>date debut: {{ litige.location.dateDebut|date('d/m/Y')}}</p>
+        <p>date fin: {{ litige.location.dateFin|date('d/m/Y')}}</p>
+        <p>prix: {{ litige.location.prix}} €</p>
+    </div>
+    <br>
+    <div> 
+        <h2>Description:</h2>    
+        {{ litige.description }}
+    </div>
+    <br>
+        <a href="{{ path('valider_litige', { id: litige.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Valider</a>
+        <a href="{{ path('refuser_litige', { id: litige.id }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Refuser</a>
+    <br>
+</div>
+{% endblock %}

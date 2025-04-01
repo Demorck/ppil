@@ -11,19 +11,50 @@
 
 <div class="w-full bg-content flex flex-col p-4 gap-4 lg:w-3/4 rounded-xl">
     {%  if duree > 0 %}
-        <div class="font-bolder text-xl">Vous avez déjà un abonnement jusqu'au {{ dateFin|date('d-m-Y') }}</div>
+        <div class="font-bolder text-xl">Vous avez déjà un abonnement jusqu'au {{ dateFin|format_datetime('full', 'none', locale: 'fr') }}</div>
     {% else %}
         <div class="font-bolder text-xl">Vous n'avez encore aucun abonnement</div>
     {% endif %}
-    <div class="flex flex-row gap-4 flex-1 justify-center">
-        {{ form_label(form.type) }}
+    <div class="flex flex-row gap-4 flex-1 justify-center py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         {{ form_errors(form.type) }}
-        <div class="flex flex-row flex-1 justify-evenly">
+        <div class="flex flex-row flex-1 justify-evenly space-y-8 gap-4 xl:gap-10 lg:space-y-0">
             {% for type in form.type %}
-                <div class="radio-wrapper">
-                    {{ form_widget(type, { 'attr': { 'class': 'radio-input' } }) }}
-                    {{ form_label(type, null, { 'label_attr': { 'class': 'radio-label' } }) }}
+                <div class="radio-wrapper hidden">
+                    {{ form_widget(type) }}
+                    {{ form_label(type) }}
                 </div>
+                <label for="abonnement_type_{{ loop.index0 }}" class="hover:cursor-pointer max-h-lg {% if loop.index0 == 1 %}drop-shadow-xl saturate-150{% endif %}">
+                    <div class="flex flex-col h-full p-6 mx-auto max-w-lg text-center rounded-lg border-gray-100 h-max-content bg-background text-gray-900  border shadow dark:border-gray-600 xl:p-8 ">
+                        <p class="font-light text-dark-200 sm:text-lg">{{ abonnementDispo[loop.index0].description }}</p>
+                        <div class="flex justify-center items-baseline my-8">
+                            <span class="mr-2 text-5xl font-extrabold">{{ abonnementDispo[loop.index0].prix }}€</span>
+                            <span class="text-accent">/{{ abonnementDispo[loop.index0].temps }}</span>
+                        </div>
+                        <ul role="list" class="mb-8 space-y-4 text-left">
+                            <li class="flex items-center space-x-3">
+                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Des offres à tous les prix</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Des litiges disponibles</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>La possibilité de voir des voitures ! (dinguerie)</span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Payer super: <span class="font-semibold">cher</span></span>
+                            </li>
+                            <li class="flex items-center space-x-3">
+                                <svg class="flex-shrink-0 w-5 h-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                <span>Un site incroyablement: <span class="font-semibold">rose</span></span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </label>
             {% endfor %}
         </div>
     </div>
@@ -35,4 +66,19 @@
 </div>
 
 {{ form_end(form) }}
+
+<script>
+    let labels = document.querySelectorAll('label');
+    labels.forEach(label => {
+        label.addEventListener('click', () => {
+            labels.forEach(l => {
+                l.classList.remove('drop-shadow-xl');
+                l.classList.remove('saturate-150');
+            });
+
+            label.classList.add('drop-shadow-xl');
+            label.classList.add('saturate-150');
+        });
+    });
+</script>
 {% endblock %}

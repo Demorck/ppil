@@ -41,6 +41,27 @@ class OffresRepository extends ServiceEntityRepository
         return $qb->getQuery()->getResult();
     }
 
+        public function findByFilters(?int $nbPlace, ?string $dateDebut, ?string $dateFin)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->join('o.vehicule', 'v')
+            ->where('o.statut = 1'); 
+    
+        if ($nbPlace) {
+            $qb->andWhere('v.nombrePlace >= :nbPlace')
+               ->setParameter('nbPlace', $nbPlace);
+        }
+    
+        if ($dateDebut && $dateFin) {
+            $qb->andWhere('o.dateDebut <= :dateDebut')
+               ->andWhere('o.dateFin >= :dateFin')
+               ->setParameter('dateDebut', new \DateTime($dateDebut))
+               ->setParameter('dateFin', new \DateTime($dateFin));
+        }
+    
+        return $qb->getQuery()->getResult();
+    }
+    
     //    /**
     //     * @return Offres[] Returns an array of Offres objects
     //     */
@@ -66,5 +87,21 @@ class OffresRepository extends ServiceEntityRepository
     //        ;
     //    }
 
+    public function getStatsByMonth(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select("o.statut as status, COUNT(o.id) as count")
+            ->groupBy('o.statut')
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function getPrix(): array
+    {
+        return $this->createQueryBuilder('o')
+            ->select("AVG(o.prix) as prix, o.dateFin - o.dateDebut as duree")
+            ->groupBy("duree")
+            ->getQuery()
+            ->getResult();
+    }
 }

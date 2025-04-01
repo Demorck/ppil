@@ -2,6 +2,7 @@
 
 namespace App\Controller\Paiements;
 
+use App\Entity\Abonnements;
 use App\Entity\Locations;
 use App\Entity\Paiements;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,13 +22,15 @@ class ListePaiementController extends AbstractController
         $user = $this->getUser();
 
         $locations = $entityManager->getRepository(Locations::class)->findBy(['locataire' => $user]);
-        $paiements = $entityManager->getRepository(Paiements::class)->findBy(['location' => $locations]);
+        $paiementsLoc = $entityManager->getRepository(Paiements::class)->findBy(['location' => $locations]);
+        $abonnements = $entityManager->getRepository(Abonnements::class)->findBy(['utilisateur' => $user]);
+        $paiementsAbo = $entityManager->getRepository(Paiements::class)->findBy(['AbonnementId' => $abonnements]);
 
-        dump($paiements);
 
         return $this->render('paiements/liste_paiements.html.twig', [
             'controller_name' => 'ListePaiementController',
-            'paiements' => $paiements,   
+            'paiementsLoc' => $paiementsLoc,
+            'paiementsAbo' => $paiementsAbo,
         ]);
     }
 }

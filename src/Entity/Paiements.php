@@ -27,8 +27,11 @@ class Paiements
     private ?Commissions $commissions = null;
 
     #[ORM\OneToOne(inversedBy: 'paiements', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Locations $location = null;
+
+    #[ORM\OneToOne(inversedBy: 'paiements', cascade: ['persist', 'remove'])]
+    private ?Abonnements $AbonnementId = null;
 
     public function getId(): ?int
     {
@@ -99,4 +102,17 @@ class Paiements
 
         return $this;
     }
+
+    public function getAbonnementId(): ?Abonnements
+    {
+        return $this->AbonnementId;
+    }
+
+    public function setAbonnementId(?Abonnements $AbonnementId): static
+    {
+        $this->AbonnementId = $AbonnementId;
+
+        return $this;
+    }
+
 }

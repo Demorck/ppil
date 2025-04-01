@@ -16,9 +16,14 @@
     </div>
     <div class="flex flex-col sm:flex-row gap-4 items-center">
         <div class="flex flex-col w-2/6">
-            <div class="flex">
-                <img src="{{ asset('img/Placeholder.png') }}" id="preview" alt="Cliquez pour choisir une image" style="cursor: pointer;">
-                {{ form_widget(vehiculeForm.image, { 'attr': {'style': 'opacity: 0; position: absolute; width: 20%; height: 40%; cursor: pointer;'} }) }}
+            <div class="flex flex-col">
+                {{ form_widget(vehiculeForm.image,  { 'attr' : { 'class': 'hidden' }}) }}
+                <label for="vehicule_form_image" class="flex flex-col gap-4 hover:cursor-pointer">
+                    <img src="{{ asset('img/Placeholder.png') }}" id="preview" alt="Cliquez pour choisir une image" style="cursor: pointer;">
+                    <div class="bg-row flex-1 py-2 text-center font-bold">
+                        Choisir une image
+                    </div>
+                </label>
                 <div class="error">
                     {{ form_errors(vehiculeForm.image) }}
                 </div>

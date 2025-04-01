@@ -13,14 +13,18 @@
                 <div class="flex-1 px-2">Fin de la location : {{ location.dateFin|date('d-m-Y') }}</div>
                 <div class="flex-1 px-2">
                     {% if location.paiements %}
-                        <a href="{{ path('app_paiement', {id: location.paiements.id}) }}">Voir le paiement</a>
+                        <a href="{{ path('app_voir_paiement', {id: location.id}) }}">Voir le paiement</a>
                     {% else %}
                         Paiement non effectué: <a class="font-extrabold font-stretch-200%" href="{{ path('app_paiement', {id: location.id}) }}">PAYER</a>
                     {% endif %}
                 </div>
                 <div class="flex-1 px-2">Prix : {{ location.prix }} €</div>
                 <div class="flex-1 px-2">
-                    <a href="{{ path('app_litige_location', { id1: location.id, id: 1 }) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Signaler un litige</a>
+                    {% if location.litiges %}
+                        <a href="{{ path('app_litige_location', { id1: location.id, id: location.litiges.id }) }}" class="bg-green-500 px-4 py-2 rounded-full hover:underline ml-2">Voir le litige</a>
+                    {% else %}
+                        <a href="{{ path('app_signalement_litige', { id: location.id}) }}" class="bg-red-500 px-4 py-2 rounded-full hover:underline ml-2">Signaler un litige</a>
+                    {% endif %}
                 </div>
             </div>
         {% else %}

@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CGU - CGV{% endblock %}
+
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "CGU-CGV" } %}
+{% endblock %}
+
+{% block body %}
+<style>
+    h1, h2 {
+        color: #333;
+    }
+    p {
+        margin-bottom: 10px;
+    }
+    ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    ul li {
+        margin-bottom: 5px;
+    }
+</style>
+<div class="example-wrapper">
+    <h1>Conditions Générales de Vente</h1>
+
+    <h2 class="text-xl font-bold underline">1. Objet</h2>
+    <p>
+        Les présentes Conditions Générales de Vente (ci-après dénommées "CGV") régissent les ventes de produits ou de services effectuées sur le site <strong>Prekar</strong> (ci-après dénommé le "Site"), et sont conclues entre :
+    </p><ul>
+        <li>- La société <strong>Prekar</strong>, SARL, au capital de 69000 euros, immatriculée au Registre du Commerce et des Sociétés de Nancy sous le numéro 000000, dont le siège social est situé Paris, numéro de téléphone 0000000000, email no-reply@isaaconnect.com, numéro de TVA intracommunautaire 0000000000 (ci-après dénommée "le Vendeur")</li>
+        <li>- Et toute personne physique ou morale souhaitant procéder à un achat via le Site (ci-après dénommée "l'Acheteur")</li></ul><p></p>
+
+    <h2 class="text-xl font-bold underline">2. Acceptation des conditions</h2>
+    <p>Les présentes CGV s'appliquent à toutes les ventes de produits ou services effectuées sur le Site. Le Vendeur se réserve le droit de modifier les présentes CGV à tout moment. Les CGV applicables sont celles en vigueur à la date de la commande.</p>
+    <p>L'Acheteur déclare avoir pris connaissance et accepté les présentes CGV avant la passation de sa commande. La validation de la commande vaut donc acceptation des CGV.</p>
+
+    <h2 class="text-xl font-bold underline">3. Produits</h2>
+    <p>Les produits et services proposés à la vente sont ceux qui figurent sur le Site. Chaque produit est accompagné d'un descriptif détaillé. Les photographies des produits sont les plus fidèles possibles mais ne peuvent assurer une similitude parfaite avec le produit offert, notamment en ce qui concerne les couleurs.</p>
+    <p>Le Vendeur se réserve le droit de modifier à tout moment l'assortiment de produits et de services proposés à la vente sur le Site.</p>
+
+    <h2 class="text-xl font-bold underline">4. Prix</h2>
+    <p>Les prix des produits et services sont indiqués en euros toutes taxes comprises (TTC), hors frais de livraison. Le montant des frais de livraison est précisé avant validation de la commande.</p>
+    <p>Le Vendeur se réserve le droit de modifier ses prix à tout moment, étant entendu que le prix figurant sur le Site le jour de la commande sera le seul applicable à l'Acheteur.</p>
+
+    <h2 class="text-xl font-bold underline">5. Commande</h2>
+    <p>L'Acheteur peut passer commande sur le Site après avoir créé un compte client. La commande ne sera validée qu'après acceptation du paiement.</p>
+    <p>Le Vendeur se réserve le droit de refuser toute commande pour des motifs légitimes, notamment en cas de problème d'approvisionnement, ou en cas de litige avec l'Acheteur concernant le paiement d'une commande antérieure.</p>
+
+    <h2 class="text-xl font-bold underline">6. Paiement</h2>
+    <p>Le paiement s'effectue en ligne par carte bancaire, PayPal ou tout autre moyen proposé sur le Site au moment de la commande. La transaction est immédiatement débitée sur la carte bancaire de l'Acheteur après vérification des données de celle-ci.</p>
+    <p>Le Vendeur se réserve le droit de suspendre toute gestion de commande et toute livraison en cas de refus d'autorisation de paiement de la part des organismes officiellement accrédités.</p>
+
+    <h2 class="text-xl font-bold underline">7. Livraison</h2>
+    <p>Les produits sont livrés à l'adresse de livraison indiquée par l'Acheteur lors de sa commande. Les délais de livraison sont donnés à titre indicatif. Tout retard raisonnable dans la livraison des produits ne pourra pas donner lieu au profit de l'Acheteur à l'allocation de dommages et intérêts ou à l'annulation de la commande.</p>
+    <p>En cas de produits manquants ou détériorés lors du transport, l'Acheteur devra formuler toutes les réserves nécessaires sur le bon de livraison à réception desdits produits. Ces réserves devront être, en outre, confirmées par écrit dans les cinq jours suivant la livraison, par courrier recommandé AR adressé au Vendeur.</p>
+
+    <h2 class="text-xl font-bold underline">8. Droit de rétractation</h2>
+    <p>Conformément aux dispositions légales en vigueur, l'Acheteur dispose d'un délai de quatorze (14) jours à compter de la réception des produits pour exercer son droit de rétractation sans avoir à justifier de motifs ni à payer de pénalité.</p>
+    <p>Les retours sont à effectuer dans leur état d'origine et complets (emballage, accessoires, notice...). Dans ce cadre, la responsabilité de l'Acheteur est engagée. Tout dommage subi par le produit à cette occasion peut être de nature à faire échec au droit de rétractation.</p>
+    <p>Les frais de retour sont à la charge de l'Acheteur.</p>
+    <p>En cas d'exercice du droit de rétractation, le Vendeur procédera au remboursement des sommes versées, dans un délai de 14 jours suivant la notification de la demande de l'Acheteur.</p>
+
+    <h2 class="text-xl font-bold underline">9. Garantie</h2>
+    <p>Tous les produits fournis par le Vendeur bénéficient de la garantie légale de conformité prévue aux articles L.217-4 et suivants du Code de la consommation et de la garantie des vices cachés prévue aux articles 1641 et suivants du Code civil.</p>
+    <p>En cas de non-conformité d'un produit vendu, il pourra être retourné au Vendeur qui le reprendra, l'échangera ou le remboursera. Toutes les réclamations doivent s'effectuer par voie postale à l'adresse suivante : 0000000000 ou par mail à l'adresse no-reply@isaaconnect.com.</p>
+
+    <h2 class="text-xl font-bold underline">10. Données personnelles</h2>
+    <p>Le Vendeur, dans le processus de vente en ligne, n'est tenu que par une obligation de moyens. Sa responsabilité ne pourra être engagée pour un dommage résultant de l'utilisation du réseau Internet tel que perte de données, intrusion, virus, rupture du service, ou autres problèmes involontaires.</p>
+
+    <h2 class="text-xl font-bold underline">11. Responsabilité</h2>
+    <p>Tous les éléments du Site sont et restent la propriété intellectuelle et exclusive du Vendeur. Nul n'est autorisé à reproduire, exploiter, rediffuser, ou utiliser à quelque titre que ce soit, même partiellement, des éléments du site qu'ils soient logiciels, visuels ou sonores.</p>
+
+    <h2 class="text-xl font-bold underline">12. Propriété intellectuelle</h2>
+    <p>Le Vendeur se réserve le droit de collecter les informations nominatives et les données personnelles concernant l'Acheteur. Elles sont nécessaires à la gestion de la commande, ainsi qu'à l'amélioration des services et des informations que nous lui adressons.</p>
+    <p>Conformément à la loi du 6 janvier 1978, l'Acheteur dispose d'un droit d'accès, de rectification et d'opposition aux informations nominatives et aux données personnelles le concernant.</p>
+
+    <h2 class="text-xl font-bold underline">13. Archivage – Preuve</h2>
+    <p>Le Vendeur archivera les bons de commandes et les factures sur un support fiable et durable constituant une copie fidèle. Les registres informatisés seront considérés par les parties comme preuve des communications, commandes, paiements et transactions intervenus entre les parties.</p>
+
+    <h2 class="text-xl font-bold underline">14. Règlement des litiges</h2>
+    <p>Les présentes CGV sont soumises à la loi française. En cas de litige, une solution amiable sera recherchée avant toute action judiciaire. À défaut, les tribunaux français seront seuls compétents.</p>
+
+    <p>Date de dernière mise à jour : 27 Mars 2025</p>
+</div>
+{% endblock %}

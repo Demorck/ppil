@@ -30,6 +30,12 @@ class Abonnements
     #[ORM\Column]
     private ?int $statut = null;
 
+    #[ORM\Column]
+    private ?int $prix = null;
+
+    #[ORM\OneToOne(mappedBy: 'AbonnementId', cascade: ['persist', 'remove'])]
+    private ?Paiements $paiements = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,40 @@ class Abonnements
     public function setStatut(int $statut): static
     {
         $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): static
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getPaiements(): ?Paiements
+    {
+        return $this->paiements;
+    }
+
+    public function setPaiements(?Paiements $paiements): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($paiements === null && $this->paiements !== null) {
+            $this->paiements->setAbonnementId(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($paiements !== null && $paiements->getAbonnementId() !== $this) {
+            $paiements->setAbonnementId($this);
+        }
+
+        $this->paiements = $paiements;
 
         return $this;
     }

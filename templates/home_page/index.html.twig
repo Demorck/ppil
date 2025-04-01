@@ -3,6 +3,11 @@
 {% block title %} Prékar {% endblock %}
 
 {% block body %}
+{% for message in app.flashes('warning') %}
+    <script>
+        alert("{{ message|e('js') }}");
+    </script>
+{% endfor %}
 
 <div class="flex justify-center items-center h-full">
     <div class="bg-wrapper w-full flex flex-col lg:px-16 lg:py-8 gap-4 lg:w-3/4 rounded-xl">

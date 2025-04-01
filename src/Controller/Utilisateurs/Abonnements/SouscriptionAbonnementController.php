@@ -21,26 +21,24 @@ class SouscriptionAbonnementController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
 
-        $abonnements = [
+        $abonnementsDispo = [
             [
                 'type' => 'Journalier',
-                'prix' => 5,
+                'prix' => 10,
                 'description' => 'Abonnement quotidien, valide 24 heures.',
-            ],
-            [
-                'type' => 'Hebdomadaire',
-                'prix' => 15,
-                'description' => 'Abonnement hebdomadaire, valide 7 jours heures.',
+                'temps' => 'jour',
             ],
             [
                 'type' => 'Mensuel',
                 'prix' => 40,
                 'description' => 'Abonnement mensuel, valide pour 30 jours.',
+                'temps' => 'mois',
             ],
             [
                 'type' => 'Annuel',
                 'prix' => 400,
                 'description' => 'Abonnement annuel, valide pendant 365 jours.',
+                'temps' => 'an',
             ],
         ];
 
@@ -67,15 +65,15 @@ class SouscriptionAbonnementController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $choixAbonnement = $form->get('type')->getData();
             $abonnements->setUtilisateur($this->getUser());
-            $abonnements->setStatut(1);
+            $abonnements->setStatut(0);
             $abonnements->setDateDebut(new \DateTime());
             $abonnements->setDateFin($this->getDateFin($abonnements->getDateDebut(), $choixAbonnement));
-//            $abonnements->
+            $abonnements->setPrix($abonnementsDispo[$choixAbonnement]['prix']);
 
             $entityManager->persist($abonnements);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_abonnement');
+            return $this->redirectToRoute('app_paiement_abo', ['id' => $abonnements->getId()]);
         }
 
         $dateFin = null;
@@ -87,6 +85,7 @@ class SouscriptionAbonnementController extends AbstractController
             'form' => $form->createView(),
             'duree' => $dureeRestante,
             'dateFin' => $dateFin,
+            'abonnementDispo' => $abonnementsDispo,
         ]);
     }
 
@@ -98,12 +97,9 @@ class SouscriptionAbonnementController extends AbstractController
                 $dateFin->add(new \DateInterval('P1D'));
                 break;
             case 1:
-                $dateFin->add(new \DateInterval('P7D'));
-                break;
-            case 2:
                 $dateFin->add(new \DateInterval('P1M'));
                 break;
-            case 3:
+            case 2:
                 $dateFin->add(new \DateInterval('P1Y'));
                 break;
         }

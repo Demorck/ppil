@@ -46,9 +46,24 @@
                         </div>
                     </div>
                     <div class="flex flex-col flex-1">
-                        <label for="">Confirmation du mot de passe (pas encore implémenté)</label>
-                        <input type="text">
+                        <label for="confirm_password">Confirmation du mot de passe (pas encore implémenté)</label>
+                        <input type="password" id="confirm_password" name="confirm_password">
                     </div>
+                    <script>
+                        const password = document.getElementById("registration_form_plainPassword");
+                        const confirm_password = document.getElementById("confirm_password");
+
+                        function validatePassword(){
+                            if(password.value !== confirm_password.value) {
+                                confirm_password.setCustomValidity("Les mots de passe ne correspondent pas");
+                            } else {
+                                confirm_password.setCustomValidity('');
+                            }
+                        }
+
+                        password.onchange = validatePassword;
+                        confirm_password.onkeyup = validatePassword;
+                    </script>
                 </div>
                 <div class="flex flex-row gap-4 flex-1 justify-center">
                     {{ form_label(registrationForm.roles) }}

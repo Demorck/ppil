@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Litiges{% endblock %}
+{% block bandeau %}
+    {% include 'bandeau.html.twig' with { title: "Ouvrir litige" } %}
+{% endblock %}
+
+{% block body %}
+
+{{ form_start(form, { 'attr' : { 'class' : 'flex justify-center my-4'}})}}
+<div class="container bg-content mx-auto p-4 rounded-xl">
+    <div class="flex flex-col md:flex-row gap-4">
+        <div class="flex flex-col basis-1/5">
+            {% if location.offre.vehicule.imageName %}
+                <img src="{{ asset('images/vehicules/' ~ location.offre.vehicule.imageName) }}" alt="Image du véhicule">
+            {% else %}
+                <img src="{{ asset('img/Placeholder.png') }}" alt="Cliquez pour choisir une image">
+            {% endif %}
+            <div class="flex flex-col">
+                <div class="font-extrabold text-xl">{{ location.offre.vehicule.titre }}</div>
+                <div><span class="underline">Marque:</span>&nbsp;{{ location.offre.vehicule.marque }}</div>
+                <div><span class="underline">Carburant:</span>&nbsp;{{ location.offre.vehicule.typeCarburant }}</div>
+                <div><span class="underline">Nombre de place:</span>&nbsp;{{ location.offre.vehicule.nombrePlace }}</div>
+            </div>
+        </div>
+        <div class="flex flex-col flex-1">
+            <div class="flex justify-between">
+                <div class="text-3xl font-bold">Objet</div>
+               <div class="font-extrabold text-xl no-underline">{{ location.dateDebut|date('d-m-Y') }} - {{ location.dateFin|date('d-m-Y') }}</div>
+            </div>
+            <div class="flex h-full">
+                {{ form_widget(form.description) }}
+                <div class="error">
+                    {{ form_errors(form.description) }}
+                </div>
+            </div>
+            <div class="flex justify-center">
+                    <button type="submit" class="relative btn-rainbow bg-accent text-white font-bold py-2 px-4 overflow-hidden transition duration-300">
+                        Signaler
+                    </button>
+            </div>
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
+{% endblock %}
