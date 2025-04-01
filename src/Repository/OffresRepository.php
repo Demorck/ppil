@@ -15,6 +15,31 @@ class OffresRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Offres::class);
     }
+    public function findByFilters(?int $nbPlace, ?string $dateDebut, ?string $dateFin, ?string $typeCarburant)
+    {
+        $qb = $this->createQueryBuilder('o')
+            ->join('o.vehicule', 'v')
+            ->where('o.statut = 1'); 
+    
+        if ($nbPlace) {
+            $qb->andWhere('v.nombrePlace >= :nbPlace')
+               ->setParameter('nbPlace', $nbPlace);
+        }
+
+        if ($typeCarburant && $typeCarburant !== 'Tous') {
+            $qb->andWhere('v.typeCarburant = :typeCarburant')
+               ->setParameter('typeCarburant', $typeCarburant);
+        }
+    
+        if ($dateDebut && $dateFin) {
+            $qb->andWhere('o.dateDebut <= :dateDebut')
+               ->andWhere('o.dateFin >= :dateFin')
+               ->setParameter('dateDebut', new \DateTime($dateDebut))
+               ->setParameter('dateFin', new \DateTime($dateFin));
+        }
+    
+        return $qb->getQuery()->getResult();
+    }
 
         public function findByFilters(?int $nbPlace, ?string $dateDebut, ?string $dateFin)
     {
@@ -64,7 +89,7 @@ class OffresRepository extends ServiceEntityRepository
 
     public function getStatsByMonth(): array
     {
-        return $this->createQueryBuilder('o') // Correct ici
+        return $this->createQueryBuilder('o')
             ->select("o.statut as status, COUNT(o.id) as count")
             ->groupBy('o.statut')
             ->getQuery()

@@ -19,10 +19,11 @@ class ListeOffresController extends AbstractController
         }
 
         $nbPlace = $request->query->get('nbPlace');
+        $typeCarburant= $request->query->get('typeCarburant');
         $dateDebut = $request->query->get('dateDebut');
         $dateFin = $request->query->get('dateFin');     
         
-        $offres = $entityManager->getRepository(Offres::class)->findByFilters($nbPlace, $dateDebut, $dateFin);
+        $offres = $entityManager->getRepository(Offres::class)->findByFilters($nbPlace, $dateDebut, $dateFin, $typeCarburant);
 
         return $this->render('offres/liste_offres.html.twig', [
             'controller_name' => 'OffresController',

@@ -1,5 +1,5 @@
 # ppil
-Premiers pas vers l'Ingénierie du Logiciel - FST
+Premiers pas vers l'Ingénierie du Logicielle - FST
 
 ## Outils de développement :
 - Utilisations du framework [Symfony](https://symfony.com/)

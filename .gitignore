@@ -69,3 +69,4 @@ yarn-error.log
 /migrations/*
 *.exe
 /var
+package-lock.json
